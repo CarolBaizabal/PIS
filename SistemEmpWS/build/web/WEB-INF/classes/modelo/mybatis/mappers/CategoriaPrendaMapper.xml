@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="CategoriaPrenda">
+    <select id="getAllCategoriaPrenda" resultType="modelo.pojos.Categoria" statementType="CALLABLE">
+        {CALL base.sp_getAllCategoriaPrenda()}
+    </select>
+    
+    <select id="getCategoriaPrendaById" resultType="modelo.pojos.Categoria" statementType="CALLABLE">
+        {CALL base.sp_getCategoriaPrendaById(
+        #{nombre,jdbcType=VARCHAR,mode=IN})}
+    </select>
+
+    <select id="categoriaPrendaId" resultType="modelo.pojos.Categoria" statementType="CALLABLE">
+        {CALL base.sp_categoriaPrendaId(
+        #{nombre,jdbcType=VARCHAR,mode=IN})}
+    </select>
+
+    <select id="getAllCategoriaPrendaActivo" resultType="modelo.pojos.Categoria" statementType="CALLABLE">
+        {CALL base.sp_getAllCategoriaPrendaActivo()}
+    </select>
+    
+    <update id="actualizarEstatusPrenda" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_actualizarEstatusCategoriaPrenda(
+        #{idCategoria,jdbcType=INTEGER,mode=IN})}
+    </update>
+    
+    <update id="eliminarCategoriaPrenda" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_eliminarCategoriaPrenda(
+        #{idCategoria,jdbcType=INTEGER,mode=IN})}
+    </update>
+   
+    <select id="buscarCategoriaPrendaPorNombre" resultType="modelo.pojos.Categoria" statementType="CALLABLE">
+        {CALL base.sp_buscarCategoriaPrendaPorNombre(
+        #{nombre,jdbcType=VARCHAR,mode=IN})}
+    </select>
+    
+    <insert id="registrarCategoriaPrenda" parameterType="modelo.pojos.Categoria" statementType="CALLABLE">
+        {CALL base.sp_registrarCategoriaPrenda(
+        #{nombre,jdbcType=VARCHAR,mode=IN})}
+    </insert>
+    
+    <update id="actualizarCategoriaPrenda" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_actualizarCategoriaPrenda(
+        #{idCategoria,jdbcType=INTEGER,mode=IN},
+        #{nombre,jdbcType=VARCHAR,mode=IN})}
+    </update>
+</mapper>
+

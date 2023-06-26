@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Ingreso">
+    <select id="getAllIngreso" resultType="modelo.pojos.Ingreso" statementType="CALLABLE">
+        {CALL base.sp_getAllIngresoActivo()}
+    </select>
+    
+    <select id="getIngresoById" resultType="modelo.pojos.Ingreso" statementType="CALLABLE">
+        {CALL base.sp_getIngresoById(
+        #{motivo,jdbcType=VARCHAR,mode=IN})}
+    </select>
+
+    <select id="ingresoId" resultType="modelo.pojos.Ingreso" statementType="CALLABLE">
+        {CALL base.sp_ingresoId(
+        #{motivo,jdbcType=VARCHAR,mode=IN})}
+    </select>
+
+    <select id="buscarIngresoPorNombre" resultType="modelo.pojos.Ingreso" statementType="CALLABLE">
+        {CALL base.sp_buscarIngresoPorNombre(
+        #{motivo,jdbcType=VARCHAR,mode=IN})}
+    </select>
+    
+    <insert id="registrarIngreso" parameterType="modelo.pojos.Ingreso" statementType="CALLABLE">
+        {CALL base.sp_registrarIngreso(
+        #{cantidad,jdbcType=INTEGER,mode=IN},
+        #{motivo,jdbcType=VARCHAR,mode=IN},
+        #{observaciones,jdbcType=VARCHAR,mode=IN},
+        #{fechaCreacion,jdbcType=VARCHAR,mode=IN},
+        #{usuario,jdbcType=VARCHAR,mode=IN})}
+    </insert>
+    
+    <update id="actualizarIngreso" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_actualizarIngreso(
+        #{idIngreso,jdbcType=INTEGER,mode=IN},
+        #{cantidad,jdbcType=INTEGER,mode=IN},
+        #{motivo,jdbcType=VARCHAR,mode=IN},
+        #{observaciones,jdbcType=VARCHAR,mode=IN},
+        #{fechaModificacion,jdbcType=VARCHAR,mode=IN},
+        #{usuarioA,jdbcType=VARCHAR,mode=IN})}
+    </update>
+    
+    <select id="getAllIngresoActivo" resultType="modelo.pojos.Ingreso" statementType="CALLABLE">
+        {CALL base.sp_getAllIngresoActivo()}
+    </select>
+    
+    <update id="eliminarIngreso" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_eliminarIngreso(
+        #{idIngreso,jdbcType=INTEGER,mode=IN})}
+    </update>
+</mapper>
+

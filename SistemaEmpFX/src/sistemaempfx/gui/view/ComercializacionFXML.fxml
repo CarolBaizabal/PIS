@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="880.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistemaempfx.controller.ComercializacionFXMLController">
+   <children>
+      <TableView layoutX="14.0" layoutY="134.0" prefHeight="453.0" prefWidth="851.0">
+        <columns>
+          <TableColumn minWidth="140.0" prefWidth="75.0" text="Fecha Creación" />
+          <TableColumn minWidth="140.0" prefWidth="75.0" text="Usuario" />
+            <TableColumn minWidth="140.0" prefWidth="75.0" text="Fecha Inicio Busqueda" />
+            <TableColumn minWidth="140.0" prefWidth="75.0" text="Observaciones" />
+            <TableColumn minWidth="88.0" prefWidth="98.0" text="Metal" />
+            <TableColumn minWidth="140.0" prefWidth="192.0" text="idDetalle Comercialización" />
+        </columns>
+      </TableView>
+      <Button layoutX="211.0" layoutY="92.0" mnemonicParsing="false" text="Buscar">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/sdsd.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="309.0" layoutY="92.0" mnemonicParsing="false" text="Limpiar">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-limpiar-48.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <TextField fx:id="txt_usuario" layoutX="23.0" layoutY="91.0" promptText="Usuario" style="-fx-background-color: transparent; -fx-border-color: #FA5858; -fx-border-width: 0px 0px 2px 0px;">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </TextField>
+      <Button layoutX="732.0" layoutY="92.0" mnemonicParsing="false" text="Observaciones">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-ojo-48.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Pane layoutX="-13.0" layoutY="26.0" prefHeight="38.0" prefWidth="936.0" style="-fx-background-color: #FFA53F; -fx-opacity: .3;" />
+      <Label layoutX="6.0" layoutY="30.0" text="COMERCIALIZACION">
+         <font>
+            <Font name="Berlin Sans FB" size="25.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Catalogo">
+    <select id="getAllCatalogo" resultType="modelo.pojos.Catalogo" statementType="CALLABLE">
+        {CALL base.sp_getAllCatalogo()}
+    </select>
+    
+    <select id="getCatalogoById" resultType="modelo.pojos.Catalogo" statementType="CALLABLE">
+        {CALL base.sp_getCatalogoById(
+        #{nombre,jdbcType=VARCHAR,mode=IN})}
+    </select>
+
+    <select id="catalogoId" resultType="modelo.pojos.Catalogo" statementType="CALLABLE">
+        {CALL base.sp_catalogoId(
+        #{nombre,jdbcType=VARCHAR,mode=IN})}
+    </select>
+
+    <select id="getAllCatalogoActivo" resultType="modelo.pojos.Catalogo" statementType="CALLABLE">
+        {CALL base.sp_getAllCatalogoActivo()}
+    </select>
+   
+   <insert id="registrarCatalogo" parameterType="modelo.pojos.Catalogo" statementType="CALLABLE">
+        {CALL base.sp_registrarCatalogo(
+        #{nombre,jdbcType=VARCHAR,mode=IN},
+        #{idCategoria,jdbcType=INTEGER,mode=IN})}
+    </insert>
+    
+    <update id="actualizarEstatus" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_actualizarEstatusCatalogo(
+        #{idCatalogo,jdbcType=INTEGER,mode=IN})}
+    </update>
+    
+    <update id="eliminarCatalogo" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_eliminarCatalogo(
+        #{idCatalogo,jdbcType=INTEGER,mode=IN})}
+    </update>
+    
+    <select id="buscarCatalogoPorNombre" resultType="modelo.pojos.Catalogo" statementType="CALLABLE">
+        {CALL base.sp_buscarCatalogoPorNombre(
+        #{nombre,jdbcType=VARCHAR,mode=IN})}
+    </select>
+    
+    <update id="actualizarCatalogo" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_actualizarCatalogo(
+        #{idCatalogo,jdbcType=INTEGER,mode=IN},
+        #{nombre,jdbcType=VARCHAR,mode=IN},
+        #{idCategoria,jdbcType=INTEGER,mode=IN})}
+    </update>
+</mapper>
+

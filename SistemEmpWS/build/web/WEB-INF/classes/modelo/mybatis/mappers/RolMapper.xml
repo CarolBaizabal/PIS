@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Rol">
+    <select id="getAllRol" resultType="modelo.pojos.Rol" statementType="CALLABLE">
+        {CALL base.sp_getAllRol()}
+    </select>
+    
+    <select id="getRolById" resultType="modelo.pojos.Rol" statementType="CALLABLE">
+        {CALL base.sp_getRolById(
+        #{nombreRol,jdbcType=VARCHAR,mode=IN})}
+    </select>
+
+    <select id="rolId" resultType="modelo.pojos.Rol" statementType="CALLABLE">
+        {CALL base.sp_rolId(
+        #{nombreRol,jdbcType=VARCHAR,mode=IN})}
+    </select>
+
+    <select id="getAllRolActivo" resultType="modelo.pojos.Rol" statementType="CALLABLE">
+        {CALL base.sp_getAllRolActivo()}
+    </select>
+</mapper>
+

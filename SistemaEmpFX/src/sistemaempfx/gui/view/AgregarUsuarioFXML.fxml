@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="476.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistemaempfx.controller.AgregarUsuarioFXMLController">
+   <children>
+      <Button layoutX="246.0" layoutY="339.0" mnemonicParsing="false" onAction="#limpiar" text="Limpiar">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-limpiar-48.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="138.0" layoutY="339.0" mnemonicParsing="false" onAction="#agregar" text="Agregar">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-añadir-usuario-tipo-de-piel-femenina-7-48.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="347.0" layoutY="339.0" mnemonicParsing="false" onAction="#cancelar" text="Cancelar">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-cancelar-48.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <TextField fx:id="txt_apellidoPaterno" layoutX="38.0" layoutY="136.0">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txt_nombre" layoutX="38.0" layoutY="65.0">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="41.0" layoutY="109.0" text="Apellido Paterno">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="39.0" layoutY="39.0" text="Nombre">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_telefono" layoutX="38.0" layoutY="281.0">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txt_apellidoMaterno" layoutX="38.0" layoutY="213.0">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="41.0" layoutY="254.0" text="Telefono">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="40.0" layoutY="186.0" text="Apellido Materno">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="256.0" layoutY="37.0" text="Usuario">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="257.0" layoutY="105.0" text="Contraseña">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_usuario" layoutX="254.0" layoutY="64.0">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txt_password" layoutX="254.0" layoutY="132.0">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </TextField>
+      <Label layoutX="256.0" layoutY="184.0" text="Rol">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cmb_rolRegistrar" layoutX="253.0" layoutY="214.0" prefHeight="25.0" prefWidth="179.0" />
+   </children>
+</Pane>

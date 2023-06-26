@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="880.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistemaempfx.controller.MovimientosFXMLController">
+   <children>
+      <TableView fx:id="tb_Ingreso" layoutX="20.0" layoutY="93.0" prefHeight="200.0" prefWidth="853.0">
+         <columns>
+            <TableColumn fx:id="tcl_cantidad1I" prefWidth="120.0" text="Cantidad" />
+            <TableColumn fx:id="tcl_motivoI" prefWidth="120.0" text="Motivo" />
+            <TableColumn fx:id="tcl_observacionesI" prefWidth="120.0" text="Observaciones" />
+            <TableColumn fx:id="tcl_fechaCreacionI" prefWidth="120.0" text="Fecha Creacion" />
+            <TableColumn fx:id="tcl_usuarioI" prefWidth="120.0" text="Usuario" />
+            <TableColumn fx:id="tcl_fechaModificacionI" prefWidth="128.0" text="Fecha Modificacion" />
+            <TableColumn fx:id="tcl_usuarioAI" prefWidth="124.0" text="Usuario" />
+         </columns>
+      </TableView>
+      <TableView fx:id="tb_egreso" layoutX="17.0" layoutY="386.0" prefHeight="200.0" prefWidth="847.0">
+         <columns>
+            <TableColumn fx:id="tcl_cantidad" prefWidth="120.0" text="Cantidad" />
+            <TableColumn fx:id="tcl_motivo" prefWidth="120.0" text="Motivo" />
+            <TableColumn fx:id="tcl_observaciones" prefWidth="120.0" text="Observaciones" />
+            <TableColumn fx:id="tcl_fechaCreacion" prefWidth="120.0" text="Fecha Creacion" />
+            <TableColumn fx:id="tcl_usuario" prefWidth="120.0" text="Usuario" />
+            <TableColumn fx:id="tcl_fechaModificacion" prefWidth="128.0" text="Fecha Modificacion" />
+            <TableColumn fx:id="tcl_usuarioA" prefWidth="118.0" text="Usuario" />
+         </columns>
+      </TableView>
+      <Button layoutX="549.0" layoutY="58.0" mnemonicParsing="false" onAction="#agregarIngreso" prefHeight="30.0" prefWidth="100.0" text="Agregar">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-agregar-a-favoritos-48.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="544.0" layoutY="348.0" mnemonicParsing="false" onAction="#agregarEgreso" prefHeight="30.0" prefWidth="100.0" text="Agregar">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-agregar-a-favoritos-48.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="657.0" layoutY="58.0" mnemonicParsing="false" onAction="#editarIngreso" prefHeight="30.0" prefWidth="100.0" text="Editar">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-editar-100.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="651.0" layoutY="348.0" mnemonicParsing="false" onAction="#editarEgreso" prefHeight="30.0" prefWidth="100.0" text="Editar">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-editar-100.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="210.0" layoutY="348.0" mnemonicParsing="false" onAction="#buscarEgreso" prefHeight="30.0" prefWidth="100.0" text="Buscar">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-ver-archivo-64.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="209.0" layoutY="58.0" mnemonicParsing="false" onAction="#buscarIngreso" prefHeight="30.0" prefWidth="100.0" text="Buscar">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-ver-archivo-64.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <TextField fx:id="txt_usuario" layoutX="19.0" layoutY="58.0" promptText="Motivo" style="-fx-background-color: transparent; -fx-border-color: #FA5858; -fx-border-width: 0px 0px 2px 0px;">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txt_usuario1" layoutX="20.0" layoutY="348.0" promptText="Motivo" style="-fx-background-color: transparent; -fx-border-color: #FA5858; -fx-border-width: 0px 0px 2px 0px;">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </TextField>
+      <Button layoutX="317.0" layoutY="348.0" mnemonicParsing="false" onAction="#limpiarEgreso" prefHeight="30.0" prefWidth="100.0" text="Limpiar">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-limpiar-48.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="316.0" layoutY="58.0" mnemonicParsing="false" onAction="#limpiarIngreso" prefHeight="30.0" prefWidth="100.0" text="Limpiar">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-limpiar-48.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Separator layoutX="1.0" layoutY="296.0" prefHeight="1.0" prefWidth="880.0" />
+      <Button layoutX="757.0" layoutY="348.0" mnemonicParsing="false" onAction="#eliminarEgreso" prefHeight="30.0" prefWidth="100.0" text="Eliminar">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-eliminar-48.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="763.0" layoutY="58.0" mnemonicParsing="false" onAction="#eliminarIngreso" prefHeight="30.0" prefWidth="100.0" text="Eliminar">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-eliminar-48.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Pane layoutX="-14.0" layoutY="12.0" prefHeight="38.0" prefWidth="936.0" style="-fx-background-color: #FFA53F; -fx-opacity: .3;" />
+      <Pane layoutX="-15.0" layoutY="300.0" prefHeight="38.0" prefWidth="936.0" style="-fx-background-color: #FFA53F; -fx-opacity: .3;" />
+      <Label alignment="CENTER" layoutX="352.0" layoutY="294.0" prefHeight="48.0" prefWidth="178.0" text="EGRESOS" textAlignment="CENTER">
+         <font>
+            <Font name="Berlin Sans FB" size="25.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="352.0" layoutY="8.0" prefHeight="48.0" prefWidth="178.0" text="INGRESOS" textAlignment="CENTER">
+         <font>
+            <Font name="Berlin Sans FB" size="25.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

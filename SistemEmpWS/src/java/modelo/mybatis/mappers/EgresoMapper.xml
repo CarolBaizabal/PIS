@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Egreso">
+    <select id="getAllEgreso" resultType="modelo.pojos.Egreso" statementType="CALLABLE">
+        {CALL base.sp_getAllEgresoActivo()}
+    </select>
+    
+    <select id="getEgresoById" resultType="modelo.pojos.Egreso" statementType="CALLABLE">
+        {CALL base.sp_getEgresoById(
+        #{motivo,jdbcType=VARCHAR,mode=IN})}
+    </select>
+
+    <select id="egresoId" resultType="modelo.pojos.Egreso" statementType="CALLABLE">
+        {CALL base.sp_egresoId(
+        #{motivo,jdbcType=VARCHAR,mode=IN})}
+    </select>
+
+    <select id="getAllEgresoActivo" resultType="modelo.pojos.Egreso" statementType="CALLABLE">
+        {CALL base.sp_getAllEgresoActivo()}
+    </select>
+
+    <select id="buscarEgresoPorNombre" resultType="modelo.pojos.Egreso" statementType="CALLABLE">
+        {CALL base.sp_buscarEgresoPorNombre(
+        #{motivo,jdbcType=VARCHAR,mode=IN})}
+    </select>
+    
+    <insert id="registrarEgreso" parameterType="modelo.pojos.Egreso" statementType="CALLABLE">
+        {CALL base.sp_registrarEgreso(
+        #{cantidad,jdbcType=INTEGER,mode=IN},
+        #{motivo,jdbcType=VARCHAR,mode=IN},
+        #{observaciones,jdbcType=VARCHAR,mode=IN},
+        #{fechaCreacion,jdbcType=VARCHAR,mode=IN},
+        #{usuario,jdbcType=VARCHAR,mode=IN})}
+    </insert>
+    
+    <update id="actualizarEgreso" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_actualizarEgreso(
+        #{idEgreso,jdbcType=INTEGER,mode=IN},
+        #{cantidad,jdbcType=INTEGER,mode=IN},
+        #{motivo,jdbcType=VARCHAR,mode=IN},
+        #{observaciones,jdbcType=VARCHAR,mode=IN},
+        #{fechaModificacion,jdbcType=VARCHAR,mode=IN},
+        #{usuarioA,jdbcType=VARCHAR,mode=IN})}
+    </update>
+    
+    <update id="eliminarEgreso" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_eliminarEgreso(
+        #{idEgreso,jdbcType=INTEGER,mode=IN})}
+    </update>
+</mapper>
+

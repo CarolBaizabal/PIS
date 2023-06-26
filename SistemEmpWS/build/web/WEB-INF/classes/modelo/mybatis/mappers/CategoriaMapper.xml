@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Categoria">
+    <select id="getAllCategoria" resultType="modelo.pojos.Categoria" statementType="CALLABLE">
+        {CALL base.sp_getAllCategoria()}
+    </select>
+    
+    <select id="getCategoriaById" resultType="modelo.pojos.Categoria" statementType="CALLABLE">
+        {CALL base.sp_getCategoriaById(
+        #{nombre,jdbcType=VARCHAR,mode=IN})}
+    </select>
+
+    <select id="categoriaId" resultType="modelo.pojos.Categoria" statementType="CALLABLE">
+        {CALL base.sp_categoriaId(
+        #{nombre,jdbcType=VARCHAR,mode=IN})}
+    </select>
+
+    <select id="getAllCategoriaActivo" resultType="modelo.pojos.Categoria" statementType="CALLABLE">
+        {CALL base.sp_getAllCategoriaActivo()}
+    </select>
+    
+    <update id="actualizarEstatus" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_actualizarEstatusCategoria(
+        #{idCategoria,jdbcType=INTEGER,mode=IN})}
+    </update>
+    
+    <update id="eliminarCategoria" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_eliminarCategoria(
+        #{idCategoria,jdbcType=INTEGER,mode=IN})}
+    </update>
+   
+    <select id="buscarCategoriaPorNombre" resultType="modelo.pojos.Categoria" statementType="CALLABLE">
+        {CALL base.sp_buscarCategoriaPorNombre(
+        #{nombre,jdbcType=VARCHAR,mode=IN})}
+    </select>
+    
+    <insert id="registrarCategoria" parameterType="modelo.pojos.Categoria" statementType="CALLABLE">
+        {CALL base.sp_registrarCategoria(
+        #{nombre,jdbcType=VARCHAR,mode=IN})}
+    </insert>
+    
+    <update id="actualizarCategoria" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_actualizarCategoria(
+        #{idCategoria,jdbcType=INTEGER,mode=IN},
+        #{nombre,jdbcType=VARCHAR,mode=IN})}
+    </update>
+</mapper>
+

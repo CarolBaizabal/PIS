@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Cliente">
+    <select id="getAllCliente" resultType="modelo.pojos.Cliente" statementType="CALLABLE">
+        {CALL base.sp_getAllCliente()}
+    </select>
+    
+    <select id="getClienteById" resultType="modelo.pojos.Cliente" statementType="CALLABLE">
+        {CALL base.sp_getClienteById(
+        #{nombre,jdbcType=VARCHAR,mode=IN})}
+    </select>
+
+    <select id="clienteId" resultType="modelo.pojos.Cliente" statementType="CALLABLE">
+        {CALL base.sp_clienteId(
+        #{nombre,jdbcType=VARCHAR,mode=IN})}
+    </select>
+
+    <insert id="registrarCliente" parameterType="modelo.pojos.Cliente" statementType="CALLABLE">
+        {CALL base.sp_registrarCliente(
+        #{nombre,jdbcType=VARCHAR,mode=IN},
+        #{apellidoPaterno,jdbcType=VARCHAR,mode=IN},
+        #{apellidoMaterno,jdbcType=VARCHAR,mode=IN},
+        #{calle,jdbcType=VARCHAR,mode=IN},
+        #{cp,jdbcType=VARCHAR,mode=IN},
+        #{colonia,jdbcType=VARCHAR,mode=IN},
+        #{municipio,jdbcType=VARCHAR,mode=IN},
+        #{estado,jdbcType=VARCHAR,mode=IN},
+        #{idemex,jdbcType=VARCHAR,mode=IN},
+        #{fechaNacimiento,jdbcType=VARCHAR,mode=IN},
+        #{curp,jdbcType=VARCHAR,mode=IN},
+        #{rfc,jdbcType=VARCHAR,mode=IN},
+        #{telefono,jdbcType=VARCHAR,mode=IN},
+        #{correo,jdbcType=VARCHAR,mode=IN},
+        #{comentarios,jdbcType=VARCHAR,mode=IN},
+        #{sexo,jdbcType=VARCHAR,mode=IN},
+        #{fechaCreacion,jdbcType=VARCHAR,mode=IN},
+        #{usuario,jdbcType=VARCHAR,mode=IN})}
+    </insert>
+    
+    <select id="buscarClientePorNombre" resultType="modelo.pojos.Cliente" statementType="CALLABLE">
+        {CALL base.sp_buscarClientePorNombre(
+        #{nombre,jdbcType=VARCHAR,mode=IN})}
+    </select>
+    
+    <update id="actualizarCliente" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_actualizarCliente(
+        #{idCliente,jdbcType=INTEGER,mode=IN},
+        #{nombre,jdbcType=VARCHAR,mode=IN},
+        #{apellidoPaterno,jdbcType=VARCHAR,mode=IN},
+        #{apellidoMaterno,jdbcType=VARCHAR,mode=IN},
+        #{cp,jdbcType=VARCHAR,mode=IN},
+        #{calle,jdbcType=VARCHAR,mode=IN},
+        #{colonia,jdbcType=VARCHAR,mode=IN},
+        #{municipio,jdbcType=VARCHAR,mode=IN},
+        #{estado,jdbcType=VARCHAR,mode=IN},
+        #{idemex,jdbcType=VARCHAR,mode=IN},
+        #{fechaNacimiento,jdbcType=VARCHAR,mode=IN},
+        #{curp,jdbcType=VARCHAR,mode=IN},
+        #{rfc,jdbcType=VARCHAR,mode=IN},
+        #{telefono,jdbcType=VARCHAR,mode=IN},
+        #{correo,jdbcType=VARCHAR,mode=IN},
+        #{comentarios,jdbcType=VARCHAR,mode=IN},
+        #{sexo,jdbcType=VARCHAR,mode=IN},
+        #{fechaActualizacion,jdbcType=VARCHAR,mode=IN},
+        #{usuarioA,jdbcType=VARCHAR,mode=IN})}
+    </update>
+   
+</mapper>
+
