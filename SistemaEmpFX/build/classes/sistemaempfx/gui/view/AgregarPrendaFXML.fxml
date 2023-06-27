@@ -80,11 +80,6 @@
             <Font name="Berlin Sans FB" size="15.0" />
          </font>
       </Label>
-      <Label layoutX="492.0" layoutY="384.0" text="Estatus">
-         <font>
-            <Font name="Berlin Sans FB" size="15.0" />
-         </font>
-      </Label>
       <Label layoutX="493.0" layoutY="119.0" text="Fecha de Comercialización">
          <font>
             <Font name="Berlin Sans FB" size="15.0" />
@@ -151,11 +146,6 @@
          </font>
       </TextField>
       <TextField fx:id="txt_precioVenta" layoutX="489.0" layoutY="56.0">
-         <font>
-            <Font name="Berlin Sans FB" size="15.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="txt_estatus" layoutX="486.0" layoutY="411.0">
          <font>
             <Font name="Berlin Sans FB" size="15.0" />
          </font>

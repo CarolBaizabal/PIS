@@ -193,15 +193,17 @@ public class PrendaWS {
             @FormParam("modelo") String modelo,
             @FormParam("subcategoria") String subcategoria,
             @FormParam("metal") String metal,
-            @FormParam("peso") Integer peso,
-            @FormParam("kilataje") Integer kilataje,
-            @FormParam("prestamo") Integer prestamo,
-            @FormParam("precioComercializacion") Integer precioComercializacion,
-            @FormParam("precioVenta") Integer precioVenta,
-            @FormParam("estatus") String estatus,
+            @FormParam("peso") Float peso,
+            @FormParam("kilataje") Float kilataje,
+            @FormParam("prestamo") Float prestamo,
+            @FormParam("precioComercializacion") Float precioComercializacion,
+            @FormParam("precioVenta") Float precioVenta,
             @FormParam("fechaComercializacion") String fechaComercializacion,
             @FormParam("fechaVenta") String fechaVenta,
-            @FormParam("descripcion") String descripcion
+            @FormParam("descripcion") String descripcion,
+            @FormParam("idEmp") Integer idEmp,
+            @FormParam("usuario") String usuario
+            
     ) {
         ResponseBuilder respuesta = null;
         SqlSession conn = MyBatisUtil.getSession();
@@ -222,11 +224,12 @@ public class PrendaWS {
             param.put("prestamo", prestamo);
             param.put("precioComercializacion", precioComercializacion);
             param.put("precioVenta", precioVenta);
-            param.put("estatus", estatus);
             param.put("fechaComercializacion", fechaComercializacion);
             param.put("fechaVenta", fechaVenta);
             param.put("descripcion", descripcion);
             param.put("fechaCreacion", fechaCreacion);
+            param.put("idEmp", idEmp);
+            param.put("usuario", usuario);
 
             conn.insert("Prenda.registrarPrenda", param);
             conn.commit();

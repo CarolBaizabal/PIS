@@ -26,6 +26,7 @@ import javafx.stage.Stage;
 import sistemaempfx.api.Requests;
 import sistemaempfx.model.pojos.Cliente;
 import sistemaempfx.model.pojos.Usuario;
+import sistemaempfx.utils.Window;
 
 /**
  * FXML Controller class
@@ -90,6 +91,9 @@ public class ClientesFXMLController implements Initializable {
     private TableColumn<Cliente, String> tcl_telefono;
     @FXML
     private TableColumn<Cliente, String> tcl_usuarioA;
+    private Cliente clienteEmpeño;
+    @FXML
+    private Button bt_asignarEmp;
     /**
      * Initializes the controller class.
      */
@@ -97,6 +101,10 @@ public class ClientesFXMLController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         this.tablaCliente();
     }    
+    
+    public void activarEmpeño(){
+        this.bt_asignarEmp.setVisible(true);
+    }
     
     public void setData(Usuario usuario){       
         this.usuario = usuario;
@@ -257,9 +265,27 @@ public class ClientesFXMLController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Advertencia");
             alert.setHeaderText(null);
-            alert.setContentText("Seleccione un egreso...");
+            alert.setContentText("Seleccione un cliente...");
             alert.showAndWait();
         }
     }
     
+    public Cliente obtenerCliente(){
+        
+        return this.clienteEmpeño;     
+    }
+
+    @FXML
+    private void asignarEmp(ActionEvent event) {
+        if(this.tb_Cliente.getSelectionModel().getSelectedItem()!= null){
+            this.clienteEmpeño = this.tb_Cliente.getSelectionModel().getSelectedItem();
+            Window.close(event);
+        }else{
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Advertencia");
+            alert.setHeaderText(null);
+            alert.setContentText("Seleccione un cliente...");
+            alert.showAndWait();
+        }
+    }
 }

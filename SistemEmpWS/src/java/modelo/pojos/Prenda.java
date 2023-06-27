@@ -20,11 +20,11 @@ public class Prenda {
    private String subcategoria;
    private String descripcion;
    private String metal;
-   private Integer peso;
-   private Integer kilataje;
-   private Integer prestamo;
-   private Integer precioComercializacion;
-   private Integer precioVenta;
+   private Float peso;
+   private Float kilataje;
+   private Float prestamo;
+   private Float precioComercializacion;
+   private Float precioVenta;
    private String estatus;
    private Integer idComercializacion;
    private String fechaCreacion;
@@ -35,7 +35,7 @@ public class Prenda {
     public Prenda() {
     }
 
-    public Prenda(Integer idPrendas, String nombre, Integer idEmp, String categoria, Integer numPiezas, String serie, String modelo, String subcategoria, String descripcion, String metal, Integer peso, Integer kilataje, Integer prestamo, Integer precioComercializacion, Integer precioVenta, String estatus, Integer idComercializacion, String fechaCreacion, String fechaComercializacion, String fechaVenta, String usuario) {
+    public Prenda(Integer idPrendas, String nombre, Integer idEmp, String categoria, Integer numPiezas, String serie, String modelo, String subcategoria, String descripcion, String metal, Float peso, Float kilataje, Float prestamo, Float precioComercializacion, Float precioVenta, String estatus, Integer idComercializacion, String fechaCreacion, String fechaComercializacion, String fechaVenta, String usuario) {
         this.idPrendas = idPrendas;
         this.nombre = nombre;
         this.idEmp = idEmp;
@@ -139,43 +139,43 @@ public class Prenda {
         this.metal = metal;
     }
 
-    public Integer getPeso() {
+    public Float getPeso() {
         return peso;
     }
 
-    public void setPeso(Integer peso) {
+    public void setPeso(Float peso) {
         this.peso = peso;
     }
 
-    public Integer getKilataje() {
+    public Float getKilataje() {
         return kilataje;
     }
 
-    public void setKilataje(Integer kilataje) {
+    public void setKilataje(Float kilataje) {
         this.kilataje = kilataje;
     }
 
-    public Integer getPrestamo() {
+    public Float getPrestamo() {
         return prestamo;
     }
 
-    public void setPrestamo(Integer prestamo) {
+    public void setPrestamo(Float prestamo) {
         this.prestamo = prestamo;
     }
 
-    public Integer getPrecioComercializacion() {
+    public Float getPrecioComercializacion() {
         return precioComercializacion;
     }
 
-    public void setPrecioComercializacion(Integer precioComercializacion) {
+    public void setPrecioComercializacion(Float precioComercializacion) {
         this.precioComercializacion = precioComercializacion;
     }
 
-    public Integer getPrecioVenta() {
+    public Float getPrecioVenta() {
         return precioVenta;
     }
 
-    public void setPrecioVenta(Integer precioVenta) {
+    public void setPrecioVenta(Float precioVenta) {
         this.precioVenta = precioVenta;
     }
 
@@ -227,5 +227,5 @@ public class Prenda {
         this.usuario = usuario;
     }
 
-    
+   
 }

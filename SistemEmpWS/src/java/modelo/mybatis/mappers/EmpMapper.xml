@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Emp">
+    
+    <insert id="registrarEmp" parameterType="modelo.pojos.Empe" statementType="CALLABLE">
+        {CALL base.sp_registrarEmp(
+        #{idCliente, jdbcType=INTEGER, mode=IN},
+        #{fechaCreacion, jdbcType=TIMESTAMP, mode=IN},
+        #{observaciones, jdbcType=VARCHAR, mode=IN},
+        #{usuario, jdbcType=VARCHAR, mode=IN},
+        #{idContrato, jdbcType=INTEGER, mode=IN},
+        #{fechaActualizacion, jdbcType=TIMESTAMP, mode=IN},
+        #{interes, jdbcType=FLOAT, mode=IN},
+        #{almacenaje, jdbcType=FLOAT, mode=IN},
+        #{periodos, jdbcType=INTEGER, mode=IN},
+        #{diasPeriodos, jdbcType=INTEGER, mode=IN},
+        #{iva, jdbcType=FLOAT, mode=IN},
+        #{tasaComercializacion, jdbcType=FLOAT, mode=IN})}
+    </insert>
+    
+    <select id="obtenerId" resultType="map" statementType="CALLABLE">
+        SELECT LAST_INSERT_ID() as id;
+    </select>
+
+</mapper>
+

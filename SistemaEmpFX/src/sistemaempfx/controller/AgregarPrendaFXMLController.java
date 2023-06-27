@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import org.json.JSONException;
 import org.json.JSONObject;
 import sistemaempfx.api.Requests;
+import sistemaempfx.model.pojos.Empe;
 import sistemaempfx.model.pojos.Usuario;
 import sistemaempfx.utils.Window;
 
@@ -45,7 +46,6 @@ public class AgregarPrendaFXMLController implements Initializable {
     private TextField txt_precioComercializacion;
     @FXML
     private TextField txt_precioVenta;
-    @FXML
     private TextField txt_estatus;
     @FXML
     private DatePicker txt_fechaComercializacion;
@@ -53,6 +53,7 @@ public class AgregarPrendaFXMLController implements Initializable {
     private DatePicker txt_fechaVenta;
     @FXML
     private TextArea txt_descripcion;
+    private Empe empeño;
 
     
     Usuario usuario = null;
@@ -64,12 +65,17 @@ public class AgregarPrendaFXMLController implements Initializable {
         // TODO
     }    
     
+    public void setEmpeño(Empe empeño){
+        this.empeño = empeño;
+    }
+    
      public void setData(Usuario usuario) {
         this.usuario = usuario;
     }
 
     @FXML
     private void cancelar(ActionEvent event) {
+        Window.close(event);
     }
 
     @FXML
@@ -86,7 +92,6 @@ public class AgregarPrendaFXMLController implements Initializable {
             || txt_prestamo.getText().isEmpty()
             || txt_precioComercializacion.getText().isEmpty()
             || txt_precioVenta.getText().isEmpty()
-            || txt_estatus.getText().isEmpty()
             || txt_fechaComercializacion.getValue() == null
             || txt_fechaVenta.getValue() == null
             || txt_descripcion.getText().isEmpty()) {
@@ -119,10 +124,11 @@ public class AgregarPrendaFXMLController implements Initializable {
                 params.put("prestamo", Integer.parseInt(txt_prestamo.getText()));
                 params.put("precioComercializacion", Integer.parseInt(txt_precioComercializacion.getText()));
                 params.put("precioVenta", Integer.parseInt(txt_precioVenta.getText()));
-                params.put("estatus", txt_estatus.getText());
                 params.put("fechaComercializacion", txt_fechaComercializacion.getValue().toString());
                 params.put("fechaVenta", txt_fechaVenta.getValue().toString());
                 params.put("descripcion", txt_descripcion.getText());
+                params.put("idEmp", this.empeño.getIdEmp());
+                params.put("usuario", this.usuario.getNombre());
 
                 String respuesta = Requests.post("/prenda/registrarPrenda/", params);
 
@@ -147,7 +153,7 @@ public class AgregarPrendaFXMLController implements Initializable {
                 Alert alertV = new Alert(Alert.AlertType.WARNING);
                 alertV.setTitle("Advertencia");
                 alertV.setHeaderText(null);
-                alertV.setContentText("El cliente ya se encuentra registrado...");
+                alertV.setContentText("La prenda ya se encuentra registrado...");
                 alertV.showAndWait();
             }
         } catch (JSONException ex) {

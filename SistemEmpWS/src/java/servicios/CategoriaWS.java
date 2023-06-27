@@ -24,9 +24,7 @@ import modelo.mybatis.MyBatisUtil;
 import modelo.pojos.Categoria;
 import modelo.pojos.Respuesta;
 import modelo.pojos.Rol;
-import modelo.pojos.Usuario;
 import org.apache.ibatis.session.SqlSession;
-import utils.JavaUtils;
 
 /**
  *

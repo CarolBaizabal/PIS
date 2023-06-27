@@ -99,5 +99,17 @@
             <Font name="Berlin Sans FB" size="25.0" />
          </font>
       </Label>
+      <Button fx:id="bt_asignarEmp" layoutX="525.0" layoutY="98.0" mnemonicParsing="false" onAction="#asignarEmp" text="Asinar Empeño" visible="false">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-de-acuerdo-48.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </Pane>
