@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistemaempfx.controller.VisualizarPrendaEmpeñoFXMLController">
+   <children>
+      <TableView fx:id="tb_prenda" layoutX="31.0" layoutY="98.0" prefHeight="241.0" prefWidth="538.0">
+        <columns>
+          <TableColumn fx:id="tc_prenda" minWidth="0.0" prefWidth="275.0" text="Prenda" />
+          <TableColumn fx:id="tc_precio" prefWidth="262.0" text="Precio" />
+        </columns>
+      </TableView>
+      <Label layoutX="172.0" layoutY="31.0" text="PRENDAS EMPEÑADAS">
+         <font>
+            <Font name="Berlin Sans FB" size="25.0" />
+         </font>
+      </Label>
+      <Button layoutX="470.0" layoutY="356.0" mnemonicParsing="false" onAction="#cancelar" text="Cancelar">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-cancelar-48.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</Pane>

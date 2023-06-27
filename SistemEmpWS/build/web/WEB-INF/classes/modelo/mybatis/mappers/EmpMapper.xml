@@ -24,6 +24,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="obtenerId" resultType="map" statementType="CALLABLE">
         SELECT LAST_INSERT_ID() as id;
     </select>
+    
+    <select id="getAllPrendaByEmp" resultType="map" statementType="CALLABLE">
+        {CALL base.sp_getAllPrendaByEmp(
+        #{idEmp,jdbcType=INTEGER,mode=IN})}
+    </select>
 
 </mapper>
 

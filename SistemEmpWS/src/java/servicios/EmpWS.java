@@ -26,6 +26,7 @@ import javax.ws.rs.core.UriInfo;
 import modelo.mybatis.MyBatisUtil;
 import modelo.pojos.Categoria;
 import modelo.pojos.Empe;
+import modelo.pojos.Prenda;
 import modelo.pojos.Respuesta;
 import modelo.pojos.Rol;
 import org.apache.ibatis.session.SqlSession;
@@ -47,15 +48,15 @@ public class EmpWS {
     }
 
     @GET
-    @Path("getAllCategoria")
+    @Path("getAllPrendasByEmp/{idEmp}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllCategoria() {
+    public Response getAllCategoria(@PathParam("idEmp") Integer idEmp) {
         SqlSession conn = MyBatisUtil.getSession();
         Response.ResponseBuilder respuesta = null;
 
         try {
-            List<Categoria> list = conn.selectList("Categoria.getAllCategoria");
-            respuesta = Response.ok(parser.toJson(list));
+            List<Prenda> lista = conn.selectList("Emp.getAllPrendaByEmp", idEmp);
+            respuesta = Response.ok(parser.toJson(lista));
         } catch (Exception ex) {
             ex.printStackTrace();
             respuesta = Response

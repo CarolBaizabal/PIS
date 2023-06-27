@@ -33,6 +33,7 @@
                   <TableColumn prefWidth="75.0" text="Días Periodos" />
                   <TableColumn prefWidth="75.0" text="IVA" />
                   <TableColumn prefWidth="75.0" text="Tasa Comercializacion" />
+                  <TableColumn prefWidth="75.0" text="Estatus" />
                </columns>
             </TableView>
          </children>
@@ -41,7 +42,7 @@
    <top>
       <Pane prefHeight="146.0" prefWidth="880.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btn_editar" layoutX="671.0" layoutY="112.0" mnemonicParsing="false" onAction="#editar" text="Editar">
+            <Button fx:id="btn_editar" layoutX="672.0" layoutY="112.0" mnemonicParsing="false" onAction="#editar" text="Editar">
                <font>
                   <Font name="Berlin Sans FB" size="15.0" />
                </font>
