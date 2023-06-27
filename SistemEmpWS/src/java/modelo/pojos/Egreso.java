@@ -18,13 +18,12 @@ public class Egreso {
     private String usuario;
     private String fechaModificacion;
     private String usuarioA;
-    private Integer idCategoria;
     private String estatus;
 
     public Egreso() {
     }
 
-    public Egreso(Integer idEgreso, Integer cantidad, String motivo, String observaciones, String fechaCreacion, String usuario, String fechaModificacion, String usuarioA, Integer idCategoria, String estatus) {
+    public Egreso(Integer idEgreso, Integer cantidad, String motivo, String observaciones, String fechaCreacion, String usuario, String fechaModificacion, String usuarioA, String estatus) {
         this.idEgreso = idEgreso;
         this.cantidad = cantidad;
         this.motivo = motivo;
@@ -33,18 +32,8 @@ public class Egreso {
         this.usuario = usuario;
         this.fechaModificacion = fechaModificacion;
         this.usuarioA = usuarioA;
-        this.idCategoria = idCategoria;
         this.estatus = estatus;
     }
-
-    public String getEstatus() {
-        return estatus;
-    }
-
-    public void setEstatus(String estatus) {
-        this.estatus = estatus;
-    }
-  
 
     public Integer getIdEgreso() {
         return idEgreso;
@@ -86,28 +75,20 @@ public class Egreso {
         this.fechaCreacion = fechaCreacion;
     }
 
-    public String getFechaModificacion() {
-        return fechaModificacion;
-    }
-
-    public void setFechaModificacion(String fechaModificacion) {
-        this.fechaModificacion = fechaModificacion;
-    }
-
-    public Integer getIdCategoria() {
-        return idCategoria;
-    }
-
-    public void setIdCategoria(Integer idCategoria) {
-        this.idCategoria = idCategoria;
-    }
-
     public String getUsuario() {
         return usuario;
     }
 
     public void setUsuario(String usuario) {
         this.usuario = usuario;
+    }
+
+    public String getFechaModificacion() {
+        return fechaModificacion;
+    }
+
+    public void setFechaModificacion(String fechaModificacion) {
+        this.fechaModificacion = fechaModificacion;
     }
 
     public String getUsuarioA() {
@@ -117,11 +98,18 @@ public class Egreso {
     public void setUsuarioA(String usuarioA) {
         this.usuarioA = usuarioA;
     }
+
+    public String getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
+    }
+
     
     @Override
     public String toString() {
         return motivo;
-    }
-    
-    
+    }   
 }

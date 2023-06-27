@@ -42,9 +42,9 @@ import sistemaempfx.utils.Window;
 public class EditarEgresoFXMLController implements Initializable {
 
     @FXML
-    private ComboBox<Catalogo> cb_motivoE;
+    private ComboBox<Categoria> cb_motivoE;
     private Integer[] arrayID;
-    private ObservableList<Catalogo> comboBoxList;
+    private ObservableList<Categoria> comboBoxList;
     @FXML
     private TextField txt_cantidadE;
     @FXML
@@ -58,7 +58,7 @@ public class EditarEgresoFXMLController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       comboBoxList = getAllCatalogo();
+       comboBoxList = datosCategoria();
        cb_motivoE.setItems(comboBoxList);
     }    
     
@@ -69,17 +69,17 @@ public class EditarEgresoFXMLController implements Initializable {
         this.usuario = usuario;
     }
     
-    private ObservableList getAllCatalogo() {
+    private ObservableList datosCategoria() {
 
-        String respuesta = Requests.get("/catalogo/getAllCatalogoActivo/");
+        String respuesta = Requests.get("/categoria/datosCategoriaIngreso/");
         Gson gson = new Gson();
 
-        TypeToken<List<Catalogo>> token = new TypeToken<List<Catalogo>>() {
+        TypeToken<List<Categoria>> token = new TypeToken<List<Categoria>>() {
         };
 
-        List<Catalogo> listaCatalogo = gson.fromJson(respuesta, token.getType());
+        List<Categoria> listaCategoria = gson.fromJson(respuesta, token.getType());
 
-        comboBoxList = FXCollections.observableArrayList(listaCatalogo);
+        comboBoxList = FXCollections.observableArrayList(listaCategoria);
         System.out.print(comboBoxList);
         return comboBoxList;
     }
@@ -97,7 +97,7 @@ public class EditarEgresoFXMLController implements Initializable {
 
                 HashMap<String, Object> params = new LinkedHashMap<>();
                 params.put("cantidad", this.txt_cantidadE.getText());
-                params.put("motivo", this.cb_motivoE.getValue().getIdCatalogo());
+                params.put("motivo", this.cb_motivoE.getValue().getNombre());
                 params.put("odservaciones", this.txtA_observacionesE.getText());
                 params.put("usuarioA", this.usuario.getNombre());
                 

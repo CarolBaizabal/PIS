@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Prenda">
+
+    <select id="getAllPrenda" resultType="modelo.pojos.Prenda" statementType="CALLABLE">
+        {CALL base.sp_getAllPrenda()}
+    </select>
+       
+    <select id="prendaId" resultType="modelo.pojos.Prenda" statementType="CALLABLE">
+        {CALL base.sp_prendaId(
+        #{nombre,jdbcType=VARCHAR,mode=IN})}
+    </select>
+    
+    <select id="getPrendaById" resultType="modelo.pojos.Prenda" statementType="CALLABLE">
+        {CALL base.sp_getPrendaById(
+        #{nombre,jdbcType=VARCHAR,mode=IN})}
+    </select>
+    
+    <select id="buscarPrendaPorNombre" resultType="modelo.pojos.Prenda" statementType="CALLABLE">
+        {CALL base.sp_buscarPrendaPorNombre(
+        #{nombre,jdbcType=VARCHAR,mode=IN})}
+    </select>
+
+    <update id="actualizarPrenda" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_actualizarPrenda(
+        #{idPrendas,jdbcType=INTEGER,mode=IN},
+        #{nombre,jdbcType=VARCHAR,mode=IN},
+        #{categoria,jdbcType=VARCHAR,mode=IN},
+        #{numPiezas,jdbcType=INTEGER,mode=IN},
+        #{serie,jdbcType=VARCHAR,mode=IN},
+        #{modelo,jdbcType=VARCHAR,mode=IN},
+        #{subcategoria,jdbcType=VARCHAR,mode=IN},
+        #{metal,jdbcType=VARCHAR,mode=IN},
+        #{peso,jdbcType=INTEGER,mode=IN},
+        #{kilataje,jdbcType=INTEGER,mode=IN},
+        #{prestamo,jdbcType=INTEGER,mode=IN},
+        #{precioComercializacion,jdbcType=DOUBLE,mode=IN},
+        #{precioVenta,jdbcType=INTEGER,mode=IN},
+        #{estatus,jdbcType=VARCHAR,mode=IN},
+        #{fechaComercializacion,jdbcType=VARCHAR,mode=IN},
+        #{fechaVenta,jdbcType=VARCHAR,mode=IN},
+        #{descripcion,jdbcType=VARCHAR,mode=IN})}
+    </update>
+    
+    <insert  id="registrarPrenda" parameterType="modelo.pojos.Prenda" statementType="CALLABLE">
+        {CALL base.sp_registrarPrenda(
+        #{nombre,jdbcType=VARCHAR,mode=IN},
+        #{categoria,jdbcType=VARCHAR,mode=IN},
+        #{numPiezas,jdbcType=INTEGER,mode=IN},
+        #{serie,jdbcType=VARCHAR,mode=IN},
+        #{modelo,jdbcType=VARCHAR,mode=IN},
+        #{subcategoria,jdbcType=VARCHAR,mode=IN},
+        #{metal,jdbcType=VARCHAR,mode=IN},
+        #{peso,jdbcType=INTEGER,mode=IN},
+        #{kilataje,jdbcType=INTEGER,mode=IN},
+        #{prestamo,jdbcType=INTEGER,mode=IN},
+        #{precioComercializacion,jdbcType=INTEGER,mode=IN},
+        #{precioVenta,jdbcType=INTEGER,mode=IN},
+        #{estatus,jdbcType=VARCHAR,mode=IN},
+        #{fechaComercializacion,jdbcType=VARCHAR,mode=IN},
+        #{fechaVenta,jdbcType=VARCHAR,mode=IN},
+        #{descripcion,jdbcType=VARCHAR,mode=IN})}
+    </insert>
+</mapper>

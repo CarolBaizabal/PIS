@@ -25,6 +25,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import modelo.mybatis.MyBatisUtil;
 import modelo.pojos.Catalogo;
+import modelo.pojos.Categoria;
 import modelo.pojos.Egreso;
 import modelo.pojos.Respuesta;
 import org.apache.ibatis.session.SqlSession;
@@ -264,4 +265,5 @@ public class EgresoWS {
         }
         return respuesta.build();
     }
+
 }

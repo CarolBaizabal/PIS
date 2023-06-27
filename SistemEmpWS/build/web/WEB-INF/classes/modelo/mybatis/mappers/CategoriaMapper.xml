@@ -47,5 +47,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{idCategoria,jdbcType=INTEGER,mode=IN},
         #{nombre,jdbcType=VARCHAR,mode=IN})}
     </update>
+    
+    <select id="datosCategoriaRol" resultType="modelo.pojos.Categoria" statementType="CALLABLE">
+        {CALL base.sp_datosCategoriaRol()}
+    </select>
+    
+    <select id="datosCategoriaEgreso" resultType="modelo.pojos.Categoria" statementType="CALLABLE">
+        {CALL base.sp_datosCategoriaEgreso()}
+    </select>
+    
+    <select id="datosCategoriaIngreso" resultType="modelo.pojos.Categoria" statementType="CALLABLE">
+        {CALL base.sp_datosCategoriaIngreso()}
+    </select>
 </mapper>
 

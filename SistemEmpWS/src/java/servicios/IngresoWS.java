@@ -23,6 +23,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import modelo.mybatis.MyBatisUtil;
 import modelo.pojos.Catalogo;
+import modelo.pojos.Categoria;
 import modelo.pojos.Ingreso;
 import modelo.pojos.Respuesta;
 import modelo.pojos.Rol;
@@ -263,4 +264,5 @@ public class IngresoWS {
         }
         return respuesta.build();
     }
+
 }

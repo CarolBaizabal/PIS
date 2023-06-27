@@ -39,37 +39,31 @@ import sistemaempfx.utils.Window;
 public class AgregarCatalogosFXMLController implements Initializable {
 
     Usuario usuario = null;
+    @FXML
     private ComboBox<Categoria> cb_categorias;
     private Integer[] arrayID;
     private ObservableList<Categoria> comboBoxList;
+    @FXML
     private TextField txt_catalogo;
-    @FXML
-    private ComboBox<?> cb_motivo;
-    @FXML
-    private TextField txt_cantidad;
-    @FXML
-    private TextArea txtA_obervaciones;
-    
+
     public void setData(Usuario usuario) {
         this.usuario = usuario;
     }
 
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         comboBoxList = getAllCategoria();
 
-        
         cb_categorias.setItems(comboBoxList);
-    }    
+    }
 
-
+    @FXML
     private void agregarCatalogo(ActionEvent event) {
-        
+
         int position = this.cb_categorias.getSelectionModel().getSelectedIndex();
-       
-        if (this.txt_catalogo.getText().isEmpty()|| position <= -1){
+
+        if (this.txt_catalogo.getText().isEmpty() || position <= -1) {
 
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Advertencia");
@@ -139,17 +133,11 @@ public class AgregarCatalogosFXMLController implements Initializable {
         System.out.print(comboBoxList);
         return comboBoxList;
     }
-    
+
     @FXML
     private void cancelar(ActionEvent event) {
         Window.close(event);
     }
 
-    @FXML
-    private void agregarIngreso(ActionEvent event) {
-    }
 
-    
-       
-    
 }

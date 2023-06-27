@@ -28,6 +28,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import sistemaempfx.api.Requests;
 import sistemaempfx.model.pojos.Catalogo;
+import sistemaempfx.model.pojos.Categoria;
 import sistemaempfx.model.pojos.Egreso;
 import sistemaempfx.model.pojos.Ingreso;
 import sistemaempfx.model.pojos.Usuario;
@@ -42,9 +43,9 @@ import sistemaempfx.utils.Window;
 public class EditarIngresoFXMLController implements Initializable {
 
     @FXML
-    private ComboBox<Catalogo> cb_motivo;
+    private ComboBox<Categoria> cb_motivo;
     private Integer[] arrayID;
-    private ObservableList<Catalogo> comboBoxList;
+    private ObservableList<Categoria> comboBoxList;
     @FXML
     private TextField txt_cantidad;
     @FXML
@@ -58,7 +59,7 @@ public class EditarIngresoFXMLController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       comboBoxList = getAllCatalogo();
+       comboBoxList = datosCategoria();
        cb_motivo.setItems(comboBoxList);
     }    
     
@@ -69,17 +70,17 @@ public class EditarIngresoFXMLController implements Initializable {
         this.usuario = usuario;
     }
     
-    private ObservableList getAllCatalogo() {
+    private ObservableList datosCategoria() {
 
-        String respuesta = Requests.get("/catalogo/getAllCatalogoActivo/");
+        String respuesta = Requests.get("/categoria/datosCategoriaEgreso/");
         Gson gson = new Gson();
 
-        TypeToken<List<Catalogo>> token = new TypeToken<List<Catalogo>>() {
+        TypeToken<List<Categoria>> token = new TypeToken<List<Categoria>>() {
         };
 
-        List<Catalogo> listaCatalogo = gson.fromJson(respuesta, token.getType());
+        List<Categoria> listaCategoria = gson.fromJson(respuesta, token.getType());
 
-        comboBoxList = FXCollections.observableArrayList(listaCatalogo);
+        comboBoxList = FXCollections.observableArrayList(listaCategoria);
         System.out.print(comboBoxList);
         return comboBoxList;
     }

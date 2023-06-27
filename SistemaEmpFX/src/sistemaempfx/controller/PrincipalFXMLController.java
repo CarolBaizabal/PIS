@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import sistemaempfx.model.pojos.Prenda;
 import sistemaempfx.model.pojos.Usuario;
 
 /**
@@ -29,6 +30,7 @@ public class PrincipalFXMLController implements Initializable {
     @FXML
     private Label lb_usuario;
     Usuario usuario = null;
+    Prenda prenda =null;
     @FXML
     private Label lb_rol;
 
@@ -156,6 +158,38 @@ public class PrincipalFXMLController implements Initializable {
     }
     
     @FXML
+    private void Ingresos_Egresos(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistemaempfx/gui/view/MovimientosFXML.fxml"));
+
+            Parent principal = loader.load();
+
+            MovimientosFXMLController usuario = loader.getController();
+            usuario.setData(this.usuario);
+
+            pnl_principal.setCenter(principal);
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void Prendas(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistemaempfx/gui/view/PrendasFXML.fxml"));
+
+            Parent principal = loader.load();
+
+            PrendasFXMLController usuario = loader.getController();
+            usuario.setData(this.usuario, this.prenda);
+
+            pnl_principal.setCenter(principal);
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @FXML
     private void CerrarSesion(ActionEvent event){ 
         try {
             Stage stage = new Stage();
@@ -175,22 +209,6 @@ public class PrincipalFXMLController implements Initializable {
             
             Stage pnl = (Stage) pnl_principal.getScene().getWindow();
             pnl.close();
-        } catch (IOException ex) {
-            Logger.getLogger(PrincipalFXMLController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    @FXML
-    private void Ingresos_Egresos(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistemaempfx/gui/view/MovimientosFXML.fxml"));
-
-            Parent principal = loader.load();
-
-            MovimientosFXMLController usuario = loader.getController();
-            usuario.setData(this.usuario);
-
-            pnl_principal.setCenter(principal);
         } catch (IOException ex) {
             Logger.getLogger(PrincipalFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -272,5 +272,74 @@ public class CategoriaWS {
         }
         return respuesta.build();
     }
+    
+    @GET
+    @Path("datosCategoriaRol")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response datosCategoriaRol() {
+        SqlSession conn = MyBatisUtil.getSession();
+        Response.ResponseBuilder respuesta = null;
+
+        try {
+            List<Categoria> list = conn.selectList("Categoria.datosCategoriaRol");
+            respuesta = Response.ok(parser.toJson(list));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respuesta = Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new Respuesta("Error al consultar Categoria."));
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return respuesta.build();
+    }
+    
+    @GET
+    @Path("datosCategoriaEgreso")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response datosCategoriaEgreso() {
+        SqlSession conn = MyBatisUtil.getSession();
+        Response.ResponseBuilder respuesta = null;
+
+        try {
+            List<Categoria> list = conn.selectList("Categoria.datosCategoriaEgreso");
+            respuesta = Response.ok(parser.toJson(list));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respuesta = Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new Respuesta("Error al consultar Categoria."));
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return respuesta.build();
+    }
+    
+    @GET
+    @Path("datosCategoriaIngreso")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response datosCategoriaIngreso() {
+        SqlSession conn = MyBatisUtil.getSession();
+        Response.ResponseBuilder respuesta = null;
+
+        try {
+            List<Categoria> list = conn.selectList("Categoria.datosCategoriaIngreso");
+            respuesta = Response.ok(parser.toJson(list));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respuesta = Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new Respuesta("Error al consultar Categoria."));
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return respuesta.build();
+    }
 
 }

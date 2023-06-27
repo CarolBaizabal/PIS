@@ -24,13 +24,14 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import org.json.JSONException;
 import org.json.JSONObject;
+import sistemaempfx.model.pojos.Categoria;
 
 public class AgregarUsuarioFXMLController implements Initializable {
 
     @FXML
-    private ComboBox<Rol> cmb_rolRegistrar;
+    private ComboBox<Categoria> cmb_rolRegistrar;
     private Integer[] arrayID;
-    private ObservableList<Rol> comboBoxList;
+    private ObservableList<Categoria> comboBoxList;
 
     @FXML
     private TextField txt_apellidoPaterno;
@@ -51,7 +52,7 @@ public class AgregarUsuarioFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        comboBoxList = getAllRoles();
+        comboBoxList = datosCategoria();
         cmb_rolRegistrar.setItems(comboBoxList);
     }
 
@@ -136,17 +137,17 @@ public class AgregarUsuarioFXMLController implements Initializable {
         Window.close(event);
     }
 
-    private ObservableList getAllRoles() {
+    private ObservableList datosCategoria() {
 
-        String respuesta = Requests.get("/rol/getAllRolActivo/");
+        String respuesta = Requests.get("/categoria/datosCategoriaRol/");
         Gson gson = new Gson();
 
-        TypeToken<List<Rol>> token = new TypeToken<List<Rol>>() {
+        TypeToken<List<Categoria>> token = new TypeToken<List<Categoria>>() {
         };
 
-        List<Rol> listaRoles = gson.fromJson(respuesta, token.getType());
+        List<Categoria> listaCategoria = gson.fromJson(respuesta, token.getType());
 
-        comboBoxList = FXCollections.observableArrayList(listaRoles);
+        comboBoxList = FXCollections.observableArrayList(listaCategoria);
         System.out.print(comboBoxList);
         return comboBoxList;
     }

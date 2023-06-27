@@ -18,13 +18,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -57,13 +55,11 @@ public class UsuariosFXMLController implements Initializable {
     @FXML
     private TableColumn<Usuario, String> tcl_estatus;
 
-    
     Usuario usuario = null;
     Usuario usuarioU = null;
 
     @FXML
     private TextField txt_usuario;
-
 
     /**
      * Initializes the controller class.
@@ -71,7 +67,7 @@ public class UsuariosFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.tablaUsuario();
-    }    
+    }
 
     @FXML
     private void buscarUsuario(ActionEvent event) {
@@ -105,11 +101,11 @@ public class UsuariosFXMLController implements Initializable {
 
     @FXML
     private void agregarUsuario(ActionEvent event) throws InterruptedException {
-       try {
+        try {
             Stage stage = new Stage();
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistemaempfx/gui/view/AgregarUsuarioFXML.fxml"));
-
+ 
             Parent usuarios = loader.load();
 
             AgregarUsuarioFXMLController ctrl = loader.getController();
@@ -121,7 +117,7 @@ public class UsuariosFXMLController implements Initializable {
             stage.setResizable(false);
             stage.showAndWait();
             this.tablaUsuario();
-            
+
         } catch (IOException ex) {
             Logger.getLogger(UsuariosFXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -129,8 +125,8 @@ public class UsuariosFXMLController implements Initializable {
 
     @FXML
     private void editarUsuario(ActionEvent event) {
-        this.usuario= tb_Usuarios.getSelectionModel().getSelectedItem();
-         if (this.usuario != null) {
+        this.usuario = tb_Usuarios.getSelectionModel().getSelectedItem();
+        if (this.usuario != null) {
             try {
                 Stage stage = new Stage();
 
@@ -165,9 +161,9 @@ public class UsuariosFXMLController implements Initializable {
         txt_usuario.setText("");
         this.tablaUsuario();
     }
-    
+
     private void tablaUsuario() {
-       
+
         String respuesta = "";
         tb_Usuarios.getItems().clear();
 
@@ -177,7 +173,7 @@ public class UsuariosFXMLController implements Initializable {
         TypeToken<List<Usuario>> token = new TypeToken<List<Usuario>>() {
         };
 
-        List<Usuario> listaUsuario= gson.fromJson(respuesta, token.getType());
+        List<Usuario> listaUsuario = gson.fromJson(respuesta, token.getType());
 
         tcl_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         tcl_apellidoPaterno.setCellValueFactory(new PropertyValueFactory<>("apellidoPaterno"));
@@ -193,7 +189,7 @@ public class UsuariosFXMLController implements Initializable {
         });
 
     }
-    
+
     private void clickTableUsuario(MouseEvent event) {
         String respuesta = "";
         if (tb_Usuarios.getSelectionModel().getSelectedItem() != null) {
@@ -203,7 +199,7 @@ public class UsuariosFXMLController implements Initializable {
 
     @FXML
     private void desactivar(ActionEvent event) {
-        this.usuario= tb_Usuarios.getSelectionModel().getSelectedItem();
+        this.usuario = tb_Usuarios.getSelectionModel().getSelectedItem();
         if (this.usuario != null) {
 
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -215,7 +211,7 @@ public class UsuariosFXMLController implements Initializable {
                 if (response == ButtonType.OK) {
 
                     try {
-                        
+
                         String estado = this.usuario.getEstatus();
 
                         if ("Activo".equals(estado)) {
@@ -273,8 +269,8 @@ public class UsuariosFXMLController implements Initializable {
 
     @FXML
     private void activar(ActionEvent event) {
-        this.usuario= tb_Usuarios.getSelectionModel().getSelectedItem();
-          if (this.usuario != null) {
+        this.usuario = tb_Usuarios.getSelectionModel().getSelectedItem();
+        if (this.usuario != null) {
 
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Validación");
@@ -285,14 +281,13 @@ public class UsuariosFXMLController implements Initializable {
                 if (response == ButtonType.OK) {
 
                     try {
-                        
+
                         String estado = this.usuario.getEstatus();
 
                         if ("Inactivo".equals(estado)) {
                             HashMap<String, Object> params = new LinkedHashMap<>();
                             params.put("idUsuario", this.usuario.getIdUsuario());
                             String respuesta = Requests.put("/usuario/actualizarEstatus/" + usuario.getIdUsuario(), params);
-
 
                             JSONObject dataJson = new JSONObject(respuesta);
 
@@ -341,5 +336,5 @@ public class UsuariosFXMLController implements Initializable {
             alertI.showAndWait();
         }
     }
-    
+
 }

@@ -27,6 +27,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import sistemaempfx.api.Requests;
 import sistemaempfx.model.pojos.Catalogo;
+import sistemaempfx.model.pojos.Categoria;
+import sistemaempfx.model.pojos.Egreso;
 import sistemaempfx.model.pojos.Usuario;
 import sistemaempfx.utils.Window;
 
@@ -38,43 +40,46 @@ import sistemaempfx.utils.Window;
 public class AgregarEgresoFXMLController implements Initializable {
 
     @FXML
-    private ComboBox<Catalogo> cb_motivoE;
-    
+    private ComboBox<Categoria> cb_motivoE;
     private Integer[] arrayID;
-    private ObservableList<Catalogo> comboBoxList;
+    private ObservableList<Categoria> comboBoxList;
     @FXML
     private TextField txt_cantidadE;
     @FXML
     private TextArea txtA_observacionesE;
     
     Usuario usuario = null;
+    Categoria categoria =null;
+    Egreso egreso = null;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        comboBoxList = getAllCatalogo();
+        comboBoxList = datosCategoria();
 
         
         cb_motivoE.setItems(comboBoxList);
     }    
     
-    public void setData(Usuario usuario) {
+    public void setData(Usuario usuario, Categoria categoria, Egreso egreso) {
         this.usuario = usuario;
+        this.categoria = categoria;
+        this.egreso = egreso;
     }
     
-     private ObservableList getAllCatalogo() {
+    private ObservableList datosCategoria() {
 
-        String respuesta = Requests.get("/catalogo/getAllCatalogoActivo/");
+        String respuesta = Requests.get("/categoria/datosCategoriaEgreso/");
         Gson gson = new Gson();
 
-        TypeToken<List<Catalogo>> token = new TypeToken<List<Catalogo>>() {
+        TypeToken<List<Categoria>> token = new TypeToken<List<Categoria>>() {
         };
 
-        List<Catalogo> listaCatalogo = gson.fromJson(respuesta, token.getType());
+        List<Categoria> listaCategoria = gson.fromJson(respuesta, token.getType());
 
-        comboBoxList = FXCollections.observableArrayList(listaCatalogo);
+        comboBoxList = FXCollections.observableArrayList(listaCategoria);
         System.out.print(comboBoxList);
         return comboBoxList;
     }

@@ -29,6 +29,7 @@ import javafx.stage.Stage;
 import org.json.JSONException;
 import org.json.JSONObject;
 import sistemaempfx.api.Requests;
+import sistemaempfx.model.pojos.Categoria;
 import sistemaempfx.model.pojos.Egreso;
 import sistemaempfx.model.pojos.Ingreso;
 import sistemaempfx.model.pojos.Usuario;
@@ -79,6 +80,7 @@ public class MovimientosFXMLController implements Initializable {
     Egreso egreso = null;
     Ingreso ingreso = null;
     Usuario usuario = null;
+    Categoria categoria = null;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -263,7 +265,7 @@ public class MovimientosFXMLController implements Initializable {
             Parent usuarios = loader.load();
 
             AgregarEgresoFXMLController ctrl = loader.getController();
-            ctrl.setData(this.usuario);
+            ctrl.setData(this.usuario, this.categoria, this.egreso);
 
             Scene scene = new Scene(usuarios);
             stage.setScene(scene);

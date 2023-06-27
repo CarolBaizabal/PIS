@@ -17,7 +17,7 @@
 
 <BorderPane fx:id="pnl_principal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="880.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistemaempfx.controller.PrincipalFXMLController">
    <top>
-      <MenuBar prefHeight="30.0" prefWidth="880.0" BorderPane.alignment="CENTER">
+      <MenuBar prefHeight="30.0" prefWidth="880.0" style="-fx-background-color: #ffffff;" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="Empeños">
             <items>
@@ -162,6 +162,26 @@
                         <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../img/icons8-opposite-opinion-20.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </MenuItem>
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Prendas">
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/icons8-big-puzzle-20.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#Prendas" text="Prendas">
+                     <graphic>
+                        <ImageView fitHeight="16.0" fitWidth="16.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../img/icons8-big-puzzle-20.png" />
                            </image>
                         </ImageView>
                      </graphic>

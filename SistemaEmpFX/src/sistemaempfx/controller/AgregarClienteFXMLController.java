@@ -91,6 +91,7 @@ public class AgregarClienteFXMLController implements Initializable {
         Window.close(event);
     }
 
+    @FXML
     private void agregar(ActionEvent event) {
         if (this.txt_nombre.getText().isEmpty() 
                 ||txt_fn.getValue() == null
@@ -178,6 +179,7 @@ public class AgregarClienteFXMLController implements Initializable {
         }
     }
 
+    @FXML
     private void limpiar(ActionEvent event) {
         txt_nombre.setText("");
         txt_fn.setValue(null);
@@ -197,9 +199,6 @@ public class AgregarClienteFXMLController implements Initializable {
         rb_sexo.setSelected(false);     
     }
 
-    @FXML
-    private void editar(ActionEvent event) {
-    }
 
     
 }

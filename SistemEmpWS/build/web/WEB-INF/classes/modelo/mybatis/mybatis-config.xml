@@ -31,5 +31,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
       <mapper resource="modelo/mybatis/mappers/CatalogoPrendaMapper.xml"/>
       <mapper resource="modelo/mybatis/mappers/IngresoMapper.xml"/>
       <mapper resource="modelo/mybatis/mappers/EgresoMapper.xml"/>
+      <mapper resource="modelo/mybatis/mappers/PrendaMapper.xml"/>
     </mappers>
 </configuration>

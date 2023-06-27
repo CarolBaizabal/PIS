@@ -39,9 +39,9 @@ import sistemaempfx.utils.Window;
 public class AgregarIngresoFXMLController implements Initializable {
 
     @FXML
-    private ComboBox<Catalogo> cb_motivo;
+    private ComboBox<Categoria> cb_motivo;
     private Integer[] arrayID;
-    private ObservableList<Catalogo> comboBoxList;
+    private ObservableList<Categoria> comboBoxList;
     @FXML
     private TextField txt_cantidad;
     @FXML
@@ -55,7 +55,7 @@ public class AgregarIngresoFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        comboBoxList = getAllCatalogo();
+        comboBoxList = datosCategoria();
 
         
         cb_motivo.setItems(comboBoxList);
@@ -65,17 +65,17 @@ public class AgregarIngresoFXMLController implements Initializable {
         this.usuario = usuario;
     }
     
-    private ObservableList getAllCatalogo() {
+    private ObservableList datosCategoria() {
 
-        String respuesta = Requests.get("/catalogo/getAllCatalogoActivo/");
+        String respuesta = Requests.get("/categoria/datosCategoriaIngreso/");
         Gson gson = new Gson();
 
-        TypeToken<List<Catalogo>> token = new TypeToken<List<Catalogo>>() {
+        TypeToken<List<Categoria>> token = new TypeToken<List<Categoria>>() {
         };
 
-        List<Catalogo> listaCatalogo = gson.fromJson(respuesta, token.getType());
+        List<Categoria> listaCategoria = gson.fromJson(respuesta, token.getType());
 
-        comboBoxList = FXCollections.observableArrayList(listaCatalogo);
+        comboBoxList = FXCollections.observableArrayList(listaCategoria);
         System.out.print(comboBoxList);
         return comboBoxList;
     }
