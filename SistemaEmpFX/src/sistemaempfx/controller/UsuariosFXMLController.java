@@ -71,6 +71,13 @@ public class UsuariosFXMLController implements Initializable {
 
     @FXML
     private void buscarUsuario(ActionEvent event) {
+        if(this.txt_usuario.getText().isEmpty()){
+        Alert alertI = new Alert(Alert.AlertType.WARNING);
+        alertI.setTitle("Advertencia");
+        alertI.setHeaderText(null);
+        alertI.setContentText("Ingrese una busqueda...");
+        alertI.showAndWait();
+        }else{
         String buscar = this.txt_usuario.getText();
         tb_Usuarios.getItems().clear();
         List<Usuario> listaUsuario = null;
@@ -97,6 +104,7 @@ public class UsuariosFXMLController implements Initializable {
         listaUsuario.forEach(e -> {
             tb_Usuarios.getItems().add(e);
         });
+        }
     }
 
     @FXML

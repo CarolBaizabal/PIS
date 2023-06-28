@@ -3,6 +3,8 @@ package sistemaempfx.controller;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -125,9 +127,9 @@ public class AgregarPrendaFXMLController implements Initializable {
                 params.put("kilataje", Float.parseFloat(txt_kilataje.getText()));
                 params.put("prestamo", Float.parseFloat(txt_prestamo.getText()) * Integer.parseInt(txt_numPiezas.getText()));
                 params.put("precioComercializacion", Float.parseFloat(txt_prestamo.getText()) + (Float.parseFloat(txt_prestamo.getText()) * 0.20f));
-                /*params.put("precioVenta", Integer.parseInt(txt_precioVenta.getText()));
-                params.put("fechaComercializacion", txt_fechaComercializacion.getValue().toString());
-                params.put("fechaVenta", txt_fechaVenta.getValue().toString());*/
+                params.put("precioVenta", Float.parseFloat(txt_prestamo.getText()) + (Float.parseFloat(txt_prestamo.getText()) * 0.20f));
+
+                /*params.put("fechaVenta", txt_fechaVenta.getValue().toString());*/
                 params.put("descripcion", txt_descripcion.getText());
                 params.put("idEmp", this.empeño.getIdEmp());
                 params.put("usuario", this.usuario.getNombre());
@@ -217,6 +219,15 @@ public class AgregarPrendaFXMLController implements Initializable {
     
     @FXML
     private void limpiar(ActionEvent event) {
+        txt_nombre.setText("");
+        txt_numPiezas.setText("");
+        txt_serie.setText("");
+        txt_modelo.setText("");
+        txt_prestamo.setText("");
+        txt_descripcion.setText("");
+        txt_metal.setText("");
+        txt_peso.setText("");
+        txt_kilataje.setText("");
     }
     
 }

@@ -7,8 +7,11 @@ package sistemaempfx.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -19,16 +22,21 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import org.json.JSONException;
+import org.json.JSONObject;
 import sistemaempfx.api.Requests;
 import sistemaempfx.model.pojos.Empe;
 import sistemaempfx.model.pojos.Usuario;
+import sistemaempfx.utils.Window;
 
 /**
  * FXML Controller class
@@ -108,11 +116,18 @@ public class EmpFXMLController implements Initializable {
 
     @FXML
     private void cancelar(ActionEvent event) {
-        
+        Window.close(event);
     }
 
     @FXML
     private void buscar(ActionEvent event) {
+        if(this.txt_usuario.getText().isEmpty()){
+        Alert alertI = new Alert(Alert.AlertType.WARNING);
+        alertI.setTitle("Advertencia");
+        alertI.setHeaderText(null);
+        alertI.setContentText("Ingrese una busqueda...");
+        alertI.showAndWait();
+        }else{
         int buscar = Integer.parseInt(txt_usuario.getText());
         tb_emp.getItems().clear();
         List<Empe> listaEmpe = null;
@@ -144,6 +159,7 @@ public class EmpFXMLController implements Initializable {
         listaEmpe.forEach(e -> {
             tb_emp.getItems().add(e);
         });
+        }
     }
 
     @FXML
@@ -184,6 +200,13 @@ public class EmpFXMLController implements Initializable {
             });
     }
     
+    private void clickTableEmp (MouseEvent event) {
+        String respuesta = "";
+        if (tb_emp.getSelectionModel().getSelectedItem() != null) {
+            emp = tb_emp.getSelectionModel().getSelectedItem();
+        }
+    }
+    
     @FXML
     private void crear(ActionEvent event) {
         try {
@@ -219,6 +242,80 @@ public class EmpFXMLController implements Initializable {
 
     @FXML
     private void finiquitar(ActionEvent event) {
+         this.emp = tb_emp.getSelectionModel().getSelectedItem();
+        if (this.emp != null) {
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Validación");
+            alert.setHeaderText(null);
+            alert.setContentText("¿Desea  finiquitar el contrato?...");
+
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+
+                    try {
+
+                        String estado = this.emp.getEstatus();
+
+                        if ("Refrendado".equals(estado)||"Vigente".equals(estado)||"Espera".equals(estado)) {
+                            HashMap<String, Object> params = new LinkedHashMap<>();
+                            params.put("idEmp", this.emp.getIdEmp());
+                            params.put("idContrato", this.emp.getIdContrato());
+                            params.put("usuario", this.usuario.getNombre());
+                            params.put("interes", this.emp.getInteres());
+                            params.put("importeAlmacenaje", this.emp.getAlmacenaje());
+                            params.put("subtotal", this.emp.getInteres() * this.emp.getAlmacenaje());
+                            params.put("iva", 0.16f*(this.emp.getInteres() * this.emp.getAlmacenaje()));
+                            params.put("total", (this.emp.getInteres() * this.emp.getAlmacenaje()) * .016f + (this.emp.getInteres() * this.emp.getAlmacenaje()));
+
+                            String respuesta = Requests.put("/emp/finiquitar/" + emp.getIdEmp(), params);
+
+                            JSONObject dataJson = new JSONObject(respuesta);
+
+                            if ((Boolean) dataJson.get("errorRespuesta") == false) {
+
+                                Alert alertC = new Alert(Alert.AlertType.INFORMATION);
+                                alertC.setTitle("Informativo");
+                                alertC.setHeaderText(null);
+                                alertC.setContentText(dataJson.getString("mensaje"));
+                                alertC.showAndWait();
+                                this.emp = null;
+                                this.cargarTabla();
+
+                            } else {
+                                Alert alertN = new Alert(Alert.AlertType.INFORMATION);
+                                alertN.setTitle("Informativo");
+                                alertN.setHeaderText(null);
+                                alertN.setContentText(dataJson.getString("mensaje"));
+                                alertN.showAndWait();
+                                this.emp = null;
+                                this.cargarTabla();
+                            }
+                        } else {
+                            Alert alertInactivo = new Alert(Alert.AlertType.INFORMATION);
+                            alertInactivo.setTitle("Informativo");
+                            alertInactivo.setHeaderText(null);
+                            alertInactivo.setContentText("Se finiquitó el contrato...");
+                            alertInactivo.showAndWait();
+                            this.emp = null;
+                            this.cargarTabla();
+                        }
+                    } catch (JSONException ex) {
+                        Logger.getLogger(UsuariosFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                if (response == ButtonType.CANCEL) {
+                    this.emp  = null;
+                    this.cargarTabla();
+                }
+            });
+        } else {
+            Alert alertI = new Alert(Alert.AlertType.WARNING);
+            alertI.setTitle("Advertencia");
+            alertI.setHeaderText(null);
+            alertI.setContentText("Seleccione un empeño...");
+            alertI.showAndWait();
+        }
     }
 
     @FXML

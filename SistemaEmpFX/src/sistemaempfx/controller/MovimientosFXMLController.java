@@ -187,6 +187,13 @@ public class MovimientosFXMLController implements Initializable {
 
     @FXML
     private void buscarIngreso(ActionEvent event) {
+        if(this.txt_usuario.getText().isEmpty()){
+        Alert alertI = new Alert(Alert.AlertType.WARNING);
+        alertI.setTitle("Advertencia");
+        alertI.setHeaderText(null);
+        alertI.setContentText("Ingrese una busqueda...");
+        alertI.showAndWait();
+        }else{
         String buscar = this.txt_usuario.getText();
         tb_Ingreso.getItems().clear();
         List<Ingreso> listaIngreso = null;
@@ -212,6 +219,7 @@ public class MovimientosFXMLController implements Initializable {
         listaIngreso.forEach(e -> {
             tb_Ingreso.getItems().add(e);
         });
+        }
     }
 
 
@@ -316,6 +324,13 @@ public class MovimientosFXMLController implements Initializable {
 
     @FXML
     private void buscarEgreso(ActionEvent event) {
+        if(this.txt_usuario.getText().isEmpty()){
+        Alert alertI = new Alert(Alert.AlertType.WARNING);
+        alertI.setTitle("Advertencia");
+        alertI.setHeaderText(null);
+        alertI.setContentText("Ingrese una busqueda...");
+        alertI.showAndWait();
+        }else{
         String buscar = this.txt_usuario1.getText();
         tb_egreso.getItems().clear();
         List<Egreso> listaEgreso = null;
@@ -341,6 +356,7 @@ public class MovimientosFXMLController implements Initializable {
         listaEgreso.forEach(e -> {
             tb_egreso.getItems().add(e);
         });
+        }
     }
 
     @FXML

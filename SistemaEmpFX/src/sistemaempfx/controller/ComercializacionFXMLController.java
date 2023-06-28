@@ -22,43 +22,17 @@ public class ComercializacionFXMLController implements Initializable {
     @FXML
     private TextField txt_usuario;
     @FXML
-    private TableColumn<?, ?> tb_emp;
+    private TableColumn<?, ?> tc_fechaCreacion;
     @FXML
-    private TableColumn<?, ?> tb_catalogo;
+    private TableColumn<?, ?> tc_usuario;
     @FXML
-    private TableColumn<?, ?> tb_categoria;
+    private TableColumn<?, ?> tb_fechaInicioBusqueda;
     @FXML
-    private TableColumn<?, ?> tb_piezas;
+    private TableColumn<?, ?> tc_observaciones;
     @FXML
-    private TableColumn<?, ?> tb_serie;
+    private TableColumn<?, ?> tc_metal;
     @FXML
-    private TableColumn<?, ?> tb_modelo;
-    @FXML
-    private TableColumn<?, ?> tb_descripcion;
-    @FXML
-    private TableColumn<?, ?> tb_metal;
-    @FXML
-    private TableColumn<?, ?> tb_peso;
-    @FXML
-    private TableColumn<?, ?> tb_kilataje;
-    @FXML
-    private TableColumn<?, ?> tb_prestamo;
-    @FXML
-    private TableColumn<?, ?> tb_comercializacion;
-    @FXML
-    private TableColumn<?, ?> tb_venta;
-    @FXML
-    private TableColumn<?, ?> tb_estatus;
-    @FXML
-    private TableColumn<?, ?> tb_claveC;
-    @FXML
-    private TableColumn<?, ?> fechaCreacion;
-    @FXML
-    private TableColumn<?, ?> tb_fechaC;
-    @FXML
-    private TableColumn<?, ?> tb_fechaVent;
-    @FXML
-    private TableColumn<?, ?> tb_usuario;
+    private TableColumn<?, ?> tc_detalleComercializacion;
 
     /**
      * Initializes the controller class.
@@ -73,11 +47,15 @@ public class ComercializacionFXMLController implements Initializable {
     }
 
     @FXML
-    private void Limpiar(ActionEvent event) {
+    private void limpiar(ActionEvent event) {
     }
 
     @FXML
-    private void editar(ActionEvent event) {
+    private void observaciones(ActionEvent event) {
+    }
+
+    @FXML
+    private void vender(ActionEvent event) {
     }
     
 }

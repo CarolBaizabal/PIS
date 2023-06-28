@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="VentasRemates">
+
+    <select id="getAllVentasRemates" resultType="modelo.pojos.VentasRemates" statementType="CALLABLE">
+        {CALL base.sp_getAllVentasRemates()}
+    </select>
+       
+    <select id="ventasRematesId" resultType="modelo.pojos.VentasRemates" statementType="CALLABLE">
+        {CALL base.sp_ventasRematesId(
+        #{usuario,jdbcType=VARCHAR,mode=IN})}
+    </select>
+    
+    <select id="getVentasRematesById" resultType="modelo.pojos.VentasRemates" statementType="CALLABLE">
+        {CALL base.sp_getVentasRematesById(
+        #{usuario,jdbcType=VARCHAR,mode=IN})}
+    </select>
+
+    <update id="eliminarVentasRemates" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_eliminarVentasRemates(
+        #{idventasRemates,jdbcType=INTEGER,mode=IN},
+        #{fechaCancelacion,jdbcType=VARCHAR,mode=IN},
+        #{usuarioCancelar,jdbcType=VARCHAR,mode=IN})}
+    </update>
+</mapper>

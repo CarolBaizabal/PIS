@@ -601,4 +601,32 @@ public class EmpWS {
         }
         return respuesta.build();
     }
+
+    @PUT
+    @Path("finiquitar/{idEmp}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response finiquitar(
+            @PathParam("idEmp") Integer idEmp) {
+
+        Response.ResponseBuilder respuesta = null;
+        SqlSession conn = MyBatisUtil.getSession();
+
+        try {
+            HashMap<String, Object> param = new HashMap<String, Object>();
+            param.put("idEmp", idEmp);
+
+            conn.update("Emp.finiquitar", param);
+            conn.commit();
+            respuesta = Response.ok(new Respuesta("Finiquitado correctamente..."));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respuesta = Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new Respuesta("No se pudo finiquitar"));
+        } finally {
+            conn.close();
+        }
+        return respuesta.build();
+    }
+    
 }

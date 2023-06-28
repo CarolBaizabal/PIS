@@ -323,6 +323,13 @@ public class CategoriasPrendasFXMLController implements Initializable {
 
     @FXML
     private void buscarCategoria(ActionEvent event) {
+        if(this.txt_usuario.getText().isEmpty()){
+        Alert alertI = new Alert(Alert.AlertType.WARNING);
+        alertI.setTitle("Advertencia");
+        alertI.setHeaderText(null);
+        alertI.setContentText("Ingrese una busqueda...");
+        alertI.showAndWait();
+        }else{
         String buscar = this.txt_usuario.getText();
         tb_categorias.getItems().clear();
         List<Categoria> listaCategoria = null;
@@ -344,6 +351,7 @@ public class CategoriasPrendasFXMLController implements Initializable {
         listaCategoria.forEach(e -> {
             tb_categorias.getItems().add(e);
         });
+        }
     }
     
     @FXML
@@ -445,6 +453,13 @@ public class CategoriasPrendasFXMLController implements Initializable {
 
     @FXML
     private void buscarCatalogo(ActionEvent event) {
+        if(this.txt_usuario.getText().isEmpty()){
+        Alert alertI = new Alert(Alert.AlertType.WARNING);
+        alertI.setTitle("Advertencia");
+        alertI.setHeaderText(null);
+        alertI.setContentText("Ingrese una busqueda...");
+        alertI.showAndWait();
+        }else{
         String buscar = this.txt_usuario1.getText();
         tb_catalogos.getItems().clear();
         List<Catalogo> listaCatalogo = null;
@@ -467,6 +482,7 @@ public class CategoriasPrendasFXMLController implements Initializable {
         listaCatalogo.forEach(e -> {
             tb_catalogos.getItems().add(e);
         });
+        }
     }    
 
     @FXML

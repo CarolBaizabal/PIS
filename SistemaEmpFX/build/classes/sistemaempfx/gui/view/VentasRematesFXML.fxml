@@ -16,34 +16,22 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="880.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistemaempfx.controller.VentasRematesFXMLController">
    <children>
-      <TableView layoutX="11.0" layoutY="134.0" prefHeight="452.0" prefWidth="858.0">
+      <TableView fx:id="tb_ventasRemates" layoutX="11.0" layoutY="134.0" prefHeight="452.0" prefWidth="858.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Subtotal" />
-          <TableColumn prefWidth="51.0" text="IVA" />
-            <TableColumn prefWidth="69.0" text="Total" />
-            <TableColumn prefWidth="81.0" text="Estatus" />
-            <TableColumn prefWidth="63.0" text="Cliente" />
-            <TableColumn prefWidth="71.0" text="Usuario" />
-            <TableColumn prefWidth="78.0" text="Fecha Venta" />
-            <TableColumn text="Total Prenda" />
-            <TableColumn prefWidth="107.0" text="Fecha Cancelación" />
-            <TableColumn prefWidth="98.0" text="Usuario Canceló" />
-            <TableColumn prefWidth="84.0" text="Tipo" />
+          <TableColumn fx:id="tc_Subtotal" prefWidth="75.0" text="Subtotal" />
+          <TableColumn fx:id="tc_iva" prefWidth="51.0" text="IVA" />
+            <TableColumn fx:id="tc_total" prefWidth="69.0" text="Total" />
+            <TableColumn fx:id="tc_estatus" prefWidth="81.0" text="Estatus" />
+            <TableColumn fx:id="tc_cliente" prefWidth="63.0" text="Cliente" />
+            <TableColumn fx:id="tc_usuario" prefWidth="71.0" text="Usuario" />
+            <TableColumn fx:id="tc_fechaVenta" prefWidth="78.0" text="Fecha Venta" />
+            <TableColumn fx:id="tc_totalPrenda" text="Total Prenda" />
+            <TableColumn fx:id="tc_fechaCancelacion" prefWidth="107.0" text="Fecha Cancelación" />
+            <TableColumn fx:id="tc_usuarioCancelo" prefWidth="98.0" text="Usuario Canceló" />
+            <TableColumn fx:id="tc_tipo" prefWidth="84.0" text="Tipo" />
         </columns>
       </TableView>
-      <Button layoutX="476.0" layoutY="94.0" mnemonicParsing="false" text="Vender">
-         <font>
-            <Font name="Berlin Sans FB" size="15.0" />
-         </font>
-         <graphic>
-            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/icons8-vender-48.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button layoutX="575.0" layoutY="94.0" mnemonicParsing="false" text="Cancelar">
+      <Button layoutX="575.0" layoutY="94.0" mnemonicParsing="false" onAction="#cancelar" text="Cancelar">
          <font>
             <Font name="Berlin Sans FB" size="15.0" />
          </font>
@@ -55,7 +43,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="206.0" layoutY="95.0" mnemonicParsing="false" text="Buscar">
+      <Button layoutX="206.0" layoutY="95.0" mnemonicParsing="false" onAction="#buscar" text="Buscar">
          <font>
             <Font name="Berlin Sans FB" size="15.0" />
          </font>
@@ -67,7 +55,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="304.0" layoutY="95.0" mnemonicParsing="false" text="Limpiar">
+      <Button layoutX="304.0" layoutY="95.0" mnemonicParsing="false" onAction="#limpiar" text="Limpiar">
          <font>
             <Font name="Berlin Sans FB" size="15.0" />
          </font>
@@ -79,7 +67,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="683.0" layoutY="94.0" mnemonicParsing="false" text="Venta">
+      <Button layoutX="683.0" layoutY="94.0" mnemonicParsing="false" onAction="#vender" text="Venta">
          <font>
             <Font name="Berlin Sans FB" size="15.0" />
          </font>
@@ -91,7 +79,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="775.0" layoutY="94.0" mnemonicParsing="false" text="Remate">
+      <Button layoutX="775.0" layoutY="94.0" mnemonicParsing="false" onAction="#remate" text="Remate">
          <font>
             <Font name="Berlin Sans FB" size="15.0" />
          </font>

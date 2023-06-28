@@ -2,6 +2,7 @@ package servicios;
 
 
 import com.google.gson.Gson;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
@@ -177,19 +178,20 @@ public class PrendaWS {
     @Produces(MediaType.APPLICATION_JSON)
     public Response registrarPrenda(
             @FormParam("nombre") String nombre,
+            @FormParam("idEmp") Integer idEmp,
             @FormParam("categoria") String categoria,
             @FormParam("numPiezas") Integer numPiezas,
             @FormParam("serie") String serie,
             @FormParam("modelo") String modelo,
             @FormParam("subcategoria") String subcategoria,
+            @FormParam("descripcion") String descripcion,
             @FormParam("metal") String metal,
             @FormParam("peso") Float peso,
             @FormParam("kilataje") Float kilataje,
             @FormParam("prestamo") Float prestamo,
             @FormParam("precioComercializacion") Float precioComercializacion,
+            @FormParam("precioVenta") Float precioVenta,
             @FormParam("estatus") String estatus,
-            @FormParam("descripcion") String descripcion,
-            @FormParam("idEmp") Integer idEmp,
             @FormParam("usuario") String usuario
             
     ) {
@@ -199,22 +201,33 @@ public class PrendaWS {
         try {
             LocalDateTime now = LocalDateTime.now();
             String fechaCreacion = now.toString();
+            
+           //Toma la fecha actual
+           LocalDate fechaComercializacion = LocalDate.now();
+           //Calculamos la fecha a 15 dias
+           fechaComercializacion = fechaComercializacion.plusDays(33);
+           String fechaC = fechaComercializacion.toString();
+           
+           
             HashMap<String, Object> param = new HashMap<String, Object>();
             param.put("nombre", nombre);
+            param.put("idEmp", idEmp);
             param.put("categoria", categoria);
             param.put("numPiezas", numPiezas);
             param.put("serie", serie);
             param.put("modelo", modelo);
             param.put("subcategoria", subcategoria);
+            param.put("descripcion", descripcion);
             param.put("metal", metal);
             param.put("peso", peso);
             param.put("kilataje", kilataje);
             param.put("prestamo", prestamo);
             param.put("precioComercializacion", precioComercializacion);
+            param.put("precioVenta", precioVenta);
             param.put("estatus", estatus);
-            param.put("descripcion", descripcion);
             param.put("fechaCreacion", fechaCreacion);
-            param.put("idEmp", idEmp);
+            param.put("fechaComercializacion", fechaC);
+            
             param.put("usuario", usuario);
 
             conn.insert("Prenda.registrarPrenda", param);

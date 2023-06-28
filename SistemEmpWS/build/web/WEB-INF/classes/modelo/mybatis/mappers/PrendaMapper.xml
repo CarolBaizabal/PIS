@@ -43,19 +43,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert  id="registrarPrenda" parameterType="modelo.pojos.Prenda" statementType="CALLABLE">
         {CALL base.sp_registrarPrenda(
         #{nombre,jdbcType=VARCHAR,mode=IN},
+        #{idEmp,jdbcType=INTEGER,mode=IN},
         #{categoria,jdbcType=VARCHAR,mode=IN},
         #{numPiezas,jdbcType=INTEGER,mode=IN},
         #{serie,jdbcType=VARCHAR,mode=IN},
         #{modelo,jdbcType=VARCHAR,mode=IN},
         #{subcategoria,jdbcType=VARCHAR,mode=IN},
+        #{descripcion,jdbcType=VARCHAR,mode=IN},
         #{metal,jdbcType=VARCHAR,mode=IN},
         #{peso,jdbcType=FLOAT,mode=IN},
         #{kilataje,jdbcType=FLOAT,mode=IN},
         #{prestamo,jdbcType=FLOAT,mode=IN},
         #{precioComercializacion,jdbcType=FLOAT,mode=IN},
-        #{descripcion,jdbcType=VARCHAR,mode=IN},
+        #{precioVenta,jdbcType=FLOAT,mode=IN},
         #{fechaCreacion,jdbcType=VARCHAR,mode=IN},
-        #{idEmp,jdbcType=INTEGER,mode=IN},
+        #{fechaComercializacion,jdbcType=VARCHAR,mode=IN},
         #{usuario,jdbcType=VARCHAR,mode=IN})}
     </insert>
 </mapper>

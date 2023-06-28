@@ -196,6 +196,13 @@ public class ClientesFXMLController implements Initializable {
 
     @FXML
     private void buscar(ActionEvent event) {
+        if(this.txt_usuario.getText().isEmpty()){
+        Alert alertI = new Alert(Alert.AlertType.WARNING);
+        alertI.setTitle("Advertencia");
+        alertI.setHeaderText(null);
+        alertI.setContentText("Ingrese una busqueda...");
+        alertI.showAndWait();
+        }else{
         String buscar = this.txt_usuario.getText();
         tb_Cliente.getItems().clear();
         List<Cliente> listaCliente = null;
@@ -234,6 +241,7 @@ public class ClientesFXMLController implements Initializable {
         listaCliente.forEach(e -> {
             tb_Cliente.getItems().add(e);
         });
+        }
     }
 
     @FXML

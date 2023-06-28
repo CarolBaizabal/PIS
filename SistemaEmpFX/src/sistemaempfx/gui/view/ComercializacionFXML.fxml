@@ -18,15 +18,15 @@
    <children>
       <TableView layoutX="14.0" layoutY="134.0" prefHeight="453.0" prefWidth="851.0">
         <columns>
-          <TableColumn minWidth="140.0" prefWidth="75.0" text="Fecha Creación" />
-          <TableColumn minWidth="140.0" prefWidth="75.0" text="Usuario" />
-            <TableColumn minWidth="140.0" prefWidth="75.0" text="Fecha Inicio Busqueda" />
-            <TableColumn minWidth="140.0" prefWidth="75.0" text="Observaciones" />
-            <TableColumn minWidth="88.0" prefWidth="98.0" text="Metal" />
-            <TableColumn minWidth="140.0" prefWidth="192.0" text="idDetalle Comercialización" />
+          <TableColumn fx:id="tc_fechaCreacion" minWidth="140.0" prefWidth="75.0" text="Fecha Creación" />
+          <TableColumn fx:id="tc_usuario" minWidth="140.0" prefWidth="75.0" text="Usuario" />
+            <TableColumn fx:id="tb_fechaInicioBusqueda" minWidth="140.0" prefWidth="75.0" text="Fecha Inicio Busqueda" />
+            <TableColumn fx:id="tc_observaciones" minWidth="140.0" prefWidth="75.0" text="Observaciones" />
+            <TableColumn fx:id="tc_metal" minWidth="88.0" prefWidth="98.0" text="Metal" />
+            <TableColumn fx:id="tc_detalleComercializacion" minWidth="140.0" prefWidth="192.0" text="Clave Detalle Comercialización" />
         </columns>
       </TableView>
-      <Button layoutX="211.0" layoutY="92.0" mnemonicParsing="false" text="Buscar">
+      <Button layoutX="211.0" layoutY="92.0" mnemonicParsing="false" onAction="#buscar" text="Buscar">
          <font>
             <Font name="Berlin Sans FB" size="15.0" />
          </font>
@@ -38,7 +38,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button layoutX="309.0" layoutY="92.0" mnemonicParsing="false" text="Limpiar">
+      <Button layoutX="309.0" layoutY="92.0" mnemonicParsing="false" onAction="#limpiar" text="Limpiar">
          <font>
             <Font name="Berlin Sans FB" size="15.0" />
          </font>
@@ -55,7 +55,7 @@
             <Font name="Berlin Sans FB" size="15.0" />
          </font>
       </TextField>
-      <Button layoutX="732.0" layoutY="92.0" mnemonicParsing="false" text="Observaciones">
+      <Button layoutX="732.0" layoutY="92.0" mnemonicParsing="false" onAction="#observaciones" text="Observaciones">
          <font>
             <Font name="Berlin Sans FB" size="15.0" />
          </font>
@@ -73,5 +73,17 @@
             <Font name="Berlin Sans FB" size="25.0" />
          </font>
       </Label>
+      <Button layoutX="632.0" layoutY="92.0" mnemonicParsing="false" onAction="#vender" text="Vender">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-vender-48.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </Pane>

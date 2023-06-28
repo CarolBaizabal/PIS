@@ -95,16 +95,21 @@ public class LoginFXMLController implements Initializable {
                         alert.showAndWait();
                     }
                 } catch (Exception ex) {
-                    ex.printStackTrace();
-                    this.lbl_mensaje.setText("Usuario no registrado");
-                    this.txt_usuario.setText("");
-                    this.txt_password.setText("");
+                    Alert alertI = new Alert(Alert.AlertType.WARNING);
+                    alertI.setTitle("Advertencia");
+                    alertI.setHeaderText(null);
+                    alertI.setContentText("El usuario no existe o confirme sus datos...");
+                    alertI.showAndWait();
                 }
             } else {
                 this.lbl_mensaje.setText("Error en la conexion");
             }
         } else {
-            this.lbl_mensaje.setText("Complete todos los datos...");
+            Alert alertI = new Alert(Alert.AlertType.WARNING);
+            alertI.setTitle("Advertencia");
+            alertI.setHeaderText(null);
+            alertI.setContentText("Complete los datos...");
+            alertI.showAndWait();
         }
     }
 
