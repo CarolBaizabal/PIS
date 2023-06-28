@@ -9,6 +9,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.awt.event.MouseEvent;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -38,6 +40,7 @@ import sistemaempfx.utils.Window;
  * @author Carol Celina Pacheco
  */
 public class VentasRematesFXMLController implements Initializable {
+
     @FXML
     private TextField txt_usuario;
     @FXML
@@ -64,21 +67,22 @@ public class VentasRematesFXMLController implements Initializable {
     private TableView<VentasRemates> tb_ventasRemates;
 
     Usuario usuario = null;
-    VentasRemates ventasRemates= null;
+    VentasRemates ventasRemates = null;
     @FXML
     private TableColumn<?, ?> tc_usuario;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         this.cargarTabla();
-    }    
+    }
 
     public void setData(Usuario usuario) {
         this.usuario = usuario;
     }
-    
+
     @FXML
     private void cancelar(ActionEvent event) {
         this.ventasRemates = tb_ventasRemates.getSelectionModel().getSelectedItem();
@@ -96,11 +100,11 @@ public class VentasRematesFXMLController implements Initializable {
 
                         String estado = this.ventasRemates.getEstatus();
 
-                        if ("Venta".equals(estado)||"Remate".equals(estado)) {
+                        if ("Venta".equals(estado) || "Remate".equals(estado)) {
                             HashMap<String, Object> params = new LinkedHashMap<>();
                             params.put("idventasRemates", this.ventasRemates.getIdVentasRemates());
                             params.put("usuarioCancelar", this.usuario.getNombre());
-                            
+
                             String respuesta = Requests.delete("/ventasremates/eliminarVentasRemates/" + ventasRemates.getIdVentasRemates(), params);
 
                             JSONObject dataJson = new JSONObject(respuesta);
@@ -138,7 +142,7 @@ public class VentasRematesFXMLController implements Initializable {
                     }
                 }
                 if (response == ButtonType.CANCEL) {
-                    this.ventasRemates= null;
+                    this.ventasRemates = null;
                     this.cargarTabla();
                 }
             });
@@ -153,14 +157,43 @@ public class VentasRematesFXMLController implements Initializable {
 
     @FXML
     private void buscar(ActionEvent event) {
-        if(this.txt_usuario.getText().isEmpty()){
-        Alert alertI = new Alert(Alert.AlertType.WARNING);
-        alertI.setTitle("Advertencia");
-        alertI.setHeaderText(null);
-        alertI.setContentText("Ingrese una busqueda...");
-        alertI.showAndWait();
-        }else{
-        
+        if (this.txt_usuario.getText().isEmpty()) {
+            Alert alertI = new Alert(Alert.AlertType.WARNING);
+            alertI.setTitle("Advertencia");
+            alertI.setHeaderText(null);
+            alertI.setContentText("Ingrese una busqueda...");
+            alertI.showAndWait();
+        } else {
+            String buscar = this.txt_usuario.getText();
+            tb_ventasRemates.getItems().clear();
+            List<VentasRemates> listaVentasRemates = null;
+
+            // Actual
+            String respuesta = "";
+
+            respuesta = Requests.get("/ventasremates/buscarVentasRematesPorFecha/" + buscar);
+            Gson gson = new Gson();
+
+            TypeToken<List<VentasRemates>> token = new TypeToken<List<VentasRemates>>() {
+            };
+            listaVentasRemates = gson.fromJson(respuesta, token.getType());
+            
+            
+            tc_Subtotal.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
+            tc_iva.setCellValueFactory(new PropertyValueFactory<>("iva"));
+            tc_total.setCellValueFactory(new PropertyValueFactory<>("total"));
+            tc_estatus.setCellValueFactory(new PropertyValueFactory<>("estatus"));
+            tc_cliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
+            tc_usuario.setCellValueFactory(new PropertyValueFactory<>("usuario"));
+            tc_fechaVenta.setCellValueFactory(new PropertyValueFactory<>("fechaVenta"));
+            tc_totalPrenda.setCellValueFactory(new PropertyValueFactory<>("totalPrendas"));
+            tc_fechaCancelacion.setCellValueFactory(new PropertyValueFactory<>("fechaCancelacion"));
+            tc_usuarioCancelo.setCellValueFactory(new PropertyValueFactory<>("usuarioCancelar"));
+            tc_tipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
+
+            listaVentasRemates.forEach(e -> {
+                tb_ventasRemates.getItems().add(e);
+            });
         }
     }
 
@@ -170,7 +203,7 @@ public class VentasRematesFXMLController implements Initializable {
         this.cargarTabla();
     }
 
-    public void cargarTabla(){
+    public void cargarTabla() {
         String respuesta = "";
         tb_ventasRemates.getItems().clear();
 
@@ -181,6 +214,7 @@ public class VentasRematesFXMLController implements Initializable {
         };
         List<VentasRemates> listaVentasRemates = gson.fromJson(respuesta, token.getType());
 
+    
         tc_Subtotal.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
         tc_iva.setCellValueFactory(new PropertyValueFactory<>("iva"));
         tc_total.setCellValueFactory(new PropertyValueFactory<>("total"));
@@ -204,7 +238,7 @@ public class VentasRematesFXMLController implements Initializable {
             ventasRemates = tb_ventasRemates.getSelectionModel().getSelectedItem();
         }
     }
-    
+
     @FXML
     private void vender(ActionEvent event) {
     }
@@ -213,5 +247,4 @@ public class VentasRematesFXMLController implements Initializable {
     private void remate(ActionEvent event) {
     }
 
-    
 }

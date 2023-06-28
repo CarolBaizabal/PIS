@@ -15,7 +15,7 @@ import java.util.Date;
     private String estatus;
     private String cliente;
     private String usuario;
-    private String fechaVenta;
+    public String fechaVenta;
     private Integer totalPrendas;
     private String fechaCancelacion;
     private String usuarioCancelar;

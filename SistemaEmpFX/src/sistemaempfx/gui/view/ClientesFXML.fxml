@@ -52,7 +52,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <TextField fx:id="txt_usuario" layoutX="27.0" layoutY="98.0" promptText="Nombre o CURP" style="-fx-background-color: transparent; -fx-border-color: #FA5858; -fx-border-width: 0px 0px 2px 0px;">
+      <TextField fx:id="txt_usuario" layoutX="27.0" layoutY="98.0" promptText="Nombre" style="-fx-background-color: transparent; -fx-border-color: #FA5858; -fx-border-width: 0px 0px 2px 0px;">
          <font>
             <Font name="Berlin Sans FB" size="15.0" />
          </font>

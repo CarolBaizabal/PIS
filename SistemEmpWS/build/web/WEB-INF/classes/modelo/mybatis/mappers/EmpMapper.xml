@@ -25,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="buscarEmpPorNombre" resultType="modelo.pojos.Empe" statementType="CALLABLE">
         {CALL base.sp_buscarEmpPorNombre(
-        #{idEmp,jdbcType=VARCHAR,mode=IN})}
+        #{idContrato,jdbcType=VARCHAR,mode=IN})}
     </select>
     
     <insert id="registrarEmp" parameterType="modelo.pojos.Empe" statementType="CALLABLE">

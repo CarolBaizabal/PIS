@@ -25,4 +25,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{fechaCancelacion,jdbcType=VARCHAR,mode=IN},
         #{usuarioCancelar,jdbcType=VARCHAR,mode=IN})}
     </update>
+    
+    <select id="buscarVentasRematesPorFecha" resultType="modelo.pojos.Cliente" statementType="CALLABLE">
+        {CALL base.sp_buscarVentasRematesPorFecha(
+        #{fechaVenta,jdbcType=VARCHAR,mode=IN})}
+    </select>
+    
 </mapper>

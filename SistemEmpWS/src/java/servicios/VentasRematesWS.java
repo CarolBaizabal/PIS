@@ -22,6 +22,7 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import modelo.mybatis.MyBatisUtil;
 import modelo.pojos.Catalogo;
+import modelo.pojos.Cliente;
 import modelo.pojos.Egreso;
 import modelo.pojos.Respuesta;
 import modelo.pojos.VentasRemates;
@@ -142,6 +143,26 @@ public class VentasRematesWS {
             respuesta = Response
                     .status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity(new Respuesta("No se pudo eliminar la prenda"));
+        } finally {
+            conn.close();
+        }
+        return respuesta.build();
+    }
+    
+    @GET
+    @Path("buscarVentasRematesPorFecha/{nombre}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response buscarVentasRematesPorFecha(@PathParam("fechaVenta") String fechaVenta) {
+        Response.ResponseBuilder respuesta = null;
+        SqlSession conn = MyBatisUtil.getSession();
+        try {
+            List<VentasRemates> list = conn.selectList("VentasRemates.buscarVentasRematesPorFecha", fechaVenta);
+            respuesta = Response.ok(parser.toJson(list));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respuesta = Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new Respuesta("Error al consultar."));
         } finally {
             conn.close();
         }
