@@ -24,7 +24,9 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import modelo.mybatis.MyBatisUtil;
+import modelo.pojos.Catalogo;
 import modelo.pojos.Categoria;
+import modelo.pojos.Egreso;
 import modelo.pojos.Empe;
 import modelo.pojos.Prenda;
 import modelo.pojos.Respuesta;
@@ -365,4 +367,142 @@ public class EmpWS {
         }
         return respuesta.build();
     }
+    
+    //Emp
+     @GET
+    @Path("getAllEmp")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllEmp() {
+        SqlSession conn = MyBatisUtil.getSession();
+        Response.ResponseBuilder respuesta = null;
+
+        try {
+            List<Catalogo> list = conn.selectList("Emp.getAllEmp");
+            respuesta = Response.ok(parser.toJson(list));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respuesta = Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new Respuesta("Error al consultar empeño."));
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return respuesta.build();
+    }
+
+    @GET
+    @Path("getEmpById/{idContrato}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getEmpById(@PathParam("idContrato") String idContrato) {
+        SqlSession conn = MyBatisUtil.getSession();
+        Response.ResponseBuilder respuesta = null;
+
+        try {
+            Egreso egreso = conn.selectOne("Emp.getEmpById", idContrato);
+            respuesta = Response.ok(parser.toJson(egreso));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respuesta = Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new Respuesta("Error al consultar emepeño."));
+        } finally {
+            conn.close();
+        }
+        return respuesta.build();
+    }
+
+    @POST
+    @Path("empId")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response empById(@FormParam("idContrato") String idContrato) {
+        Response.ResponseBuilder respuesta = null;
+        SqlSession conn = MyBatisUtil.getSession();
+        long num = 0;
+        try {
+
+            HashMap<String, Object> param = new HashMap<String, Object>();
+            param.put("idContrato", idContrato);
+
+            Egreso result = conn.selectOne("Emp.getEmpById", param);
+            conn.commit();
+
+            respuesta = Response.ok(new Respuesta(result != null ? "1" : "0"));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respuesta = Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new Respuesta("Error al consultar."));
+        } finally {
+            conn.close();
+        }
+        return respuesta.build();
+    }
+    
+    @GET
+    @Path("buscarEmp/{idContrato}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response buscarEmpByNombre(@PathParam("idContrato") String idContrato) {
+        Response.ResponseBuilder respuesta = null;
+        SqlSession conn = MyBatisUtil.getSession();
+        try {
+            List<Empe> list = conn.selectList("Emp.buscarEmpPorNombre", idContrato);
+            respuesta = Response.ok(parser.toJson(list));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respuesta = Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new Respuesta("Error al consultar."));
+        } finally {
+            conn.close();
+        }
+        return respuesta.build();
+    }
+    
+    @PUT
+        @Path("actualizarDatos/{idCliente}")
+        @Produces(MediaType.APPLICATION_JSON)
+        public Response actualizarDatos(
+                @PathParam("idCliente") Integer idCliente,
+                @FormParam("observaciones") String observaciones,
+                @FormParam("usuario") String usuario,
+                @FormParam("idContrato") Integer idContrato,
+                @FormParam("interes") Float interes,
+                @FormParam("almacenaje") Float almacenaje,
+                @FormParam("periodos") Integer periodos,
+                @FormParam("diasPeriodos") Integer diasPeriodos,
+                @FormParam("iva") Float iva,
+                @FormParam("tasaComercializacion") Float tasaComercializacion) {
+
+            Response.ResponseBuilder respuesta = null;
+            SqlSession conn = MyBatisUtil.getSession();
+
+            try {
+                HashMap<String, Object> param = new HashMap<>();
+                param.put("idCliente", idCliente);
+                param.put("observaciones", observaciones);
+                param.put("usuario", usuario);
+                param.put("idContrato", idContrato);
+                param.put("interes", interes);
+                param.put("almacenaje", almacenaje);
+                param.put("periodos", periodos);
+                param.put("diasPeriodos", diasPeriodos);
+                param.put("iva", iva);
+                param.put("tasaComercializacion", tasaComercializacion);
+
+                conn.update("Cliente.actualizarDatos", param);
+                conn.commit();
+                respuesta = Response.ok(new Respuesta("Datos actualizados correctamente."));
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                respuesta = Response
+                        .status(Response.Status.INTERNAL_SERVER_ERROR)
+                        .entity(new Respuesta("No se pudieron actualizar los datos."));
+            } finally {
+                conn.close();
+            }
+            return respuesta.build();
+        }
+
 }

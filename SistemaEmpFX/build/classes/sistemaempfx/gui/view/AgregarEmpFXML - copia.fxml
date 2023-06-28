@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onDragDetected="#pnl_principal" prefHeight="474.0" prefWidth="708.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistemaempfx.controller.AgregarEmpFXMLController">
+   <children>
+      <Pane layoutX="-82.0" layoutY="16.0" prefHeight="38.0" prefWidth="936.0" style="-fx-background-color: #FFA53F; -fx-opacity: .3;" />
+      <Button layoutX="33.0" layoutY="427.0" mnemonicParsing="false" onAction="#agregar" text="Crear">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-agregar-a-favoritos-48.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="183.0" layoutY="427.0" mnemonicParsing="false" onAction="#abrirClientes" text="Buscar Cliente">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-buscar-48.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="495.0" layoutY="427.0" mnemonicParsing="false" onAction="#limpiar" text="Limpiar">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-limpiar-48.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label layoutX="28.0" layoutY="173.0" text="Cliente">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="26.0" layoutY="234.0" text="Observaciones">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="txtA_observacionE" layoutX="26.0" layoutY="259.0" prefHeight="149.0" prefWidth="145.0" />
+      <Button layoutX="330.0" layoutY="427.0" mnemonicParsing="false" onAction="#registrarPrendas" text="Registrar Prendas">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-big-puzzle-20.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="596.0" layoutY="427.0" mnemonicParsing="false" onAction="#cancelar" text="Cancelar">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-cancelar-48.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Separator layoutX="199.0" layoutY="14.0" orientation="VERTICAL" prefHeight="410.0" prefWidth="3.0" />
+      <Label layoutX="391.0" layoutY="25.0" text="DATOS DEL CONTRATO">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="31.0" layoutY="67.0" text="Clave de empeño">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="236.0" layoutY="82.0" text="CLAVE DE CONTRATO">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="lb_claveEmpeño" layoutX="29.0" layoutY="90.0" prefHeight="17.0" prefWidth="43.0">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="lb_claveContrato" layoutX="476.0" layoutY="82.0" prefHeight="17.0" prefWidth="155.0">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="236.0" layoutY="126.0" text="FECHA LIMITE DE 1e REFRENDO">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <DatePicker fx:id="dp_fechaLimite" disable="true" layoutX="469.0" layoutY="122.0" prefHeight="25.0" prefWidth="168.0" />
+      <Label layoutX="235.0" layoutY="219.0" text="PRENDAS A EMPEÑAR">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="txtA_prendas" editable="false" layoutX="450.0" layoutY="213.0" prefHeight="30.0" prefWidth="191.0" />
+      <Label layoutX="236.0" layoutY="270.0" prefHeight="17.0" prefWidth="229.0" text="PRESTAMO                                       $">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="lb_prestamo" layoutX="470.0" layoutY="271.0" prefHeight="17.0" prefWidth="155.0">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="28.0" layoutY="118.0" prefHeight="17.0" prefWidth="153.0" text="Usuario que le atiende">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="lb_usuarioAtiende" layoutX="28.0" layoutY="145.0" prefHeight="17.0" prefWidth="43.0">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="txtA_observaciones" layoutX="446.0" layoutY="316.0" prefHeight="90.0" prefWidth="216.0" />
+      <Label layoutX="238.0" layoutY="316.0" prefHeight="17.0" prefWidth="132.0" text="OBSERVACIONES">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="26.0" layoutY="26.0" text="DATOS DEL EMPEÑO">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="txtA_cliente" editable="false" layoutX="26.0" layoutY="197.0" prefHeight="25.0" prefWidth="145.0" />
+      <Button layoutX="652.0" layoutY="212.0" mnemonicParsing="false" onAction="#visualizarPrenda" prefHeight="27.0" prefWidth="43.0">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-ojo-48.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <DatePicker fx:id="dp_fechaLimite1" disable="true" layoutX="468.0" layoutY="170.0" prefHeight="25.0" prefWidth="168.0" />
+      <Label layoutX="235.0" layoutY="173.0" text="FECHA LIMITE DEL 2do REFRENDO">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

@@ -273,4 +273,26 @@ public class CategoriaPrendaWS {
         return respuesta.build();
     }
 
+    @GET
+    @Path("datosCategoriaMetal")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response datosCategoriaIngreso() {
+        SqlSession conn = MyBatisUtil.getSession();
+        Response.ResponseBuilder respuesta = null;
+
+        try {
+            List<Categoria> list = conn.selectList("Categoria.datosCategoriaIngreso");
+            respuesta = Response.ok(parser.toJson(list));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respuesta = Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new Respuesta("Error al consultar Categoria."));
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return respuesta.build();
+    }
 }

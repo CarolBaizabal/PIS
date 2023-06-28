@@ -138,11 +138,6 @@ public class PrendaWS {
             @FormParam("peso") Double peso,
             @FormParam("kilataje") Double kilataje,
             @FormParam("prestamo") Double prestamo,
-            @FormParam("precioComercializacion") Double precioComercializacion,
-            @FormParam("precioVenta") Double precioVenta,
-            @FormParam("estatus") String estatus,
-            @FormParam("fechaComercializacion") String fechaComercializacion,
-            @FormParam("fechaVenta") String fechaVenta,
             @FormParam("descripcion") String descripcion) {
 
         Response.ResponseBuilder respuesta = null;
@@ -161,11 +156,6 @@ public class PrendaWS {
             param.put("peso", peso);
             param.put("kilataje", kilataje);
             param.put("prestamo", prestamo);
-            param.put("precioComercializacion", precioComercializacion);
-            param.put("precioVenta", precioVenta);
-            param.put("estatus", estatus);
-            param.put("fechaComercializacion", fechaComercializacion);
-            param.put("fechaVenta", fechaVenta);
             param.put("descripcion", descripcion);
 
             conn.update("Prenda.actualizarPrenda", param);
@@ -196,10 +186,7 @@ public class PrendaWS {
             @FormParam("peso") Float peso,
             @FormParam("kilataje") Float kilataje,
             @FormParam("prestamo") Float prestamo,
-            @FormParam("precioComercializacion") Float precioComercializacion,
-            @FormParam("precioVenta") Float precioVenta,
-            @FormParam("fechaComercializacion") String fechaComercializacion,
-            @FormParam("fechaVenta") String fechaVenta,
+            @FormParam("estatus") String estatus,
             @FormParam("descripcion") String descripcion,
             @FormParam("idEmp") Integer idEmp,
             @FormParam("usuario") String usuario
@@ -222,10 +209,7 @@ public class PrendaWS {
             param.put("peso", peso);
             param.put("kilataje", kilataje);
             param.put("prestamo", prestamo);
-            param.put("precioComercializacion", precioComercializacion);
-            param.put("precioVenta", precioVenta);
-            param.put("fechaComercializacion", fechaComercializacion);
-            param.put("fechaVenta", fechaVenta);
+            param.put("estatus", estatus);
             param.put("descripcion", descripcion);
             param.put("fechaCreacion", fechaCreacion);
             param.put("idEmp", idEmp);

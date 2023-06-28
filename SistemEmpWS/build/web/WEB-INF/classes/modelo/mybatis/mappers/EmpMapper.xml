@@ -4,6 +4,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Emp">
+    <select id="getAllEmp" resultType="modelo.pojos.Empe" statementType="CALLABLE">
+        {CALL base.sp_getAllEmp()}
+    </select>
+       
+    <select id="empId" resultType="modelo.pojos.Empe" statementType="CALLABLE">
+        {CALL base.sp_empId(
+        #{idEmp,jdbcType=VARCHAR,mode=IN})}
+    </select>
+    
+    <select id="getEmpById" resultType="modelo.pojos.Empe" statementType="CALLABLE">
+        {CALL base.sp_getEmpById(
+        #{idEmp,jdbcType=VARCHAR,mode=IN})}
+    </select>
+    
+    <select id="buscarEmpPorNombre" resultType="modelo.pojos.Empe" statementType="CALLABLE">
+        {CALL base.sp_buscarEmpPorNombre(
+        #{idEmp,jdbcType=VARCHAR,mode=IN})}
+    </select>
     
     <insert id="registrarEmp" parameterType="modelo.pojos.Empe" statementType="CALLABLE">
         {CALL base.sp_registrarEmp(
@@ -29,6 +47,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         {CALL base.sp_getAllPrendaByEmp(
         #{idEmp,jdbcType=INTEGER,mode=IN})}
     </select>
+    
+    <update id="actualizarEmp" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_actualizarEmp(
+        #{idCliente, jdbcType=INTEGER, mode=IN},
+        #{fechaCreacion, jdbcType=TIMESTAMP, mode=IN},
+        #{observaciones, jdbcType=VARCHAR, mode=IN},
+        #{usuario, jdbcType=VARCHAR, mode=IN},
+        #{idContrato, jdbcType=INTEGER, mode=IN},
+        #{fechaActualizacion, jdbcType=TIMESTAMP, mode=IN},
+        #{interes, jdbcType=FLOAT, mode=IN},
+        #{almacenaje, jdbcType=FLOAT, mode=IN},
+        #{periodos, jdbcType=INTEGER, mode=IN},
+        #{diasPeriodos, jdbcType=INTEGER, mode=IN},
+        #{iva, jdbcType=FLOAT, mode=IN},
+        #{tasaComercializacion, jdbcType=FLOAT, mode=IN})}
+    </update>
+
 
 </mapper>
 

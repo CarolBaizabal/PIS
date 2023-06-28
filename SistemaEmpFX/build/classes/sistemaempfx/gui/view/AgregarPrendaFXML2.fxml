@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="526.0" prefWidth="468.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistemaempfx.controller.AgregarPrendaFXMLController">
+   <children>
+      <Label layoutX="29.0" layoutY="29.0" text="Nombre">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="31.0" layoutY="99.0" text="Categoría">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="30.0" layoutY="176.0" text="Número de Piezas">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="29.0" layoutY="318.0" text="Serie">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="29.0" layoutY="384.0" text="Modelo">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="260.0" layoutY="28.0" text="Subcategoría">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="260.0" layoutY="103.0" text="Descripción">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="259.0" layoutY="250.0" text="Metal">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="262.0" layoutY="389.0" text="Peso">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="259.0" layoutY="317.0" text="Kilataje">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="32.0" layoutY="249.0" text="Préstamo">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txt_nombre" layoutX="28.0" layoutY="55.0">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txt_numPiezas" layoutX="28.0" layoutY="202.0">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txt_serie" layoutX="27.0" layoutY="345.0">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txt_modelo" layoutX="27.0" layoutY="410.0">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txt_metal" layoutX="258.0" layoutY="278.0">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txt_peso" layoutX="258.0" layoutY="413.0">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txt_kilataje" layoutX="258.0" layoutY="344.0">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </TextField>
+      <TextField fx:id="txt_prestamo" layoutX="28.0" layoutY="275.0">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+      </TextField>
+      <Button layoutX="339.0" layoutY="463.0" mnemonicParsing="false" onAction="#cancelar" text="Cancelar">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-cancelar-48.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="235.0" layoutY="463.0" mnemonicParsing="false" onAction="#agregar" text="Limpiar">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" onDragDetected="#limpiar" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-limpiar-48.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <TextArea fx:id="txt_descripcion" layoutX="258.0" layoutY="131.0" prefHeight="103.0" prefWidth="179.0" />
+      <Button layoutX="127.0" layoutY="463.0" mnemonicParsing="false" onAction="#agregar" text="Agregar">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-agregar-a-favoritos-48.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <ComboBox fx:id="cb_categoria" layoutX="31.0" layoutY="131.0" prefHeight="25.0" prefWidth="179.0" />
+      <ComboBox fx:id="cb_subcategoria" layoutX="255.0" layoutY="56.0" prefHeight="25.0" prefWidth="179.0" />
+   </children>
+</Pane>

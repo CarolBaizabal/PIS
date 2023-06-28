@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import sistemaempfx.model.pojos.Empe;
 import sistemaempfx.model.pojos.Prenda;
 import sistemaempfx.model.pojos.Usuario;
 
@@ -31,6 +32,7 @@ public class PrincipalFXMLController implements Initializable {
     private Label lb_usuario;
     Usuario usuario = null;
     Prenda prenda =null;
+    Empe emp = null;
     @FXML
     private Label lb_rol;
 
@@ -57,7 +59,7 @@ public class PrincipalFXMLController implements Initializable {
             Parent principal = loader.load();
 
             EmpFXMLController controlador = loader.getController();
-            controlador.setUsuario(usuario);
+            controlador.setUsuario(this.usuario, this.emp);
 
             pnl_principal.setCenter(principal);
         } catch (IOException ex) {

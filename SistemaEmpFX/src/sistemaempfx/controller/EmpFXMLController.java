@@ -5,8 +5,11 @@
  */
 package sistemaempfx.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,9 +20,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import sistemaempfx.api.Requests;
+import sistemaempfx.model.pojos.Empe;
 import sistemaempfx.model.pojos.Usuario;
 
 /**
@@ -49,17 +57,48 @@ public class EmpFXMLController implements Initializable {
     @FXML
     private TextField txt_usuario;
     private Usuario usuario;
+    @FXML
+    private TableView<Empe> tb_emp;
+    @FXML
+    private TableColumn<Empe, Integer> tc_cliente;
+    @FXML
+    private TableColumn<Empe, String> tc_creacion;
+    @FXML
+    private TableColumn<Empe, String> tc_observaciones;
+    @FXML
+    private TableColumn<Empe, String> tc_usuario;
+    @FXML
+    private TableColumn<Empe, Integer> tc_contrato;
+    @FXML
+    private TableColumn<Empe, String> tc_fechaActualizacion;
+    @FXML
+    private TableColumn<Empe, Float> tc_interes;
+    @FXML
+    private TableColumn<Empe, Float> tc_almacenaje;
+    @FXML
+    private TableColumn<Empe, Float> tc_periodos;
+    @FXML
+    private TableColumn<Empe, Float> tc_diasPeriodo;
+    @FXML
+    private TableColumn<Empe, Float> tc_iva;
+    @FXML
+    private TableColumn<Empe, Float> tc_tasaComercializacion;
+    @FXML
+    private TableColumn<Empe, String> tc_estatus;
 
+    
+    Empe emp = null;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        this.cargarTabla();
     }
     
-    public void setUsuario(Usuario usuario){
+    public void setUsuario(Usuario usuario, Empe emp){
         this.usuario = usuario;
+        this.emp = emp;
     }
 
     @FXML
@@ -68,16 +107,80 @@ public class EmpFXMLController implements Initializable {
 
     @FXML
     private void cancelar(ActionEvent event) {
+        
     }
 
     @FXML
     private void buscar(ActionEvent event) {
+        int buscar = Integer.parseInt(txt_usuario.getText());
+        tb_emp.getItems().clear();
+        List<Empe> listaEmpe = null;
+
+        // Actual
+            String respuesta = "";
+
+             respuesta = Requests.get("/emp/buscarEmp/" + buscar);
+            Gson gson = new Gson();
+
+            TypeToken<List<Empe>> token = new TypeToken<List<Empe>>() {
+            };
+            listaEmpe = gson.fromJson(respuesta, token.getType());
+
+            tc_cliente.setCellValueFactory(new PropertyValueFactory<>("idCliente"));
+            tc_creacion.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));
+            tc_observaciones.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
+            tc_usuario.setCellValueFactory(new PropertyValueFactory<>("usuario"));
+            tc_contrato.setCellValueFactory(new PropertyValueFactory<>("idContrato"));
+            tc_fechaActualizacion.setCellValueFactory(new PropertyValueFactory<>("fechaActualizacion"));
+            tc_interes.setCellValueFactory(new PropertyValueFactory<>("interes"));
+            tc_almacenaje.setCellValueFactory(new PropertyValueFactory<>("almacenaje"));
+            tc_periodos.setCellValueFactory(new PropertyValueFactory<>("periodos"));
+            tc_diasPeriodo.setCellValueFactory(new PropertyValueFactory<>("diasPeriodos"));
+            tc_iva.setCellValueFactory(new PropertyValueFactory<>("iva"));
+            tc_tasaComercializacion.setCellValueFactory(new PropertyValueFactory<>("tasaComercializacion"));
+            tc_estatus.setCellValueFactory(new PropertyValueFactory<>("estatus"));
+
+        listaEmpe.forEach(e -> {
+            tb_emp.getItems().add(e);
+        });
     }
 
     @FXML
     private void limpiar(ActionEvent event) {
+        this.cargarTabla();
+        txt_usuario.setText("");
     }
 
+    public void cargarTabla(){
+         String respuesta = "";
+            tb_emp.getItems().clear();
+
+            respuesta = Requests.get("/emp/getAllEmp/");
+            Gson gson = new Gson();
+
+            TypeToken<List<Empe>> token = new TypeToken<List<Empe>>() {};
+
+            List<Empe> listaEmpe = gson.fromJson(respuesta, token.getType());
+
+            tc_cliente.setCellValueFactory(new PropertyValueFactory<>("idCliente"));
+            tc_creacion.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));
+            tc_observaciones.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
+            tc_usuario.setCellValueFactory(new PropertyValueFactory<>("usuario"));
+            tc_contrato.setCellValueFactory(new PropertyValueFactory<>("idContrato"));
+            tc_fechaActualizacion.setCellValueFactory(new PropertyValueFactory<>("fechaActualizacion"));
+            tc_interes.setCellValueFactory(new PropertyValueFactory<>("interes"));
+            tc_almacenaje.setCellValueFactory(new PropertyValueFactory<>("almacenaje"));
+            tc_periodos.setCellValueFactory(new PropertyValueFactory<>("periodos"));
+            tc_diasPeriodo.setCellValueFactory(new PropertyValueFactory<>("diasPeriodos"));
+            tc_iva.setCellValueFactory(new PropertyValueFactory<>("iva"));
+            tc_tasaComercializacion.setCellValueFactory(new PropertyValueFactory<>("tasaComercializacion"));
+            tc_estatus.setCellValueFactory(new PropertyValueFactory<>("estatus"));
+
+            listaEmpe.forEach(e -> {
+                tb_emp.getItems().add(e);
+            });
+    }
+    
     @FXML
     private void crear(ActionEvent event) {
         try {
@@ -88,7 +191,7 @@ public class EmpFXMLController implements Initializable {
             Parent usuarios = loader.load();
 
             AgregarEmpFXMLController ctrl = loader.getController();
-            ctrl.setData(usuario);
+            ctrl.setData(this.usuario);
 
             Scene scene = new Scene(usuarios);
             stage.setScene(scene);

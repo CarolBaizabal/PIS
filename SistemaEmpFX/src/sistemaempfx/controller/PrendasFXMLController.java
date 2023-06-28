@@ -27,6 +27,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import sistemaempfx.api.Requests;
+import sistemaempfx.model.pojos.CatalogoPrenda;
 import sistemaempfx.model.pojos.Prenda;
 import sistemaempfx.model.pojos.Usuario;
 
@@ -84,6 +85,7 @@ public class PrendasFXMLController implements Initializable {
 
     Prenda prenda = null;
     Usuario usuario = null;
+    CatalogoPrenda catalogo = null;
    
     /**
      * Initializes the controller class.
@@ -236,7 +238,7 @@ public class PrendasFXMLController implements Initializable {
             Parent usuarios = loader.load();
 
             AgregarPrendaFXMLController ctrl = loader.getController();
-            ctrl.setData(null);
+            ctrl.setData(this.usuario, this.catalogo);
 
             Scene scene = new Scene(usuarios);
             stage.setScene(scene);

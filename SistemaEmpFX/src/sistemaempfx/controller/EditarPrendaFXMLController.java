@@ -5,25 +5,32 @@
  */
 package sistemaempfx.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import org.json.JSONException;
 import org.json.JSONObject;
 import sistemaempfx.api.Requests;
+import sistemaempfx.model.pojos.Catalogo;
+import sistemaempfx.model.pojos.CatalogoPrenda;
+import sistemaempfx.model.pojos.Empe;
 import sistemaempfx.model.pojos.Prenda;
 import sistemaempfx.model.pojos.Usuario;
 import sistemaempfx.utils.VentanaAlert;
@@ -38,7 +45,6 @@ public class EditarPrendaFXMLController implements Initializable {
 
     @FXML
     private TextField txt_nombre;
-    @FXML
     private TextField txt_categoria;
     @FXML
     private TextField txt_numPiezas;
@@ -46,7 +52,6 @@ public class EditarPrendaFXMLController implements Initializable {
     private TextField txt_serie;
     @FXML
     private TextField txt_modelo;
-    @FXML
     private TextField txt_subcategoria;
     @FXML
     private TextField txt_metal;
@@ -56,26 +61,27 @@ public class EditarPrendaFXMLController implements Initializable {
     private TextField txt_kilataje;
     @FXML
     private TextField txt_prestamo;
-    @FXML
-    private TextField txt_precioComercializacion;
-    @FXML
-    private TextField txt_precioVenta;
-    @FXML
-    private TextField txt_estatus;
-    @FXML
-    private DatePicker txt_fechaComercializacion;
-    @FXML
-    private DatePicker txt_fechaVenta;
+
     @FXML
     private TextArea txt_descripcion;
+    private Empe empeño;
 
+    public String respuesta;
     Usuario usuario = null;
+    CatalogoPrenda catalogo = null;
+    @FXML
+    private ComboBox<Catalogo> cb_subcategoria;
+    private Integer[] arrayID;
+    private ObservableList<Catalogo> comboBoxList;
+
     Prenda prenda = null;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        comboBoxList = datosCategoria();
+        cb_subcategoria.setItems(comboBoxList);
     }    
     
     public void setData(Usuario usuario, Prenda prenda, Boolean isnew){ 
@@ -86,6 +92,7 @@ public class EditarPrendaFXMLController implements Initializable {
 
     @FXML
     private void cancelar(ActionEvent event) {
+        Window.close(event);
     }
 
     @FXML
@@ -94,41 +101,36 @@ public class EditarPrendaFXMLController implements Initializable {
         VentanaAlert alert = new VentanaAlert();
 
         if (this.prenda != null) {
+             int position = this.cb_subcategoria.getSelectionModel().getSelectedIndex();
             if (txt_nombre.getText().isEmpty()
-                || txt_categoria.getText().isEmpty()
-                || txt_numPiezas.getText().isEmpty()
-                || txt_serie.getText().isEmpty()
-                || txt_modelo.getText().isEmpty()
-                || txt_subcategoria.getText().isEmpty()
-                || txt_metal.getText().isEmpty()
-                || txt_peso.getText().isEmpty()
-                || txt_kilataje.getText().isEmpty()
-                || txt_prestamo.getText().isEmpty()
-                || txt_precioComercializacion.getText().isEmpty()
-                || txt_precioVenta.getText().isEmpty()
-                || txt_estatus.getText().isEmpty()
-                || txt_fechaComercializacion.getValue() == null
-                || txt_fechaVenta.getValue() == null
-                || txt_descripcion.getText().isEmpty()) {
-
+            || txt_numPiezas.getText().isEmpty()
+            || txt_serie.getText().isEmpty()
+            || txt_modelo.getText().isEmpty()
+            || txt_prestamo.getText().isEmpty()
+            || txt_descripcion.getText().isEmpty()
+            || position <= -1) {
+                
                 alert.warning("Faltan Datos", "Ingrese todos los datos");
             } else {
+                
+                this.txt_peso.setText(String.valueOf(0.0f));
+                this.txt_kilataje.setText(String.valueOf(0.0f));   
+                
                 HashMap<String, Object> params = new LinkedHashMap<>();
                 params.put("nombre", txt_nombre.getText());
-                params.put("categoria", txt_categoria.getText());
+                //params.put("categoria", this.catalogo.getCategoria()); PREGUNTAR
                 params.put("numPiezas", Integer.parseInt(txt_numPiezas.getText()));
                 params.put("serie", txt_serie.getText());
                 params.put("modelo", txt_modelo.getText());
-                params.put("subcategoria", txt_subcategoria.getText());
+                params.put("subcategoria", cb_subcategoria.getValue());
                 params.put("metal", txt_metal.getText());
-                params.put("peso", Integer.parseInt(txt_peso.getText()));
-                params.put("kilataje", Integer.parseInt(txt_kilataje.getText()));
-                params.put("prestamo", Integer.parseInt(txt_peso.getText()));
-                params.put("precioComercializacion", Integer.parseInt(txt_precioComercializacion.getText()));
+                params.put("peso", Float.parseFloat(txt_peso.getText()));
+                params.put("kilataje", Float.parseFloat(txt_kilataje.getText()));
+                params.put("prestamo", Float.parseFloat(txt_prestamo.getText()));
+                /*params.put("precioComercializacion", Integer.parseInt(txt_precioComercializacion.getText()));
                 params.put("precioVenta", Integer.parseInt(txt_precioVenta.getText()));
-                params.put("estatus", txt_estatus.getText());
                 params.put("fechaComercializacion", txt_fechaComercializacion.getValue().toString());
-                params.put("fechaVenta", txt_fechaVenta.getValue().toString());
+                params.put("fechaVenta", txt_fechaVenta.getValue().toString());*/
                 params.put("descripcion", txt_descripcion.getText());
 
                 Alert alertI = new Alert(Alert.AlertType.CONFIRMATION);
@@ -168,21 +170,51 @@ public class EditarPrendaFXMLController implements Initializable {
             //LocalDate date = LocalDate.parse(prenda.getFechaComercializacion(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             //LocalDate date1 = LocalDate.parse(prenda.getFechaVenta(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             this.txt_nombre.setText(prenda.getNombre());
-            this.txt_categoria.setText(prenda.getCategoria());
             this.txt_numPiezas.setText("" + prenda.getNumPiezas());
             this.txt_serie.setText(prenda.getSerie());
             this.txt_modelo.setText(prenda.getModelo());
-            this.txt_subcategoria.setText(prenda.getSubcategoria());
             this.txt_metal.setText(prenda.getMetal());
             this.txt_peso.setText(String.valueOf(prenda.getPeso()));
             this.txt_kilataje.setText(String.valueOf(prenda.getKilataje()));
             this.txt_prestamo.setText(String.valueOf(prenda.getPrestamo()));
-            this.txt_precioComercializacion.setText(String.valueOf(prenda.getPrecioComercializacion()));
-            this.txt_precioVenta.setText(String.valueOf(prenda.getPrecioVenta()));
-            this.txt_estatus.setText(prenda.getEstatus());
             //this.txt_fechaComercializacion.setValue(date);
             //this.txt_fechaVenta.setValue(date1);
             this.txt_descripcion.setText(prenda.getDescripcion());
         } 
+    }
+
+    private ObservableList datosCategoria() {
+
+        String respuesta = Requests.get("/catalogoprenda/getAllCatalogoPrendaActivo/");
+        Gson gson = new Gson();
+
+        TypeToken<List<Catalogo>> token = new TypeToken<List<Catalogo>>() {
+        };
+
+        List<Catalogo> listaCatalogo = gson.fromJson(respuesta, token.getType());
+
+        comboBoxList = FXCollections.observableArrayList(listaCatalogo);
+        System.out.print(comboBoxList);
+        return comboBoxList;
+    }
+    
+    @FXML
+    private void si(ActionEvent event) {
+        txt_kilataje.setDisable(false);
+        txt_peso.setDisable(false);
+        String respuesta = "Si";
+        txt_metal.setText(respuesta);
+        txt_peso.setText("");
+        txt_kilataje.setText("");
+    }
+
+    @FXML
+    private void no(ActionEvent event) {
+        txt_kilataje.setDisable(true);
+        txt_peso.setDisable(true);
+        this.txt_peso.setText(String.valueOf(0.0f));
+        this.txt_kilataje.setText(String.valueOf(0.0f));
+        String respuesta = "No";
+        txt_metal.setText(respuesta);
     }
 }

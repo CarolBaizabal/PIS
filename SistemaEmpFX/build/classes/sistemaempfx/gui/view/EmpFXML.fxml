@@ -19,21 +19,21 @@
    <bottom>
       <Pane prefHeight="509.0" prefWidth="880.0" BorderPane.alignment="CENTER">
          <children>
-            <TableView layoutX="10.0" layoutY="2.0" prefHeight="440.0" prefWidth="861.0">
+            <TableView fx:id="tb_emp" layoutX="10.0" layoutY="2.0" prefHeight="440.0" prefWidth="861.0">
                <columns>
-                  <TableColumn prefWidth="60.0" text="Cliente" />
-                  <TableColumn prefWidth="76.0" text="Creación" />
-                  <TableColumn prefWidth="95.0" text="Observaciones" />
-                  <TableColumn prefWidth="69.0" text="Usuario" />
-                  <TableColumn prefWidth="75.0" text="Contrato" />
-                  <TableColumn prefWidth="75.0" text="fecha Actualizacion" />
-                  <TableColumn prefWidth="75.0" text="Interes" />
-                  <TableColumn prefWidth="75.0" text="Almacenaje" />
-                  <TableColumn prefWidth="75.0" text="Periodos" />
-                  <TableColumn prefWidth="75.0" text="Días Periodos" />
-                  <TableColumn prefWidth="75.0" text="IVA" />
-                  <TableColumn prefWidth="75.0" text="Tasa Comercializacion" />
-                  <TableColumn prefWidth="75.0" text="Estatus" />
+                  <TableColumn fx:id="tc_cliente" prefWidth="60.0" text="Cliente" />
+                  <TableColumn fx:id="tc_creacion" prefWidth="76.0" text="Creación" />
+                  <TableColumn fx:id="tc_observaciones" prefWidth="95.0" text="Observaciones" />
+                  <TableColumn fx:id="tc_usuario" prefWidth="69.0" text="Usuario" />
+                  <TableColumn fx:id="tc_contrato" prefWidth="75.0" text="Contrato" />
+                  <TableColumn fx:id="tc_fechaActualizacion" prefWidth="75.0" text="fecha Actualizacion" />
+                  <TableColumn fx:id="tc_interes" prefWidth="75.0" text="Interes" />
+                  <TableColumn fx:id="tc_almacenaje" prefWidth="75.0" text="Almacenaje" />
+                  <TableColumn fx:id="tc_periodos" prefWidth="75.0" text="Periodos" />
+                  <TableColumn fx:id="tc_diasPeriodo" prefWidth="75.0" text="Días Periodos" />
+                  <TableColumn fx:id="tc_iva" prefWidth="75.0" text="IVA" />
+                  <TableColumn fx:id="tc_tasaComercializacion" prefWidth="75.0" text="Tasa Comercializacion" />
+                  <TableColumn fx:id="tc_estatus" prefWidth="75.0" text="Estatus" />
                </columns>
             </TableView>
          </children>
@@ -138,7 +138,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <TextField fx:id="txt_usuario" layoutX="16.0" layoutY="113.0" promptText="Cliente" style="-fx-background-color: transparent; -fx-border-color: #FA5858; -fx-border-width: 0px 0px 2px 0px;">
+            <TextField fx:id="txt_usuario" layoutX="16.0" layoutY="113.0" promptText="Contrato" style="-fx-background-color: transparent; -fx-border-color: #FA5858; -fx-border-width: 0px 0px 2px 0px;">
                <font>
                   <Font name="Berlin Sans FB" size="15.0" />
                </font>
