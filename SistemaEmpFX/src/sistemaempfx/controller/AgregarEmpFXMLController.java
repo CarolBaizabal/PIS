@@ -21,12 +21,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import org.json.JSONException;
+import org.json.JSONObject;
 import sistemaempfx.api.Requests;
 import sistemaempfx.model.pojos.CatalogoPrenda;
 import sistemaempfx.model.pojos.Cliente;
@@ -34,6 +35,7 @@ import sistemaempfx.model.pojos.Contrato;
 import sistemaempfx.model.pojos.Empe;
 import sistemaempfx.model.pojos.Prenda;
 import sistemaempfx.model.pojos.Usuario;
+import sistemaempfx.utils.VentanaAlert;
 import sistemaempfx.utils.Window;
 
 /**
@@ -112,45 +114,46 @@ public class AgregarEmpFXMLController implements Initializable {
         try {
             this.prendas = gson.fromJson(respuesta, token.getType());
             //Se calcula el total por el costo de cada prenda
-            Float total = 0.0f;
-            for (Prenda prenda : this.prendas) {
-                total += prenda.getPrestamo();
-            }
-            
+            Float total = this.calcularTotal();
+
             //CALCULO PRIMER PERIODO
             //Se calcula el interes por el total de la prenda
             Float intereses = total * 0.0032f * 15 * 1;
-            System.out.println("interes "+intereses);
-            lb_interes.setText(intereses+"");
-            
+            this.empeño.setInteres(intereses);
+            System.out.println("interes " + intereses);
+            lb_interes.setText(intereses + "");
+
             //Se calcula el almacenaje por el total de las prendas
             Float almacenaje = total * 0.0008f * 15 * 1;
-            System.out.println("almacenaje "+almacenaje);
-            lb_almacenaje.setText(almacenaje+"");
-             
+            this.empeño.setAlmacenaje(almacenaje);
+            System.out.println("almacenaje " + almacenaje);
+            lb_almacenaje.setText(almacenaje + "");
+
             //Se calcula el iba sobre la suma de itnerese y almacenaje
-            Float calculo = intereses + almacenaje; 
+            Float calculo = intereses + almacenaje;
             Float iva = calculo * 0.16f;
-            System.out.println("iva "+iva);
-            lb_iva.setText(iva+"");
-            
+            this.empeño.setIva(iva);
+            System.out.println("iva " + iva);
+            lb_iva.setText(iva + "");
+
             Float primerRefrendo = intereses + almacenaje + iva;
-            System.out.println("Primer refrendo "+ primerRefrendo);
-            lb_refrendo.setText(primerRefrendo+"");
+
+            System.out.println("Primer refrendo " + primerRefrendo);
+            lb_refrendo.setText(primerRefrendo + "");
             Float primerDesemp = total + intereses + almacenaje + iva;
-            System.out.println("Primer desempeño "+ primerDesemp);
-            
+            System.out.println("Primer desempeño " + primerDesemp);
+
             //CALCULO PRIMER PERIODO
             //Se suman los totales
             Float calculoSegundo = intereses + almacenaje + iva;
             //Se multiplica por el segundo periodo 
-            Float periodo = calculoSegundo * 2; 
+            Float periodo = calculoSegundo * 2;
             System.out.println("Segundo refrendo" + periodo);
-            lb_refrendo2.setText(periodo+"");
+            lb_refrendo2.setText(periodo + "");
             //Se suma al total del costo de prendas 
             Float segundoRefrendo = total + periodo;
-            System.out.println("Segundo desempeño"+ segundoRefrendo);
-            
+            System.out.println("Segundo desempeño" + segundoRefrendo);
+
             this.lb_prestamo.setText(total + "");
             this.txtA_prendas.setText(this.prendas.size() + "");
 
@@ -159,6 +162,14 @@ public class AgregarEmpFXMLController implements Initializable {
             this.prendas = new ArrayList<>();
         }
 
+    }
+
+    private Float calcularTotal() {
+        Float total = 0.0f;
+        for (Prenda prenda : this.prendas) {
+            total += prenda.getPrestamo();
+        }
+        return total;
     }
 
     private void registrarEmpeño() {
@@ -256,37 +267,53 @@ public class AgregarEmpFXMLController implements Initializable {
 
     @FXML
     private void agregar(ActionEvent event) {
-        if(this.prendas.size() > 0){
-            if(this.cliente != null){
-                if(this.txtA_observacionE.getText().isEmpty()){
+
+        if (this.prendas.size() > 0) {
+            if (this.cliente != null) {
+                if (this.txtA_observacionE.getText().isEmpty()) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Informativo");
                     alert.setHeaderText(null);
                     alert.setContentText("Hay campos vacios");
                     alert.showAndWait();
-                }else{
+                } else {
                     HashMap<String, Object> param = new LinkedHashMap<>();
-                    param.put("idCliente", "");
-                    param.put("observaciones", "");
+                    param.put("idCliente", this.cliente.getIdCliente());
+                    param.put("observaciones", this.txtA_observacionE.getText());
                     param.put("usuario", usuario.getNombre());
-                    param.put("idContrato", "");
-                    param.put("interes", "");
-                    param.put("almacenaje", "");
+                    param.put("interes", this.empeño.getInteres());
+                    param.put("almacenaje", this.empeño.getAlmacenaje());
                     param.put("periodos", 2);
                     param.put("diasPeriodos", 30);
-                    param.put("iva", "");
-                    param.put("tasaComercializacion", "");
+                    param.put("iva", this.empeño.getIva());
+                    param.put("observacionesContrato", this.txtA_observaciones.getText());
+                    param.put("totalPrestamo", this.calcularTotal());
 
-                    String respuesta = Requests.post("/emp/registrarEmp/", param);
+                    String respuesta = Requests.put("/emp/registrarFullEmp/" + this.empeño.getIdEmp(), param);
+
+                    JSONObject dataJson;
+                    try {
+                        dataJson = new JSONObject(respuesta);
+                        VentanaAlert alert = new VentanaAlert();
+                        if ((Boolean) dataJson.get("errorRespuesta") == false) {
+                            alert.information("Informativo", dataJson.getString("mensaje"));
+                            Window.close(event);
+                        } else {
+                            alert.warning("Advertencia", dataJson.getString("mensaje"));
+                            Window.close(event);
+                        }
+                    } catch (JSONException ex) {
+                        Logger.getLogger(AgregarEmpFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }
-            }else{
+            } else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Informativo");
                 alert.setHeaderText(null);
                 alert.setContentText("Selecciona un cliente");
                 alert.showAndWait();
             }
-        }else{
+        } else {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Informativo");
             alert.setHeaderText(null);
@@ -301,31 +328,31 @@ public class AgregarEmpFXMLController implements Initializable {
 
     @FXML
     private void visualizarPrenda(ActionEvent event) {
-        if(this.txtA_prendas.getText().isEmpty()){
+        if (this.txtA_prendas.getText().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Advertencia");
             alert.setHeaderText(null);
             alert.setContentText("Debe agregar una prenda");
             alert.showAndWait();
-        }else{
-        try {
-            Stage stage = new Stage();
+        } else {
+            try {
+                Stage stage = new Stage();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistemaempfx/gui/view/VisualizarPrendaEmpeñoFXML.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistemaempfx/gui/view/VisualizarPrendaEmpeñoFXML.fxml"));
 
-            Parent usuarios = loader.load();
+                Parent usuarios = loader.load();
 
-            VisualizarPrendaEmpeñoFXMLController ctrl = loader.getController();
-            ctrl.cargarPrendas(this.prendas);
+                VisualizarPrendaEmpeñoFXMLController ctrl = loader.getController();
+                ctrl.cargarPrendas(this.prendas);
 
-            Scene scene = new Scene(usuarios);
-            stage.setScene(scene);
-            stage.setTitle("Lista de prendas");
-            stage.setResizable(false);
-            stage.showAndWait();
-        } catch (IOException ex) {
-            Logger.getLogger(UsuariosFXMLController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+                Scene scene = new Scene(usuarios);
+                stage.setScene(scene);
+                stage.setTitle("Lista de prendas");
+                stage.setResizable(false);
+                stage.showAndWait();
+            } catch (IOException ex) {
+                Logger.getLogger(UsuariosFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

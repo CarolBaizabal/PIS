@@ -50,8 +50,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <update id="actualizarEmp" parameterType="map" statementType="CALLABLE">
         {CALL base.sp_actualizarEmp(
+        #{idEmp, jdbcType=INTEGER, mode=IN},
         #{idCliente, jdbcType=INTEGER, mode=IN},
-        #{fechaCreacion, jdbcType=TIMESTAMP, mode=IN},
         #{observaciones, jdbcType=VARCHAR, mode=IN},
         #{usuario, jdbcType=VARCHAR, mode=IN},
         #{idContrato, jdbcType=INTEGER, mode=IN},
@@ -62,6 +62,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{diasPeriodos, jdbcType=INTEGER, mode=IN},
         #{iva, jdbcType=FLOAT, mode=IN},
         #{tasaComercializacion, jdbcType=FLOAT, mode=IN})}
+    </update>
+    
+    <insert id="registrarRefrendo" parameterType="modelo.pojos.Refrendo" statementType="CALLABLE">
+        {CALL base.sp_registrarRefrendo(    
+        #{idEmp, jdbcType=INTEGER, mode=IN},
+        #{idContrato, jdbcType=INTEGER, mode=IN},
+        #{fechaCreacion, jdbcType=VARCHAR, mode=IN},
+        #{usuario, jdbcType=VARCHAR, mode=IN},
+        #{interes, jdbcType=FLOAT, mode=IN},
+        #{almacenaje, jdbcType=FLOAT, mode=IN},
+        #{subtotal, jdbcType=FLOAT, mode=IN},
+        #{iva, jdbcType=FLOAT, mode=IN},
+        #{total, jdbcType=FLOAT, mode=IN},
+        #{estatus, jdbcType=VARCHAR, mode=IN})}
+    </insert>
+    
+    <update id="actualizarContratoRefrendo" parameterType="modelo.pojos.Contrato" statementType="CALLABLE">
+        {CALL base.sp_actualizarContratoRefrendo(    
+        #{idRefrendo, jdbcType=INTEGER, mode=IN},
+        #{idContrato, jdbcType=INTEGER, mode=IN})}
     </update>
 
 

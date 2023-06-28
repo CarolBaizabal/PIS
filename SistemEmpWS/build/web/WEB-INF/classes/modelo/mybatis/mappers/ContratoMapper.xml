@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{fechaCreacionActual, jdbcType=VARCHAR, mode=IN},
         #{fechaComercializacionActual, jdbcType=TIMESTAMP, mode=IN},
         #{fechaCancelacion, jdbcType=TIMESTAMP, mode=IN},
-        #{idUsuario, jdbcType=INTEGER, mode=IN},
+        #{usuario, jdbcType=VARCHAR, mode=IN},
         #{observaciones, jdbcType=VARCHAR, mode=IN},
         #{idRefrendo, jdbcType=INTEGER, mode=IN},
         #{idFiniquito, jdbcType=INTEGER, mode=IN},

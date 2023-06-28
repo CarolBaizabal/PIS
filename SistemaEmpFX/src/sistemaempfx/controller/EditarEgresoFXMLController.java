@@ -27,7 +27,6 @@ import javafx.scene.control.TextField;
 import org.json.JSONException;
 import org.json.JSONObject;
 import sistemaempfx.api.Requests;
-import sistemaempfx.model.pojos.Catalogo;
 import sistemaempfx.model.pojos.Categoria;
 import sistemaempfx.model.pojos.Egreso;
 import sistemaempfx.model.pojos.Usuario;

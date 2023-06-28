@@ -193,180 +193,6 @@ public class EmpWS {
         }
         return respuesta.build();
     }
-
-    
-    @PUT
-    @Path("actualizarCategoria/{idCategoria}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response actualizarCategoria(
-            @PathParam("idCategoria") Integer idCategoria,
-            @FormParam("nombre") String nombre){
-
-        Response.ResponseBuilder respuesta = null;
-        SqlSession conn = MyBatisUtil.getSession();
-
-        try {
-            HashMap<String, Object> param = new HashMap<String, Object>();
-            param.put("idCategoria", idCategoria);
-            param.put("nombre", nombre);
-
-
-            conn.update("Categoria.actualizarCategoria", param);
-            conn.commit();
-            respuesta = Response.ok(new Respuesta("Categoria actualizada correctamente..."));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            respuesta = Response
-                    .status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity(new Respuesta("No se pudo actualizar la Categoria"));
-        } finally {
-            conn.close();
-        }
-        return respuesta.build();
-    }
-    
-    @PUT
-    @Path("actualizarEstatus/{idCategoria}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response actualizarEstatusCategoria(
-            @PathParam("idCategoria") Integer idCategoria) {
-
-        Response.ResponseBuilder respuesta = null;
-        SqlSession conn = MyBatisUtil.getSession();
-
-        try {
-            HashMap<String, Object> param = new HashMap<String, Object>();
-            param.put("idCategoria", idCategoria);
-
-            conn.update("Categoria.actualizarEstatus", param);
-            conn.commit();
-            respuesta = Response.ok(new Respuesta("Estatus actualizado correctamente..."));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            respuesta = Response
-                    .status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity(new Respuesta("No se pudo actualizar el estado"));
-        } finally {
-            conn.close();
-        }
-        return respuesta.build();
-    }
-    
-    
-    @DELETE
-    @Path("eliminarCategoria/{idCategoria}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response eliminarCategoria(
-            @PathParam("idCategoria") Integer idCategoria) {
-        Response.ResponseBuilder respuesta = null;
-        SqlSession conn = MyBatisUtil.getSession();
-
-        try {
-            HashMap<String, Object> param = new HashMap<String, Object>();
-            param.put("idCategoria", idCategoria);
-
-            conn.update("Categoria.eliminarCategoria", param);
-            conn.commit();
-            respuesta = Response.ok(new Respuesta("Categoria eliminada correctamente..."));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            respuesta = Response
-                    .status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity(new Respuesta("No se pudo eliminar la categoria"));
-        } finally {
-            conn.close();
-        }
-        return respuesta.build();
-    }
-
-    @GET
-    @Path("buscarCategoria/{nombre}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response buscarCategoriaByNombre(@PathParam("nombre") String nombre) {
-        Response.ResponseBuilder respuesta = null;
-        SqlSession conn = MyBatisUtil.getSession();
-        try {
-            List<Categoria> list = conn.selectList("Categoria.buscarCategoriaPorNombre", nombre);
-            respuesta = Response.ok(parser.toJson(list));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            respuesta = Response
-                    .status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity(new Respuesta("Error al consultar."));
-        } finally {
-            conn.close();
-        }
-        return respuesta.build();
-    }
-    
-    @GET
-    @Path("datosCategoriaRol")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response datosCategoriaRol() {
-        SqlSession conn = MyBatisUtil.getSession();
-        Response.ResponseBuilder respuesta = null;
-
-        try {
-            List<Categoria> list = conn.selectList("Categoria.datosCategoriaRol");
-            respuesta = Response.ok(parser.toJson(list));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            respuesta = Response
-                    .status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity(new Respuesta("Error al consultar Categoria."));
-        } finally {
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return respuesta.build();
-    }
-    
-    @GET
-    @Path("datosCategoriaEgreso")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response datosCategoriaEgreso() {
-        SqlSession conn = MyBatisUtil.getSession();
-        Response.ResponseBuilder respuesta = null;
-
-        try {
-            List<Categoria> list = conn.selectList("Categoria.datosCategoriaEgreso");
-            respuesta = Response.ok(parser.toJson(list));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            respuesta = Response
-                    .status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity(new Respuesta("Error al consultar Categoria."));
-        } finally {
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return respuesta.build();
-    }
-    
-    @GET
-    @Path("datosCategoriaIngreso")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response datosCategoriaIngreso() {
-        SqlSession conn = MyBatisUtil.getSession();
-        Response.ResponseBuilder respuesta = null;
-
-        try {
-            List<Categoria> list = conn.selectList("Categoria.datosCategoriaIngreso");
-            respuesta = Response.ok(parser.toJson(list));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            respuesta = Response
-                    .status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity(new Respuesta("Error al consultar Categoria."));
-        } finally {
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return respuesta.build();
-    }
     
     //Emp
      @GET
@@ -461,48 +287,186 @@ public class EmpWS {
     }
     
     @PUT
-        @Path("actualizarDatos/{idCliente}")
+    @Path("actualizarEmp/{idEmp}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response actualizarEmp(
+            @PathParam("idEmp") Integer idEmp,
+            @FormParam("idCliente") Integer idCliente,
+            @FormParam("observaciones") String observaciones,
+            @FormParam("usuario") String usuario,
+            @FormParam("idContrato") Integer idContrato,
+            @FormParam("interes") Float interes,
+            @FormParam("almacenaje") Float almacenaje,
+            @FormParam("periodos") Integer periodos,
+            @FormParam("diasPeriodos") Integer diasPeriodos,
+            @FormParam("iva") Float iva,
+            @FormParam("tasaComercializacion") Float tasaComercializacion) {
+
+        Response.ResponseBuilder respuesta = null;
+        SqlSession conn = MyBatisUtil.getSession();
+
+        try {
+            HashMap<String, Object> param = new HashMap<>();
+            param.put("idEmp", idEmp);
+            param.put("idCliente", idCliente);
+            param.put("observaciones", observaciones);
+            param.put("usuario", usuario);
+            param.put("idContrato", idContrato);
+            param.put("interes", interes);
+            param.put("almacenaje", almacenaje);
+            param.put("periodos", periodos);
+            param.put("diasPeriodos", diasPeriodos);
+            param.put("iva", iva);
+            param.put("tasaComercializacion", tasaComercializacion);
+
+            conn.update("Emp.actualizarEmp", param);
+            conn.commit();
+            respuesta = Response.ok(new Respuesta("Datos actualizados correctamente."));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respuesta = Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new Respuesta("No se pudieron actualizar los datos."));
+        } finally {
+            conn.close();
+        }
+        return respuesta.build();
+    }
+    
+    @PUT
+    @Path("registrarFullEmp/{idEmp}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response registrarFullEmp(
+            @PathParam("idEmp") Integer idEmp,
+            @FormParam("idCliente") Integer idCliente,
+            @FormParam("observaciones") String observaciones,
+            @FormParam("observacionesContrato") String observacionesContrato,
+            @FormParam("usuario") String usuario,
+            @FormParam("interes") Float interes,
+            @FormParam("almacenaje") Float almacenaje,
+            @FormParam("totalPrestamo") Float totalPrestamo,
+            @FormParam("periodos") Integer periodos,
+            @FormParam("diasPeriodos") Integer diasPeriodos,
+            @FormParam("iva") Float iva) {
+
+        Response.ResponseBuilder respuesta = null;
+        SqlSession conn = MyBatisUtil.getSession();
+
+        try {
+            LocalDateTime now = LocalDateTime.now();
+            String fechaCreacion = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            LocalDateTime fechaLimiteReferendo = now.plusDays(30);
+            LocalDateTime fechaComercializacion = now.plusDays(31);
+            
+            HashMap<String, Object> paramContrato = new HashMap<>();
+            paramContrato.put("idEmp", idEmp);
+            paramContrato.put("fechaCreacion", fechaCreacion);
+            paramContrato.put("fechaActualizacion", null);
+            paramContrato.put("fechaLimiteRefrendo", fechaLimiteReferendo.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            paramContrato.put("FechaComercializacion", fechaComercializacion.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            paramContrato.put("importePrestamo", totalPrestamo);
+            paramContrato.put("estatus", "Activo");
+            paramContrato.put("idContratoAnterior", null);
+            paramContrato.put("idContratoSiguiente", diasPeriodos);
+            paramContrato.put("fechaCreacionActual", fechaLimiteReferendo.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            paramContrato.put("fechaComercializacionActual", fechaComercializacion.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            paramContrato.put("fechaCancelacion", null);
+            paramContrato.put("idUsuario", usuario);
+            paramContrato.put("observaciones", observacionesContrato);
+            paramContrato.put("idRefrendo", null);
+            paramContrato.put("idFiniquito", null);
+            paramContrato.put("idAumentoEspera", null);
+
+            conn.update("Contrato.registrarContrato", paramContrato);
+            
+            HashMap<String,Object> resultado = conn.selectOne("Emp.obtenerId");
+            
+            HashMap<String, Object> paramRefrendo = new HashMap<>();
+            paramRefrendo.put("idEmp", idEmp);
+            paramRefrendo.put("idContrato", new BigInteger( resultado.get("id")+"").intValue());
+            paramRefrendo.put("fechaCreacion", fechaCreacion);
+            paramRefrendo.put("usuario", usuario);
+            paramRefrendo.put("interes", interes);
+            paramRefrendo.put("almacenaje", almacenaje);
+            paramRefrendo.put("subtotal", interes + almacenaje);
+            paramRefrendo.put("iva", iva);
+            paramRefrendo.put("total", totalPrestamo);
+            paramRefrendo.put("estatus", "Activo");
+
+            conn.insert("Emp.registrarRefrendo", paramRefrendo);
+            
+            HashMap<String, Object> param = new HashMap<>();
+            param.put("idEmp", idEmp);
+            param.put("idCliente", idCliente);
+            param.put("observaciones", observaciones);
+            param.put("usuario", usuario);
+            param.put("idContrato", new BigInteger( resultado.get("id")+"").intValue());
+            param.put("interes", interes);
+            param.put("almacenaje", almacenaje);
+            param.put("periodos", periodos);
+            param.put("diasPeriodos", diasPeriodos);
+            param.put("iva", iva);
+            param.put("tasaComercializacion", null);
+
+            conn.update("Emp.actualizarEmp", param);
+            conn.commit();
+            respuesta = Response.ok(new Respuesta("Datos actualizados correctamente."));
+        } catch (Exception ex) {
+            conn.rollback();
+            ex.printStackTrace();
+            respuesta = Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new Respuesta("No se pudieron actualizar los datos."));
+        } finally {
+            conn.close();
+        }
+        return respuesta.build();
+    }
+    
+    @POST
+        @Path("registrarRefrendo")
         @Produces(MediaType.APPLICATION_JSON)
-        public Response actualizarDatos(
-                @PathParam("idCliente") Integer idCliente,
-                @FormParam("observaciones") String observaciones,
-                @FormParam("usuario") String usuario,
+        public Response registrarRefrendo(
+                @FormParam("idEmp") Integer idEmp,
                 @FormParam("idContrato") Integer idContrato,
+                @FormParam("fechaCreacion") String fechaCreacion,
+                @FormParam("usuario") String usuario,
                 @FormParam("interes") Float interes,
                 @FormParam("almacenaje") Float almacenaje,
-                @FormParam("periodos") Integer periodos,
-                @FormParam("diasPeriodos") Integer diasPeriodos,
+                @FormParam("subtotal") Float subtotal,
                 @FormParam("iva") Float iva,
-                @FormParam("tasaComercializacion") Float tasaComercializacion) {
+                @FormParam("total") Float total,
+                @FormParam("estatus") String estatus) {
 
             Response.ResponseBuilder respuesta = null;
             SqlSession conn = MyBatisUtil.getSession();
 
             try {
-                HashMap<String, Object> param = new HashMap<>();
-                param.put("idCliente", idCliente);
-                param.put("observaciones", observaciones);
-                param.put("usuario", usuario);
+                HashMap<String, Object> param = new HashMap<String, Object>();
+                param.put("idEmp", idEmp);
                 param.put("idContrato", idContrato);
+                param.put("fechaCreacion", fechaCreacion);
+                param.put("usuario", usuario);
                 param.put("interes", interes);
                 param.put("almacenaje", almacenaje);
-                param.put("periodos", periodos);
-                param.put("diasPeriodos", diasPeriodos);
+                param.put("subtotal", subtotal);
                 param.put("iva", iva);
-                param.put("tasaComercializacion", tasaComercializacion);
+                param.put("total", total);
+                param.put("estatus", estatus);
 
-                conn.update("Cliente.actualizarDatos", param);
+                conn.insert("Emp.registrarRefrendo", param);
                 conn.commit();
-                respuesta = Response.ok(new Respuesta("Datos actualizados correctamente."));
+                respuesta = Response.ok(new Respuesta("Se registró correctamente..."));
             } catch (Exception ex) {
                 ex.printStackTrace();
                 respuesta = Response
                         .status(Response.Status.INTERNAL_SERVER_ERROR)
-                        .entity(new Respuesta("No se pudieron actualizar los datos."));
+                        .entity(new Respuesta("No se pudo registrar"));
             } finally {
                 conn.close();
             }
             return respuesta.build();
         }
+
 
 }

@@ -207,6 +207,7 @@ public class EmpFXMLController implements Initializable {
 
     @FXML
     private void refrendar(ActionEvent event) {
+        
     }
 
     @FXML

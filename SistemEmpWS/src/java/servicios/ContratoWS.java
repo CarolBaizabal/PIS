@@ -49,7 +49,7 @@ public Response registrarContrato(
         @FormParam("fechaCreacionActual") String fechaCreacionActual,
         @FormParam("fechaComercializacionActual") String fechaComercializacionActual,
         @FormParam("fechaCancelacion") String fechaCancelacion,
-        @FormParam("idUsuario") Integer idUsuario,
+        @FormParam("usuario") String usuario,
         @FormParam("observaciones") String observaciones,
         @FormParam("idRefrendo") Integer idRefrendo,
         @FormParam("idFiniquito") Integer idFiniquito,
@@ -72,7 +72,7 @@ public Response registrarContrato(
         param.put("fechaCreacionActual", fechaCreacionActual);
         param.put("fechaComercializacionActual", fechaComercializacionActual);
         param.put("fechaCancelacion", fechaCancelacion);
-        param.put("idUsuario", idUsuario);
+        param.put("usuario", usuario);
         param.put("observaciones", observaciones);
         param.put("idRefrendo", idRefrendo);
         param.put("idFiniquito", idFiniquito);

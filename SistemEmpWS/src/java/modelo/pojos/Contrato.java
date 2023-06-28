@@ -24,7 +24,7 @@ public class Contrato {
     private String fechaCreacionActual;
     private String fechaComercializacionActual;
     private String fechaCancelacion;
-    private Integer idUsuario;
+    private String usuario;
     private String observaciones;
     private Integer idRefrendo;
     private Integer idFiniquito;
@@ -33,7 +33,7 @@ public class Contrato {
     public Contrato() {
     }
 
-    public Contrato(Integer idContrato, Integer idEmp, String fechaCreacion, String fechaActualizacion, String fechaLimiteRefrendo, String FechaComercializacion, Float importePrestamo, String estatus, Integer idContratoAnterior, Integer idContratoSiguiente, String fechaCreacionActual, String fechaComercializacionActual, String fechaCancelacion, Integer idUsuario, String observaciones, Integer idRefrendo, Integer idFiniquito, Integer idAumentoEspera) {
+    public Contrato(Integer idContrato, Integer idEmp, String fechaCreacion, String fechaActualizacion, String fechaLimiteRefrendo, String FechaComercializacion, Float importePrestamo, String estatus, Integer idContratoAnterior, Integer idContratoSiguiente, String fechaCreacionActual, String fechaComercializacionActual, String fechaCancelacion, String usuario, String observaciones, Integer idRefrendo, Integer idFiniquito, Integer idAumentoEspera) {
         this.idContrato = idContrato;
         this.idEmp = idEmp;
         this.fechaCreacion = fechaCreacion;
@@ -47,7 +47,7 @@ public class Contrato {
         this.fechaCreacionActual = fechaCreacionActual;
         this.fechaComercializacionActual = fechaComercializacionActual;
         this.fechaCancelacion = fechaCancelacion;
-        this.idUsuario = idUsuario;
+        this.usuario = usuario;
         this.observaciones = observaciones;
         this.idRefrendo = idRefrendo;
         this.idFiniquito = idFiniquito;
@@ -158,12 +158,12 @@ public class Contrato {
         this.fechaCancelacion = fechaCancelacion;
     }
 
-    public Integer getIdUsuario() {
-        return idUsuario;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public String getObservaciones() {

@@ -27,7 +27,9 @@
                   <TableColumn fx:id="tc_usuario" prefWidth="69.0" text="Usuario" />
                   <TableColumn fx:id="tc_contrato" prefWidth="75.0" text="Contrato" />
                   <TableColumn fx:id="tc_fechaActualizacion" prefWidth="75.0" text="fecha Actualizacion" />
+                  <TableColumn fx:id="tc_interesP" prefWidth="75.0" text="Porcentaje Interes" />
                   <TableColumn fx:id="tc_interes" prefWidth="75.0" text="Interes" />
+                  <TableColumn fx:id="tc_almacenajeP" prefWidth="75.0" text="Porcentaje Almacenaje" />
                   <TableColumn fx:id="tc_almacenaje" prefWidth="75.0" text="Almacenaje" />
                   <TableColumn fx:id="tc_periodos" prefWidth="75.0" text="Periodos" />
                   <TableColumn fx:id="tc_diasPeriodo" prefWidth="75.0" text="Días Periodos" />
