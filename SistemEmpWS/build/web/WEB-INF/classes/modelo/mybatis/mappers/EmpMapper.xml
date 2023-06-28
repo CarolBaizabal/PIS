@@ -13,6 +13,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{idEmp,jdbcType=VARCHAR,mode=IN})}
     </select>
     
+    <select id="empById" resultType="modelo.pojos.Empe" statementType="CALLABLE">
+        {CALL base.sp_empById(
+        #{idEmp,jdbcType=VARCHAR,mode=IN})}
+    </select>
+    
     <select id="getEmpById" resultType="modelo.pojos.Empe" statementType="CALLABLE">
         {CALL base.sp_getEmpById(
         #{idEmp,jdbcType=VARCHAR,mode=IN})}
@@ -81,6 +86,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="actualizarContratoRefrendo" parameterType="modelo.pojos.Contrato" statementType="CALLABLE">
         {CALL base.sp_actualizarContratoRefrendo(    
         #{idRefrendo, jdbcType=INTEGER, mode=IN},
+        #{idContrato, jdbcType=INTEGER, mode=IN})}
+    </update>
+    
+    <update id="actualizarEmpRefrendo" parameterType="modelo.pojos.Contrato" statementType="CALLABLE">
+        {CALL base.sp_actualizarEmpRefrendo(    
+        #{idEmp, jdbcType=INTEGER, mode=IN},
         #{idContrato, jdbcType=INTEGER, mode=IN})}
     </update>
 

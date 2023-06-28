@@ -186,6 +186,7 @@ public class PrendaWS {
             @FormParam("peso") Float peso,
             @FormParam("kilataje") Float kilataje,
             @FormParam("prestamo") Float prestamo,
+            @FormParam("precioComercializacion") Float precioComercializacion,
             @FormParam("estatus") String estatus,
             @FormParam("descripcion") String descripcion,
             @FormParam("idEmp") Integer idEmp,
@@ -209,6 +210,7 @@ public class PrendaWS {
             param.put("peso", peso);
             param.put("kilataje", kilataje);
             param.put("prestamo", prestamo);
+            param.put("precioComercializacion", precioComercializacion);
             param.put("estatus", estatus);
             param.put("descripcion", descripcion);
             param.put("fechaCreacion", fechaCreacion);
@@ -227,6 +229,7 @@ public class PrendaWS {
             conn.close();
         }
         return respuesta.build();
+        //tienes que buscar los Empeños que esten caducados que esten Refrendo, Extencion, Activo, Inactivo
     }
 
 }

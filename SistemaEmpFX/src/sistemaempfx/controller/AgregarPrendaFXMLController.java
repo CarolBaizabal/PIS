@@ -124,14 +124,14 @@ public class AgregarPrendaFXMLController implements Initializable {
                 params.put("peso", Float.parseFloat(txt_peso.getText()));
                 params.put("kilataje", Float.parseFloat(txt_kilataje.getText()));
                 params.put("prestamo", Float.parseFloat(txt_prestamo.getText()) * Integer.parseInt(txt_numPiezas.getText()));
-                /*params.put("precioComercializacion", Integer.parseInt(txt_precioComercializacion.getText()));
-                params.put("precioVenta", Integer.parseInt(txt_precioVenta.getText()));
+                params.put("precioComercializacion", Float.parseFloat(txt_prestamo.getText()) + (Float.parseFloat(txt_prestamo.getText()) * 0.20f));
+                /*params.put("precioVenta", Integer.parseInt(txt_precioVenta.getText()));
                 params.put("fechaComercializacion", txt_fechaComercializacion.getValue().toString());
                 params.put("fechaVenta", txt_fechaVenta.getValue().toString());*/
                 params.put("descripcion", txt_descripcion.getText());
                 params.put("idEmp", this.empeño.getIdEmp());
                 params.put("usuario", this.usuario.getNombre());
-
+            
                 String respuesta = Requests.post("/prenda/registrarPrenda/", params);
 
                 JSONObject dataJson = new JSONObject(respuesta);
@@ -214,7 +214,7 @@ public class AgregarPrendaFXMLController implements Initializable {
         String respuesta = "No";
         txt_metal.setText(respuesta);
     }
-
+    
     @FXML
     private void limpiar(ActionEvent event) {
     }

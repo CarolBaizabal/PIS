@@ -44,7 +44,7 @@
    <top>
       <Pane prefHeight="146.0" prefWidth="880.0" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="btn_editar" layoutX="672.0" layoutY="112.0" mnemonicParsing="false" onAction="#editar" text="Editar">
+            <Button fx:id="btn_observaciones" layoutX="625.0" layoutY="112.0" mnemonicParsing="false" onAction="#observaciones" text="Observaciones">
                <font>
                   <Font name="Berlin Sans FB" size="15.0" />
                </font>
@@ -92,7 +92,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button fx:id="btn_crear" layoutX="582.0" layoutY="112.0" mnemonicParsing="false" onAction="#crear" text="Crear">
+            <Button fx:id="btn_crear" layoutX="535.0" layoutY="112.0" mnemonicParsing="false" onAction="#crear" text="Crear">
                <font>
                   <Font name="Berlin Sans FB" size="15.0" />
                </font>

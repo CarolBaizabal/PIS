@@ -59,9 +59,9 @@ public class AgregarEmpFXMLController implements Initializable {
     @FXML
     private TextArea txtA_prendas;
     @FXML
-    private Label lb_prestamo;
+    private TextField lb_prestamo;
     @FXML
-    private Label lb_usuarioAtiende;
+    private TextField lb_usuarioAtiende;
     @FXML
     private TextArea txtA_observaciones;
     @FXML
@@ -73,15 +73,15 @@ public class AgregarEmpFXMLController implements Initializable {
     @FXML
     private TextField dp_fechaLimite1;
     @FXML
-    private Label lb_almacenaje;
+    private TextField lb_almacenaje;
     @FXML
-    private Label lb_refrendo;
+    private TextField lb_refrendo;
     @FXML
-    private Label lb_interes;
+    private TextField lb_interes;
     @FXML
-    private Label lb_iva;
+    private TextField lb_iva;
     @FXML
-    private Label lb_refrendo2;
+    private TextField lb_refrendo2;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -154,6 +154,7 @@ public class AgregarEmpFXMLController implements Initializable {
             Float segundoRefrendo = total + periodo;
             System.out.println("Segundo desempeño" + segundoRefrendo);
 
+            
             this.lb_prestamo.setText(total + "");
             this.txtA_prendas.setText(this.prendas.size() + "");
 

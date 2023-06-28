@@ -6,7 +6,7 @@
 package sistemaempfx.model.pojos;
 
 public class Refrendo {
-    private Integer idRefrendo;
+     private Integer idRefrendo;
     private Integer idEmp;
     private Integer idContrato;
     private String fechaCreacion;
@@ -15,6 +15,7 @@ public class Refrendo {
     private Float almacenaje;
     private Float subtotal;
     private Float iva;
+    private Float total;
     private String estatus;
 
     public Refrendo() {
@@ -32,6 +33,22 @@ public class Refrendo {
         this.iva = iva;
         this.estatus = estatus;
     }
+
+    public Refrendo(Integer idRefrendo, Integer idEmp, Integer idContrato, String fechaCreacion, String usuario, Float interes, Float almacenaje, Float subtotal, Float iva, Float total, String estatus) {
+        this.idRefrendo = idRefrendo;
+        this.idEmp = idEmp;
+        this.idContrato = idContrato;
+        this.fechaCreacion = fechaCreacion;
+        this.usuario = usuario;
+        this.interes = interes;
+        this.almacenaje = almacenaje;
+        this.subtotal = subtotal;
+        this.iva = iva;
+        this.total = total;
+        this.estatus = estatus;
+    }
+    
+    
 
     public Integer getIdRefrendo() {
         return idRefrendo;
@@ -113,6 +130,13 @@ public class Refrendo {
         this.estatus = estatus;
     }
 
+    public Float getTotal() {
+        return total;
+    }
+
+    public void setTotal(Float total) {
+        this.total = total;
+    }
     
 }
 

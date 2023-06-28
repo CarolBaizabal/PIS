@@ -52,6 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{peso,jdbcType=FLOAT,mode=IN},
         #{kilataje,jdbcType=FLOAT,mode=IN},
         #{prestamo,jdbcType=FLOAT,mode=IN},
+        #{precioComercializacion,jdbcType=FLOAT,mode=IN},
         #{descripcion,jdbcType=VARCHAR,mode=IN},
         #{fechaCreacion,jdbcType=VARCHAR,mode=IN},
         #{idEmp,jdbcType=INTEGER,mode=IN},

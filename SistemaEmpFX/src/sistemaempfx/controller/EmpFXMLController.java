@@ -39,8 +39,6 @@ public class EmpFXMLController implements Initializable {
     @FXML
     private BorderPane pnl_principal;
     @FXML
-    private Button btn_editar;
-    @FXML
     private Button btn_cancelar;
     @FXML
     private Button btn_buscar;
@@ -88,6 +86,12 @@ public class EmpFXMLController implements Initializable {
 
     
     Empe emp = null;
+    @FXML
+    private TableColumn<Empe, Float> tc_interesP;
+    @FXML
+    private TableColumn<Empe, Float> tc_almacenajeP;
+    @FXML
+    private Button btn_observaciones;
     /**
      * Initializes the controller class.
      */
@@ -101,9 +105,6 @@ public class EmpFXMLController implements Initializable {
         this.emp = emp;
     }
 
-    @FXML
-    private void editar(ActionEvent event) {
-    }
 
     @FXML
     private void cancelar(ActionEvent event) {
@@ -168,7 +169,9 @@ public class EmpFXMLController implements Initializable {
             tc_usuario.setCellValueFactory(new PropertyValueFactory<>("usuario"));
             tc_contrato.setCellValueFactory(new PropertyValueFactory<>("idContrato"));
             tc_fechaActualizacion.setCellValueFactory(new PropertyValueFactory<>("fechaActualizacion"));
+            tc_interesP.setCellValueFactory(new PropertyValueFactory<>("interesPorcentaje"));
             tc_interes.setCellValueFactory(new PropertyValueFactory<>("interes"));
+            tc_almacenajeP.setCellValueFactory(new PropertyValueFactory<>("almacenajePorcentaje"));
             tc_almacenaje.setCellValueFactory(new PropertyValueFactory<>("almacenaje"));
             tc_periodos.setCellValueFactory(new PropertyValueFactory<>("periodos"));
             tc_diasPeriodo.setCellValueFactory(new PropertyValueFactory<>("diasPeriodos"));
@@ -198,7 +201,7 @@ public class EmpFXMLController implements Initializable {
             stage.setTitle("Registrar");
             stage.setResizable(false);
             stage.showAndWait();
-            //this.tablaUsuario();
+            this.cargarTabla();
 
         } catch (IOException ex) {
             Logger.getLogger(UsuariosFXMLController.class.getName()).log(Level.SEVERE, null, ex);
@@ -216,6 +219,10 @@ public class EmpFXMLController implements Initializable {
 
     @FXML
     private void finiquitar(ActionEvent event) {
+    }
+
+    @FXML
+    private void observaciones(ActionEvent event) {
     }
     
 }

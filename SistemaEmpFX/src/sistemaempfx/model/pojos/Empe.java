@@ -17,17 +17,20 @@ public class Empe {
     private String usuario;
     private Integer idContrato;
     private String fechaActualizacion;
+    private Float interesPorcentaje;
     private Float interes;
     private Float almacenaje;
+    private Float almacenajePorcentaje;
     private Integer periodos;
     private Integer diasPeriodos;
     private Float iva;
     private Float tasaComercializaion;
+    private String estatus;
 
     public Empe() {
     }
 
-    public Empe(Integer idEmp, Integer idCliente, String fechaCreacion, String observaciones, String usuario, Integer idContrato, String fechaActualizacion, Float interes, Float almacenaje, Integer periodos, Integer diasPeriodos, Float iva, Float tasaComercializaion) {
+    public Empe(Integer idEmp, Integer idCliente, String fechaCreacion, String observaciones, String usuario, Integer idContrato, String fechaActualizacion, Float interes, Float almacenaje, Integer periodos, Integer diasPeriodos, Float iva, Float tasaComercializaion, String estatus) {
         this.idEmp = idEmp;
         this.idCliente = idCliente;
         this.fechaCreacion = fechaCreacion;
@@ -41,6 +44,7 @@ public class Empe {
         this.diasPeriodos = diasPeriodos;
         this.iva = iva;
         this.tasaComercializaion = tasaComercializaion;
+        this.estatus=estatus;
     }
 
     public Integer getIdEmp() {
@@ -145,6 +149,30 @@ public class Empe {
 
     public void setTasaComercializaion(Float tasaComercializaion) {
         this.tasaComercializaion = tasaComercializaion;
+    }
+
+    public String getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
+    }
+
+    public Float getInteresPorcentaje() {
+        return interesPorcentaje;
+    }
+
+    public void setInteresPorcentaje(Float interesPorcentaje) {
+        this.interesPorcentaje = interesPorcentaje;
+    }
+
+    public Float getAlmacenajePorcentaje() {
+        return almacenajePorcentaje;
+    }
+
+    public void setAlmacenajePorcentaje(Float almacenajePorcentaje) {
+        this.almacenajePorcentaje = almacenajePorcentaje;
     }
     
     
