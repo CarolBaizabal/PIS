@@ -151,7 +151,7 @@ public class EmpWS {
     @Path("registrarEmp")
     @Produces(MediaType.APPLICATION_JSON)
     public Response registrarEmp(
-            @FormParam("idCliente") Integer idCliente,
+            @FormParam("cliente") String cliente,
             @FormParam("observaciones") String observaciones,
             @FormParam("usuario") String usuario,
             @FormParam("idContrato") Integer idContrato,
@@ -170,7 +170,7 @@ public class EmpWS {
             LocalDateTime now = LocalDateTime.now();
             String fechaCreacion = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             HashMap<String, Object> param = new HashMap<String, Object>();
-            param.put("idCliente", idCliente);
+            param.put("cliente", cliente);
             param.put("fechaCreacion", fechaCreacion);
             param.put("observaciones", observaciones);
             param.put("usuario", usuario);
@@ -185,7 +185,7 @@ public class EmpWS {
 
             conn.insert("Emp.registrarEmp", param);
             HashMap<String, Object> resultado = conn.selectOne("Emp.obtenerId");
-            Empe emp = new Empe(new BigInteger(resultado.get("id") + "").intValue(), idCliente, fechaCreacion, observaciones, usuario, idContrato, "", interes, almacenaje, periodos, diasPeriodos, iva, tasaComercializacion, estatus);
+            Empe emp = new Empe(new BigInteger(resultado.get("id") + "").intValue(), cliente, fechaCreacion, observaciones, usuario, idContrato, "", interes, almacenaje, periodos, diasPeriodos, iva, tasaComercializacion, estatus);
             conn.commit();
             respuesta = Response.ok(emp);
         } catch (Exception ex) {
@@ -272,13 +272,17 @@ public class EmpWS {
     }
 
     @GET
-    @Path("buscarEmp/{idContrato}")
+    @Path("buscarEmp/{busqueda}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response buscarEmpByNombre(@PathParam("idContrato") String idContrato) {
+    public Response buscarEmpByNombre(@PathParam("busqueda") String busqueda) {
         Response.ResponseBuilder respuesta = null;
         SqlSession conn = MyBatisUtil.getSession();
         try {
-            List<Empe> list = conn.selectList("Emp.buscarEmpPorNombre", idContrato);
+            List<Empe> list = conn.selectList("Emp.buscarEmpPorNombre", new HashMap<String, Object>() {{
+                put("busqueda", busqueda);
+                
+            }});
+
             respuesta = Response.ok(parser.toJson(list));
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -296,7 +300,7 @@ public class EmpWS {
     @Produces(MediaType.APPLICATION_JSON)
     public Response actualizarEmp(
             @PathParam("idEmp") Integer idEmp,
-            @FormParam("idCliente") Integer idCliente,
+            @FormParam("cliente") String cliente,
             @FormParam("observaciones") String observaciones,
             @FormParam("usuario") String usuario,
             @FormParam("idContrato") Integer idContrato,
@@ -313,7 +317,7 @@ public class EmpWS {
         try {
             HashMap<String, Object> param = new HashMap<>();
             param.put("idEmp", idEmp);
-            param.put("idCliente", idCliente);
+            param.put("cliente", cliente);
             param.put("observaciones", observaciones);
             param.put("usuario", usuario);
             param.put("idContrato", idContrato);
@@ -343,7 +347,7 @@ public class EmpWS {
     @Produces(MediaType.APPLICATION_JSON)
     public Response registrarFullEmp(
             @PathParam("idEmp") Integer idEmp,
-            @FormParam("idCliente") Integer idCliente,
+            @FormParam("cliente") String cliente,
             @FormParam("observaciones") String observaciones,
             @FormParam("observacionesContrato") String observacionesContrato,
             @FormParam("usuario") String usuario,
@@ -410,7 +414,7 @@ public class EmpWS {
 
             HashMap<String, Object> param = new HashMap<>();
             param.put("idEmp", idEmp);
-            param.put("idCliente", idCliente);
+            param.put("cliente", cliente);
             param.put("observaciones", observaciones);
             param.put("usuario", usuario);
             param.put("idContrato", new BigInteger(resultado.get("id") + "").intValue());

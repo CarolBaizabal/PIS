@@ -121,28 +121,28 @@ public class EmpFXMLController implements Initializable {
 
     @FXML
     private void buscar(ActionEvent event) {
-        if(this.txt_usuario.getText().isEmpty()){
-        Alert alertI = new Alert(Alert.AlertType.WARNING);
-        alertI.setTitle("Advertencia");
-        alertI.setHeaderText(null);
-        alertI.setContentText("Ingrese una busqueda...");
-        alertI.showAndWait();
-        }else{
-        int buscar = Integer.parseInt(txt_usuario.getText());
-        tb_emp.getItems().clear();
-        List<Empe> listaEmpe = null;
+        if (this.txt_usuario.getText().isEmpty()) {
+            Alert alertI = new Alert(Alert.AlertType.WARNING);
+            alertI.setTitle("Advertencia");
+            alertI.setHeaderText(null);
+            alertI.setContentText("Ingrese una busqueda...");
+            alertI.showAndWait();
+        } else {
+            String  buscar = txt_usuario.getText();
+            tb_emp.getItems().clear();
+            List<Empe> listaEmpe = null;
 
-        // Actual
+            // Actual
             String respuesta = "";
 
-             respuesta = Requests.get("/emp/buscarEmp/" + buscar);
+            respuesta = Requests.get("/emp/buscarEmp/" + buscar );
             Gson gson = new Gson();
 
             TypeToken<List<Empe>> token = new TypeToken<List<Empe>>() {
             };
             listaEmpe = gson.fromJson(respuesta, token.getType());
 
-            tc_cliente.setCellValueFactory(new PropertyValueFactory<>("idCliente"));
+            tc_cliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
             tc_creacion.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));
             tc_observaciones.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
             tc_usuario.setCellValueFactory(new PropertyValueFactory<>("usuario"));
@@ -156,9 +156,9 @@ public class EmpFXMLController implements Initializable {
             tc_tasaComercializacion.setCellValueFactory(new PropertyValueFactory<>("tasaComercializacion"));
             tc_estatus.setCellValueFactory(new PropertyValueFactory<>("estatus"));
 
-        listaEmpe.forEach(e -> {
-            tb_emp.getItems().add(e);
-        });
+            listaEmpe.forEach(e -> {
+                tb_emp.getItems().add(e);
+            });
         }
     }
 
@@ -179,7 +179,7 @@ public class EmpFXMLController implements Initializable {
 
             List<Empe> listaEmpe = gson.fromJson(respuesta, token.getType());
 
-            tc_cliente.setCellValueFactory(new PropertyValueFactory<>("idCliente"));
+            tc_cliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
             tc_creacion.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));
             tc_observaciones.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
             tc_usuario.setCellValueFactory(new PropertyValueFactory<>("usuario"));

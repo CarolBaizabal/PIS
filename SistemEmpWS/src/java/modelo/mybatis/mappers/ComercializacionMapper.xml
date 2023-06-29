@@ -28,5 +28,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{idComercializacion,jdbcType=INTEGER,mode=IN},
         #{observaciones,jdbcType=VARCHAR,mode=IN})}
     </update>
+    
+    <select id="buscarConsultasPorFecha" resultType="modelo.pojos.Comercializacion" statementType="CALLABLE">
+        {CALL base.sp_buscarConsultasPorFecha(
+        #{fechaInicioBusqueda,jdbcType=VARCHAR,mode=IN},
+        #{fechaFinalBusqueda,jdbcType=VARCHAR,mode=IN})}
+    </select>
 </mapper>
 

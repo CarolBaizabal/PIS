@@ -172,5 +172,26 @@ public class ComercializacionFXMLController implements Initializable {
     @FXML
     private void vender(ActionEvent event) {
     }
-    
+
+    @FXML
+    private void asignarFecha(ActionEvent event) throws IOException {
+        Stage stage = new Stage();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistemaempfx/gui/view/FechaFXML.fxml"));
+
+        Parent formUsuarioEditar = loader.load();
+
+        FechaFXMLController ctrl = loader.getController();
+
+        Scene scene = new Scene(formUsuarioEditar);
+        stage.setScene(scene);
+        stage.setTitle("Asignar");
+        stage.setResizable(false);
+        stage.showAndWait();
+    }
+
+    public void actualizarTabla(List<Comercializacion> comercializaciones) {
+    // Realiza la lógica para actualizar la tabla con la lista de comercializaciones recibida
+    // ...
+    }
 }

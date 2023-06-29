@@ -1,8 +1,6 @@
 package servicios;
 
 import com.google.gson.Gson;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,10 +16,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import modelo.mybatis.MyBatisUtil;
-import modelo.pojos.Cliente;
 import modelo.pojos.Comercializacion;
 import modelo.pojos.Respuesta;
-import modelo.pojos.VentasRemates;
 import org.apache.ibatis.session.SqlSession;
 
 /*
@@ -157,4 +153,31 @@ public class ComercializacionWS {
         }
         return respuesta.build();
     }
+
+    @GET
+    @Path("buscarConsultasPorFecha/{fechaInicioBusqueda}/{fechaFinalBusqueda}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response buscarConsultasPorFecha(
+            @PathParam("fechaInicioBusqueda") String fechaInicioBusqueda,
+            @PathParam("fechaFinalBusqueda") String fechaFinalBusqueda) {
+
+        Response.ResponseBuilder respuesta = null;
+        SqlSession conn = MyBatisUtil.getSession();
+        try {
+            Map<String, Object> params = new HashMap<>();
+            params.put("fechaInicioBusqueda", fechaInicioBusqueda);
+            params.put("fechaFinalBusqueda", fechaFinalBusqueda);
+            List<Comercializacion> list = conn.selectList("Comercializacion.buscarConsultasPorFecha", params);
+            respuesta = Response.ok(parser.toJson(list));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respuesta = Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new Respuesta("Error al consultar."));
+        } finally {
+            conn.close();
+        }
+        return respuesta.build();
+    }
+
 }
