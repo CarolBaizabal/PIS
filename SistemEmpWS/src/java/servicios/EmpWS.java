@@ -589,13 +589,13 @@ public class EmpWS {
 
             
             conn.commit();
-            respuesta = Response.ok(new Respuesta("Estatus actualizado correctamente..."));
+            respuesta = Response.ok(new Respuesta("Refrendado correctamente..."));
         } catch (Exception ex) {
             conn.rollback();
             ex.printStackTrace();
             respuesta = Response
                     .status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity(new Respuesta("No se pudo actualizar el estado"));
+                    .entity(new Respuesta("No se pudo refrendar"));
         } finally {
             conn.close();
         }
@@ -618,6 +618,7 @@ public class EmpWS {
             conn.update("Emp.finiquitar", param);
             conn.commit();
             respuesta = Response.ok(new Respuesta("Finiquitado correctamente..."));
+            
         } catch (Exception ex) {
             ex.printStackTrace();
             respuesta = Response

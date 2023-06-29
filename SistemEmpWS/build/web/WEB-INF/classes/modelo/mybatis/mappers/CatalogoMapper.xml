@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="buscarCatalogoPorNombre" resultType="modelo.pojos.Catalogo" statementType="CALLABLE">
         {CALL base.sp_buscarCatalogoPorNombre(
-        #{nombre,jdbcType=VARCHAR,mode=IN})}
+        #{catalogo,jdbcType=VARCHAR,mode=IN})}
     </select>
     
     <update id="actualizarCatalogo" parameterType="map" statementType="CALLABLE">

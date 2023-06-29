@@ -121,7 +121,7 @@
             <Font name="Berlin Sans FB" size="15.0" />
          </font>
       </TextField>
-      <TextField fx:id="txt_usuario1" layoutX="20.0" layoutY="353.0" promptText="Nombre" style="-fx-background-color: transparent; -fx-border-color: #FA5858; -fx-border-width: 0px 0px 2px 0px;">
+      <TextField fx:id="txt_usuario1" layoutX="20.0" layoutY="353.0" promptText="Categoria" style="-fx-background-color: transparent; -fx-border-color: #FA5858; -fx-border-width: 0px 0px 2px 0px;">
          <font>
             <Font name="Berlin Sans FB" size="15.0" />
          </font>

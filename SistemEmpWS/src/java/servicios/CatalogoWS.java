@@ -259,13 +259,13 @@ public class CatalogoWS {
     }
     
     @GET
-    @Path("buscarCatalogo/{nombre}")
+    @Path("buscarCatalogo/{catalogo}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response buscarCatalogoByNombre(@PathParam("nombre") String nombre) {
+    public Response buscarCatalogoByNombre(@PathParam("catalogo") String catalogo) {
         Response.ResponseBuilder respuesta = null;
         SqlSession conn = MyBatisUtil.getSession();
         try {
-            List<Catalogo> list = conn.selectList("Catalogo.buscarCatalogoPorNombre", nombre);
+            List<Catalogo> list = conn.selectList("Catalogo.buscarCatalogoPorNombre", catalogo);
             respuesta = Response.ok(parser.toJson(list));
         } catch (Exception ex) {
             ex.printStackTrace();

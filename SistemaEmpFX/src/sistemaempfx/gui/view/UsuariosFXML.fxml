@@ -21,11 +21,12 @@
           <TableColumn fx:id="tcl_nombre" minWidth="89.0" prefWidth="89.0" text="Nombre" />
           <TableColumn fx:id="tcl_apellidoPaterno" minWidth="108.0" prefWidth="117.0" text="Apellido Paterno" />
             <TableColumn fx:id="tcl_apellidoMaterno" minWidth="106.0" prefWidth="108.0" text="Apellido Materno" />
-            <TableColumn fx:id="tcl_usuario" minWidth="85.0" prefWidth="101.0" text="Usuario" />
-            <TableColumn fx:id="tcl_password" minWidth="108.0" prefWidth="112.0" text="Contraseña" />
-            <TableColumn fx:id="tcl_telefono" minWidth="97.0" prefWidth="112.0" text="Telefono" />
-            <TableColumn fx:id="tcl_rol" minWidth="73.0" prefWidth="106.0" text="Rol" />
-            <TableColumn fx:id="tcl_estatus" minWidth="47.0" prefWidth="104.0" text="Estatus" />
+            <TableColumn fx:id="tcl_usuario" minWidth="82.0" prefWidth="82.0" text="Usuario" />
+            <TableColumn fx:id="tcl_password" minWidth="99.0" prefWidth="99.0" text="Contraseña" />
+            <TableColumn fx:id="tcl_telefono" minWidth="97.0" prefWidth="100.0" text="Telefono" />
+            <TableColumn fx:id="tcl_rol" minWidth="73.0" prefWidth="76.0" text="Rol" />
+            <TableColumn fx:id="tcl_estatus" minWidth="47.0" prefWidth="90.0" text="Estatus" />
+            <TableColumn fx:id="tcl_permisos" minWidth="47.0" prefWidth="88.0" text="Permisos" />
         </columns>
       </TableView>
       <Button fx:id="bt_buscar" layoutX="218.0" layoutY="104.0" mnemonicParsing="false" onAction="#buscarUsuario" text="Buscar">
@@ -105,11 +106,35 @@
             </ImageView>
          </graphic>
       </Button>
-      <Pane layoutX="-7.0" layoutY="36.0" prefHeight="38.0" prefWidth="936.0" style="-fx-background-color: #FFA53F; -fx-opacity: .3;" />
-      <Label layoutX="8.0" layoutY="41.0" text="USUARIOS">
+      <Pane layoutX="-7.0" layoutY="21.0" prefHeight="38.0" prefWidth="936.0" style="-fx-background-color: #FFA53F; -fx-opacity: .3;" />
+      <Label layoutX="8.0" layoutY="26.0" text="USUARIOS">
          <font>
             <Font name="Berlin Sans FB" size="25.0" />
          </font>
       </Label>
+      <Button fx:id="bt_asignarPermiso" layoutX="556.0" layoutY="65.0" mnemonicParsing="false" onAction="#activar" text="Asignar Permiso">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-más-20.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="bt_restringirPermiso" layoutX="710.0" layoutY="65.0" mnemonicParsing="false" onAction="#desactivar" text="Restringir Permiso">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-x-20%20(1).png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </Pane>

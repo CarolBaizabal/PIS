@@ -453,7 +453,7 @@ public class CategoriasPrendasFXMLController implements Initializable {
 
     @FXML
     private void buscarCatalogo(ActionEvent event) {
-        if(this.txt_usuario.getText().isEmpty()){
+        if(this.txt_usuario1.getText().isEmpty()){
         Alert alertI = new Alert(Alert.AlertType.WARNING);
         alertI.setTitle("Advertencia");
         alertI.setHeaderText(null);

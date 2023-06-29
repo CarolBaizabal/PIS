@@ -18,11 +18,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -60,6 +62,26 @@ public class UsuariosFXMLController implements Initializable {
 
     @FXML
     private TextField txt_usuario;
+    @FXML
+    private Pane pnl_principal;
+    @FXML
+    private TableColumn<?, ?> tcl_permisos;
+    @FXML
+    private Button bt_buscar;
+    @FXML
+    private Button bt_agregar;
+    @FXML
+    private Button bt_editar;
+    @FXML
+    private Button bt_limpiar;
+    @FXML
+    private Button bt_desactivar;
+    @FXML
+    private Button bt_activar;
+    @FXML
+    private Button bt_asignarPermiso;
+    @FXML
+    private Button bt_restringirPermiso;
 
     /**
      * Initializes the controller class.

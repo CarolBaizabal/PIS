@@ -259,13 +259,13 @@ public class CatalogoPrendaWS {
     }
     
     @GET
-    @Path("buscarCatalogoPrenda/{nombre}")
+    @Path("buscarCatalogoPrenda/{categoria}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response buscarCatalogoPrendaByNombre(@PathParam("nombre") String nombre) {
+    public Response buscarCatalogoPrendaByNombre(@PathParam("categoria") String categoria) {
         Response.ResponseBuilder respuesta = null;
         SqlSession conn = MyBatisUtil.getSession();
         try {
-            List<Catalogo> list = conn.selectList("CatalogoPrenda.buscarCatalogoPrendaPorNombre", nombre);
+            List<Catalogo> list = conn.selectList("CatalogoPrenda.buscarCatalogoPrendaPorNombre", categoria);
             respuesta = Response.ok(parser.toJson(list));
         } catch (Exception ex) {
             ex.printStackTrace();
