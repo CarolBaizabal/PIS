@@ -6,6 +6,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -14,64 +16,41 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="880.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistemaempfx.controller.ClientesFXMLController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="880.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistemaempfx.controller.PermisosFXMLController">
    <children>
-      <TableView fx:id="tb_Cliente" layoutX="19.0" layoutY="143.0" prefHeight="443.0" prefWidth="850.0">
+      <TableView fx:id="tb_categorias" layoutX="13.0" layoutY="151.0" prefHeight="424.0" prefWidth="853.0">
         <columns>
-          <TableColumn fx:id="tcl_nombre" minWidth="89.0" prefWidth="290.0" text="Clave Permiso" />
-          <TableColumn fx:id="tcl_apellidoPaterno" minWidth="108.0" prefWidth="282.0" text="Nombre" />
-            <TableColumn fx:id="tcl_curp" minWidth="85.0" prefWidth="277.0" text="Usuario" />
+          <TableColumn fx:id="tcl_idCategoria" prefWidth="262.0" text="Rol" />
+          <TableColumn fx:id="tcl_nombre" prefWidth="306.0" text="Permiso" />
+            <TableColumn fx:id="tcl_estatusCategoria" prefWidth="284.0" text="Estatus" />
         </columns>
       </TableView>
-      <Button fx:id="bt_buscar" layoutX="218.0" layoutY="104.0" mnemonicParsing="false" onAction="#buscarCliente" text="Buscar">
+      <Label alignment="CENTER" layoutX="324.0" layoutY="45.0" prefHeight="48.0" prefWidth="276.0" text="PERMISOS USUARIOS" textAlignment="CENTER">
+         <font>
+            <Font name="Berlin Sans FB" size="25.0" />
+         </font>
+      </Label>
+      <Pane layoutX="-6.0" layoutY="50.0" prefHeight="38.0" prefWidth="936.0" style="-fx-background-color: #FFA53F; -fx-opacity: .3;" />
+      <Button fx:id="bt_restringirPermiso" layoutX="710.0" layoutY="110.0" mnemonicParsing="false" onAction="#desactivar" text="Restringir Permiso">
          <font>
             <Font name="Berlin Sans FB" size="15.0" />
          </font>
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../img/icons8-ver-archivo-64.png" />
+                  <Image url="@../img/icons8-x-20%20(1).png" />
                </image>
             </ImageView>
          </graphic>
       </Button>
-      <TextField fx:id="txt_usuario" layoutX="27.0" layoutY="102.0" promptText="Nombre" style="-fx-background-color: transparent; -fx-border-color: #FA5858; -fx-border-width: 0px 0px 2px 0px;">
-         <font>
-            <Font name="Berlin Sans FB" size="15.0" />
-         </font>
-      </TextField>
-      <Button fx:id="bt_agregar" layoutX="668.0" layoutY="102.0" mnemonicParsing="false" onAction="#agregarCliente" text="Asignar">
+      <Button fx:id="bt_asignarPermiso" layoutX="556.0" layoutY="110.0" mnemonicParsing="false" onAction="#activar" text="Asignar Permiso">
          <font>
             <Font name="Berlin Sans FB" size="15.0" />
          </font>
          <graphic>
             <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../img/icons8-dedo-48.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button fx:id="bt_editar" layoutX="771.0" layoutY="102.0" mnemonicParsing="false" onAction="#editarCliente" text="Remover">
-         <font>
-            <Font name="Berlin Sans FB" size="15.0" />
-         </font>
-         <graphic>
-            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/icons8-menos-48.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button fx:id="bt_limpiar" layoutX="310.0" layoutY="104.0" mnemonicParsing="false" onAction="#Limpiar" text="Limpiar">
-         <font>
-            <Font name="Berlin Sans FB" size="15.0" />
-         </font>
-         <graphic>
-            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/icons8-limpiar-48.png" />
+                  <Image url="@../img/icons8-más-20.png" />
                </image>
             </ImageView>
          </graphic>

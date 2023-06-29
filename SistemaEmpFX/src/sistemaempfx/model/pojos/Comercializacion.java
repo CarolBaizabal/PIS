@@ -12,7 +12,7 @@ package sistemaempfx.model.pojos;
 public class Comercializacion {
     private Integer idComercializacion;
     private String fechaCreacion;
-    private Integer idUsuario;
+    private String usuario;
     private String fechaInicioBusqueda;
     private String fechaFinalBusqueda;
     private String observaciones;
@@ -22,10 +22,10 @@ public class Comercializacion {
     public Comercializacion() {
     }
 
-    public Comercializacion(Integer idComercializacion, String fechaCreacion, Integer idUsuario, String fechaInicioBusqueda, String fechaFinalBusqueda, String observaciones, String metal, Integer idDetalleComercializacion) {
+    public Comercializacion(Integer idComercializacion, String fechaCreacion, String usuario, String fechaInicioBusqueda, String fechaFinalBusqueda, String observaciones, String metal, Integer idDetalleComercializacion) {
         this.idComercializacion = idComercializacion;
         this.fechaCreacion = fechaCreacion;
-        this.idUsuario = idUsuario;
+        this.usuario = usuario;
         this.fechaInicioBusqueda = fechaInicioBusqueda;
         this.fechaFinalBusqueda = fechaFinalBusqueda;
         this.observaciones = observaciones;
@@ -49,12 +49,12 @@ public class Comercializacion {
         this.fechaCreacion = fechaCreacion;
     }
 
-    public Integer getIdUsuario() {
-        return idUsuario;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public String getFechaInicioBusqueda() {
@@ -96,6 +96,6 @@ public class Comercializacion {
     public void setIdDetalleComercializacion(Integer idDetalleComercializacion) {
         this.idDetalleComercializacion = idDetalleComercializacion;
     }
-    
+
     
 }

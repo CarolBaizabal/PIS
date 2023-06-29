@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="400.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistemaempfx.controller.EditarComercializacionFXMLController">
+   <children>
+      <Button layoutX="161.0" layoutY="330.0" mnemonicParsing="false" onAction="#editar" text="Editar">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-editar-48.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button layoutX="263.0" layoutY="330.0" mnemonicParsing="false" onAction="#cancelar" text="Cancelar">
+         <font>
+            <Font name="Berlin Sans FB" size="15.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/icons8-cancelar-48.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label layoutX="128.0" layoutY="66.0" text="Observaciones">
+         <font>
+            <Font name="Berlin Sans FB" size="25.0" />
+         </font>
+      </Label>
+      <TextArea fx:id="txt_observaciones" layoutX="81.0" layoutY="109.0" prefHeight="200.0" prefWidth="238.0" />
+   </children>
+</Pane>

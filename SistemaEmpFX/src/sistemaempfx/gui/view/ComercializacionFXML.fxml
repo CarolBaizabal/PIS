@@ -16,11 +16,12 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="880.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistemaempfx.controller.ComercializacionFXMLController">
    <children>
-      <TableView layoutX="14.0" layoutY="134.0" prefHeight="453.0" prefWidth="851.0">
+      <TableView fx:id="tb_comercializacion" layoutX="14.0" layoutY="134.0" prefHeight="453.0" prefWidth="851.0">
         <columns>
           <TableColumn fx:id="tc_fechaCreacion" minWidth="140.0" prefWidth="75.0" text="Fecha Creación" />
           <TableColumn fx:id="tc_usuario" minWidth="140.0" prefWidth="75.0" text="Usuario" />
             <TableColumn fx:id="tb_fechaInicioBusqueda" minWidth="140.0" prefWidth="75.0" text="Fecha Inicio Busqueda" />
+            <TableColumn fx:id="tb_fechaFinBusqueda" minWidth="140.0" prefWidth="75.0" text="Fecha Fin Busqueda" />
             <TableColumn fx:id="tc_observaciones" minWidth="140.0" prefWidth="75.0" text="Observaciones" />
             <TableColumn fx:id="tc_metal" minWidth="88.0" prefWidth="98.0" text="Metal" />
             <TableColumn fx:id="tc_detalleComercializacion" minWidth="140.0" prefWidth="192.0" text="Clave Detalle Comercialización" />

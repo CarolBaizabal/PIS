@@ -65,8 +65,6 @@ public class UsuariosFXMLController implements Initializable {
     @FXML
     private Pane pnl_principal;
     @FXML
-    private TableColumn<?, ?> tcl_permisos;
-    @FXML
     private Button bt_buscar;
     @FXML
     private Button bt_agregar;
@@ -78,10 +76,6 @@ public class UsuariosFXMLController implements Initializable {
     private Button bt_desactivar;
     @FXML
     private Button bt_activar;
-    @FXML
-    private Button bt_asignarPermiso;
-    @FXML
-    private Button bt_restringirPermiso;
 
     /**
      * Initializes the controller class.

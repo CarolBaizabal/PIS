@@ -62,7 +62,7 @@ public class EmpFXMLController implements Initializable {
     private Button btn_finiquitar;
     @FXML
     private TextField txt_usuario;
-    private Usuario usuario;
+     Usuario usuario = null;
     @FXML
     private TableView<Empe> tb_emp;
     @FXML
@@ -260,14 +260,12 @@ public class EmpFXMLController implements Initializable {
                         if ("Refrendado".equals(estado)||"Vigente".equals(estado)||"Espera".equals(estado)) {
                             HashMap<String, Object> params = new LinkedHashMap<>();
                             params.put("idEmp", this.emp.getIdEmp());
-                            /*params.put("idContrato", this.emp.getIdContrato());
                             params.put("usuario", this.usuario.getNombre());
-                            params.put("interes", this.emp.getInteres());
-                            params.put("importeAlmacenaje", this.emp.getAlmacenaje());
+                            
                             params.put("subtotal", this.emp.getInteres() * this.emp.getAlmacenaje());
                             params.put("iva", 0.16f*(this.emp.getInteres() * this.emp.getAlmacenaje()));
                             params.put("total", (this.emp.getInteres() * this.emp.getAlmacenaje()) * .016f + (this.emp.getInteres() * this.emp.getAlmacenaje()));
-*/
+                          
                             String respuesta = Requests.put("/emp/finiquitar/" + emp.getIdEmp(), params);
 
                             JSONObject dataJson = new JSONObject(respuesta);

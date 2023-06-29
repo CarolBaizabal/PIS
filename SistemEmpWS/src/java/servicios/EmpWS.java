@@ -33,6 +33,7 @@ import modelo.pojos.Prenda;
 import modelo.pojos.Refrendo;
 import modelo.pojos.Respuesta;
 import modelo.pojos.Rol;
+import modelo.pojos.Usuario;
 import org.apache.ibatis.session.SqlSession;
 
 /**
@@ -207,7 +208,7 @@ public class EmpWS {
         Response.ResponseBuilder respuesta = null;
 
         try {
-            List<Catalogo> list = conn.selectList("Emp.getAllEmp");
+            List<Empe> list = conn.selectList("Emp.getAllEmp");
             respuesta = Response.ok(parser.toJson(list));
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -606,7 +607,11 @@ public class EmpWS {
     @Path("finiquitar/{idEmp}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response finiquitar(
-            @PathParam("idEmp") Integer idEmp) {
+            @PathParam("idEmp") Integer idEmp,
+            @FormParam("usuario") String usuario,
+            @FormParam("subtotal") Float subtotal,
+            @FormParam("iva") Float iva,
+            @FormParam("total") Float total){
 
         Response.ResponseBuilder respuesta = null;
         SqlSession conn = MyBatisUtil.getSession();
@@ -614,12 +619,30 @@ public class EmpWS {
         try {
             HashMap<String, Object> param = new HashMap<String, Object>();
             param.put("idEmp", idEmp);
-
             conn.update("Emp.finiquitar", param);
+            
+            LocalDateTime now = LocalDateTime.now();
+            String fechaCreacion = now.toString();
+            HashMap<String, Object> params = new HashMap<String, Object>();
+            Empe empe = conn.selectOne("Emp.empById",param);
+            Usuario user = conn.selectOne("Usuario.getUsuarioById",param);
+            params.put("idEmp", idEmp);
+            params.put("idContrato",  empe.getIdContrato());
+            params.put("fechaCreacion", fechaCreacion);
+            params.put("usuario", usuario);
+            params.put("interes", empe.getInteres());
+            params.put("importeAlmacenaje", empe.getAlmacenaje());
+            params.put("subtotal", subtotal);
+            params.put("iva", iva);
+            params.put("total",total);
+
+            conn.update("Emp.registrarfiniquito", params);
+            
             conn.commit();
-            respuesta = Response.ok(new Respuesta("Finiquitado correctamente..."));
+            respuesta = Response.ok(new Respuesta("Finiquitado correctamente..."));       
             
         } catch (Exception ex) {
+            conn.rollback();
             ex.printStackTrace();
             respuesta = Response
                     .status(Response.Status.INTERNAL_SERVER_ERROR)

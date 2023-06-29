@@ -100,9 +100,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{idEmp, jdbcType=INTEGER, mode=IN})}
     </update>
 
-     <update id="sp_registrarfiniquito" parameterType="map" statementType="CALLABLE">
+     <update id="registrarfiniquito" parameterType="map" statementType="CALLABLE">
         {CALL base.sp_registrarfiniquito(
-        #{idFiniquito, jdbcType=INTEGER, mode=IN},
+        #{idEmp, jdbcType=INTEGER, mode=IN},
         #{idContrato, jdbcType=INTEGER, mode=IN},
         #{fechaCreacion, jdbcType=VARCHAR, mode=IN},
         #{usuario, jdbcType=VARCHAR, mode=IN},
