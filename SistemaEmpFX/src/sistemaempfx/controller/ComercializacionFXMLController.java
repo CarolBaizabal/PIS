@@ -64,6 +64,9 @@ public class ComercializacionFXMLController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         this.cargarTabla();
     }   
+     public void setData(Usuario usuario){       
+        this.usuario = usuario;
+    }
     
     public void cargarTabla() {
         String respuesta = "";

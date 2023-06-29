@@ -8,7 +8,7 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="SistemaEmpFX.jar" size="765554" download="eager" />
+    <jar href="SistemaEmpFX.jar" size="767127" download="eager" />
     <jar href="lib\gson-2.8.2.jar" size="232932" download="eager" />
     <jar href="lib\java-json.jar" size="84697" download="eager" />
     <jar href="lib\mybatis-3.3.1.jar" size="1567287" download="eager" />

@@ -324,6 +324,37 @@ public class EmpFXMLController implements Initializable {
 
     @FXML
     private void observaciones(ActionEvent event) {
+        this.emp = tb_emp.getSelectionModel().getSelectedItem();
+         if (this.emp != null) {
+            try {
+                Stage stage = new Stage();
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistemaempfx/gui/view/EditarEmpFXML.fxml"));
+
+                Parent formUsuarioEditar = loader.load();
+
+                EditarEmpFXMLController ctrl = loader.getController();
+                
+                ctrl.setData(this.emp, this.usuario, false);
+
+                Scene scene = new Scene(formUsuarioEditar);
+                stage.setScene(scene);
+                stage.setTitle("Editar");
+                stage.setResizable(false);
+                stage.showAndWait();
+                this.cargarTabla();
+                this.emp = null;
+                
+            } catch (IOException ex) {
+                Logger.getLogger(CategoriasFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Advertencia");
+            alert.setHeaderText(null);
+            alert.setContentText("Seleccione un empeño...");
+            alert.showAndWait();
+        }
     }
     
 }

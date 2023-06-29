@@ -131,7 +131,7 @@ public class ComercializacionWS {
     @PUT
     @Path("actualizarComercializacion/{idComercializacion}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response actualizarEgreso(
+    public Response actualizarComercializacion(
             @PathParam("idComercializacion") Integer idComercializacion,
             @FormParam("observaciones") String observaciones){
 

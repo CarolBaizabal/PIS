@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -37,19 +38,20 @@ Comercializacion comercializacion = null;
 Usuario usuario = null;
 
     @FXML
-    private TextField txt_observaciones;
+    private TextArea txt_observaciones;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }    
 
     public void setData(Comercializacion comercializacion ,Usuario usuario, Boolean isnew){    
         this.comercializacion = comercializacion;
         this.usuario = usuario;
+         txt_observaciones.setText(this.comercializacion.getObservaciones());
     }
     @FXML
     private void editar(ActionEvent event) {

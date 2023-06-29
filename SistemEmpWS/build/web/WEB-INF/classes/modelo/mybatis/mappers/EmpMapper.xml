@@ -112,5 +112,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{iva, jdbcType=FLOAT, mode=IN},
         #{total, jdbcType=FLOAT, mode=IN})}
     </update>
+    
+    <update id="actualizarObservaciones" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_actualizarObservaciones(
+        #{idEmp,jdbcType=INTEGER,mode=IN},
+        #{observaciones,jdbcType=VARCHAR,mode=IN},
+        #{fechaActualizacion,jdbcType=VARCHAR,mode=IN})}
+    </update>
 </mapper>
 

@@ -32,15 +32,11 @@
             </ImageView>
          </graphic>
       </Button>
-      <TextField fx:id="txt_observaciones" layoutX="80.0" layoutY="119.0" prefHeight="162.0" prefWidth="240.0">
-         <font>
-            <Font name="Berlin Sans FB" size="15.0" />
-         </font>
-      </TextField>
       <Label layoutX="128.0" layoutY="66.0" text="Observaciones">
          <font>
             <Font name="Berlin Sans FB" size="25.0" />
          </font>
       </Label>
+      <TextArea fx:id="txt_observaciones" layoutX="81.0" layoutY="109.0" prefHeight="200.0" prefWidth="238.0" />
    </children>
 </Pane>

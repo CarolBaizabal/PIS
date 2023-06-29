@@ -6,11 +6,25 @@
 package sistemaempfx.controller;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
+import org.json.JSONException;
+import org.json.JSONObject;
+import sistemaempfx.api.Requests;
+import sistemaempfx.model.pojos.Empe;
+import sistemaempfx.model.pojos.Usuario;
+import sistemaempfx.utils.VentanaAlert;
+import sistemaempfx.utils.Window;
 
 /**
  * FXML Controller class
@@ -19,6 +33,11 @@ import javafx.scene.input.MouseEvent;
  */
 public class EditarEmpFXMLController implements Initializable {
 
+    Empe emp = null;
+    Usuario usuario = null;
+    @FXML
+    private TextArea txt_observaciones;
+
     /**
      * Initializes the controller class.
      */
@@ -26,61 +45,75 @@ public class EditarEmpFXMLController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+    
+    public void setData(Empe emp ,Usuario usuario, Boolean isnew){    
+        this.emp = emp;
+        this.usuario = usuario;
+        txt_observaciones.setText(this.emp.getObservaciones());
+    }
 
     @FXML
     private void editar(ActionEvent event) {
+        VentanaAlert alert = new VentanaAlert();
+        
+        if (this.emp!= null) {
+            
+
+            if (this.txt_observaciones.getText().isEmpty()) {
+                alert.warning("Faltan Datos", "Ingrese todos los datos");
+            } else {
+
+                HashMap<String, Object> params = new LinkedHashMap<>();
+                params.put("observaciones", this.txt_observaciones.getText());
+
+                Alert alertI = new Alert(Alert.AlertType.CONFIRMATION);
+                alertI.setTitle("Validación");
+                alertI.setHeaderText(null);
+                alertI.setContentText("¿Desea actualizar las observaciones?...");
+
+                alertI.showAndWait().ifPresent(response -> {
+                    if (response == ButtonType.OK) {
+                        try {
+                            if (this.usuario.getRol().equals("Administrador")) {
+                                String respuesta = Requests.put("/emp/actualizarObservaciones/" + emp.getIdEmp(), params);
+
+                                JSONObject dataJson = new JSONObject(respuesta);
+
+                                if ((Boolean) dataJson.get("errorRespuesta") == false) {
+                                    alert.information("Informativo", dataJson.getString("mensaje"));
+                                    this.emp = null;
+                                    Window.close(event);
+
+                                } else {
+                                    alert.warning("Advertencia", dataJson.getString("mensaje"));
+                                    this.emp = null;
+                                    Window.close(event);
+                                }
+                            } else {    
+                                alert.warning("Advertencia","Solo puede modificar el administrador...");
+                                this.usuario = null;
+                                Window.close(event);
+                            }
+                        } catch (JSONException ex) {
+                            Logger.getLogger(EditarCategoriaFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                    if (response == ButtonType.CANCEL) {
+                        this.emp = null;
+                        Window.close(event);
+                    }
+                });
+            }
+        } else {
+            alert.warning("Advertencia","Debe seleccionar una comercializacion...");
+        }
     }
 
-    @FXML
-    private void abrirClientes(ActionEvent event) {
-    }
-
-    @FXML
-    private void limpiar(ActionEvent event) {
-    }
-
-    @FXML
-    private void registrarPrendas(ActionEvent event) {
-    }
 
     @FXML
     private void cancelar(ActionEvent event) {
+        Window.close(event);
     }
 
-    @FXML
-    private void lb_claveEmpeño(MouseEvent event) {
-    }
-
-    @FXML
-    private void lb_claveContrato(MouseEvent event) {
-    }
-
-    @FXML
-    private void dp_fechaCreacion(ActionEvent event) {
-    }
-
-    @FXML
-    private void dp_fechaLimite(ActionEvent event) {
-    }
-
-    @FXML
-    private void txtA_prendas(MouseEvent event) {
-    }
-
-    @FXML
-    private void lb_prestamo(MouseEvent event) {
-    }
-
-    @FXML
-    private void lb_usuarioAtiende(MouseEvent event) {
-    }
-
-    @FXML
-    private void txtA_observaciones(MouseEvent event) {
-    }
-
-    @FXML
-    private void pnl_principal(MouseEvent event) {
-    }
     
 }

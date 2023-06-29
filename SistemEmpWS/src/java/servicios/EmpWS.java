@@ -653,4 +653,37 @@ public class EmpWS {
         return respuesta.build();
     }
     
+    
+    @PUT
+    @Path("actualizarObservaciones/{idEmp}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response actualizarObservaciones(
+            @PathParam("idEmp") Integer idEmp,
+            @FormParam("observaciones") String observaciones){
+
+        Response.ResponseBuilder respuesta = null;
+        SqlSession conn = MyBatisUtil.getSession();
+
+        try {
+             LocalDateTime now = LocalDateTime.now();
+            String fechaActualizacion = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            HashMap<String, Object> param = new HashMap<String, Object>();
+            param.put("idEmp", idEmp);
+            param.put("observaciones", observaciones);
+            param.put("fechaActualizacion", fechaActualizacion);
+
+
+            conn.update("Emp.actualizarObservaciones", param);
+            conn.commit();
+            respuesta = Response.ok(new Respuesta("Empeño actualizada correctamente..."));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respuesta = Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new Respuesta("No se pudo actualizar el empeño"));
+        } finally {
+            conn.close();
+        }
+        return respuesta.build();
+    }
 }
