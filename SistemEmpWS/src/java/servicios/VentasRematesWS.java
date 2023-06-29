@@ -7,12 +7,15 @@ package servicios;
 
 import com.google.gson.Gson;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -150,13 +153,15 @@ public class VentasRematesWS {
     }
     
     @GET
-    @Path("buscarVentasRematesPorFecha/{nombre}")
+    @Path("buscarVentasRematesPorFecha/{fechaVenta}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response buscarVentasRematesPorFecha(@PathParam("fechaVenta") String fechaVenta) {
         Response.ResponseBuilder respuesta = null;
         SqlSession conn = MyBatisUtil.getSession();
         try {
-            List<VentasRemates> list = conn.selectList("VentasRemates.buscarVentasRematesPorFecha", fechaVenta);
+            Map<String, Object> params = new HashMap<>();
+            params.put("fechaVenta", fechaVenta);
+            List<VentasRemates> list = conn.selectList("VentasRemates.buscarVentasRematesPorFecha", params);
             respuesta = Response.ok(parser.toJson(list));
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -168,4 +173,33 @@ public class VentasRematesWS {
         }
         return respuesta.build();
     }
+
+    @PUT
+    @Path("estatusVentasRemates/{idventasRemates}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response estatusVentasRemates(
+            @PathParam("idventasRemates") Integer idventasRemates) {
+
+        Response.ResponseBuilder respuesta = null;
+        SqlSession conn = MyBatisUtil.getSession();
+
+        try {
+            HashMap<String, Object> param = new HashMap<String, Object>();
+            param.put("idventasRemates", idventasRemates);
+
+            conn.update("VentasRemates.estatusVentasRemates", param);
+            conn.commit();
+            respuesta = Response.ok(new Respuesta("Vendido..."));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respuesta = Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new Respuesta("No se pudo vender"));
+        } finally {
+            conn.close();
+        }
+        return respuesta.build();
+    }
+  
+
 }

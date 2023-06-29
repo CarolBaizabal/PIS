@@ -9,8 +9,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.awt.event.MouseEvent;
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -22,7 +20,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.SortEvent;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -132,7 +129,7 @@ public class VentasRematesFXMLController implements Initializable {
                             Alert alertInactivo = new Alert(Alert.AlertType.INFORMATION);
                             alertInactivo.setTitle("Informativo");
                             alertInactivo.setHeaderText(null);
-                            alertInactivo.setContentText("El usuario ya esta inactivo...");
+                            alertInactivo.setContentText("La prenda esta cancelada...");
                             alertInactivo.showAndWait();
                             this.ventasRemates = null;
                             this.cargarTabla();
@@ -177,8 +174,7 @@ public class VentasRematesFXMLController implements Initializable {
             TypeToken<List<VentasRemates>> token = new TypeToken<List<VentasRemates>>() {
             };
             listaVentasRemates = gson.fromJson(respuesta, token.getType());
-            
-            
+
             tc_Subtotal.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
             tc_iva.setCellValueFactory(new PropertyValueFactory<>("iva"));
             tc_total.setCellValueFactory(new PropertyValueFactory<>("total"));
@@ -214,7 +210,6 @@ public class VentasRematesFXMLController implements Initializable {
         };
         List<VentasRemates> listaVentasRemates = gson.fromJson(respuesta, token.getType());
 
-    
         tc_Subtotal.setCellValueFactory(new PropertyValueFactory<>("subtotal"));
         tc_iva.setCellValueFactory(new PropertyValueFactory<>("iva"));
         tc_total.setCellValueFactory(new PropertyValueFactory<>("total"));
@@ -241,10 +236,156 @@ public class VentasRematesFXMLController implements Initializable {
 
     @FXML
     private void vender(ActionEvent event) {
+        this.ventasRemates = tb_ventasRemates.getSelectionModel().getSelectedItem();
+        if (this.ventasRemates != null) {
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Validación");
+            alert.setHeaderText(null);
+            alert.setContentText("¿Desea vender la prenda?...");
+
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+
+                    try {
+
+                        String estado = this.ventasRemates.getEstatus();
+
+                        if ("Venta".equals(estado) || "Remate".equals(estado)) {
+                            HashMap<String, Object> params = new LinkedHashMap<>();
+                            params.put("idventasRemates", this.ventasRemates.getIdVentasRemates());
+
+                            String respuesta = Requests.put("/ventasremates/estatusVentasRemates/" + ventasRemates.getIdVentasRemates(), params);
+
+                            JSONObject dataJson = new JSONObject(respuesta);
+
+                            if ((Boolean) dataJson.get("errorRespuesta") == false) {
+
+                                Alert alertC = new Alert(Alert.AlertType.INFORMATION);
+                                alertC.setTitle("Informativo");
+                                alertC.setHeaderText(null);
+                                alertC.setContentText(dataJson.getString("mensaje"));
+                                alertC.showAndWait();
+                                this.ventasRemates = null;
+                                this.cargarTabla();
+
+                            } else {
+                                Alert alertN = new Alert(Alert.AlertType.INFORMATION);
+                                alertN.setTitle("Informativo");
+                                alertN.setHeaderText(null);
+                                alertN.setContentText(dataJson.getString("mensaje"));
+                                alertN.showAndWait();
+                                this.ventasRemates = null;
+                                this.cargarTabla();
+                            }
+                        } else if ("Cancelada".equals(estado)||"Vendida".equals(estado)) {
+                            Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert1.setTitle("Error");
+                            alert1.setHeaderText(null);
+                            alert1.setContentText("Esta prenda se encuentra cancelada o vendida no se puede vender...");
+                            alert1.showAndWait();
+                        } else {
+                            Alert alertInactivo = new Alert(Alert.AlertType.INFORMATION);
+                            alertInactivo.setTitle("Informativo");
+                            alertInactivo.setHeaderText(null);
+                            alertInactivo.setContentText("Se vendió correctamente...");
+                            alertInactivo.showAndWait();
+                            this.ventasRemates = null;
+                            this.cargarTabla();
+                        }
+                    } catch (JSONException ex) {
+                        Logger.getLogger(UsuariosFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                if (response == ButtonType.CANCEL) {
+                    this.ventasRemates = null;
+                    this.cargarTabla();
+                }
+            });
+        } else {
+            Alert alertI = new Alert(Alert.AlertType.WARNING);
+            alertI.setTitle("Advertencia");
+            alertI.setHeaderText(null);
+            alertI.setContentText("Seleccione una prenda...");
+            alertI.showAndWait();
+        }
     }
 
     @FXML
     private void remate(ActionEvent event) {
+        this.ventasRemates = tb_ventasRemates.getSelectionModel().getSelectedItem();
+        if (this.ventasRemates != null) {
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Validación");
+            alert.setHeaderText(null);
+            alert.setContentText("¿Desea rematar la prenda?...");
+
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+
+                    try {
+
+                        String estado = this.ventasRemates.getEstatus();
+
+                        if ("Venta".equals(estado) || "Remate".equals(estado)) {
+                            HashMap<String, Object> params = new LinkedHashMap<>();
+                            params.put("idventasRemates", this.ventasRemates.getIdVentasRemates());
+
+                            String respuesta = Requests.put("/ventasremates/remateVentasRemates/" + ventasRemates.getIdVentasRemates(), params);
+
+                            JSONObject dataJson = new JSONObject(respuesta);
+
+                            if ((Boolean) dataJson.get("errorRespuesta") == false) {
+
+                                Alert alertC = new Alert(Alert.AlertType.INFORMATION);
+                                alertC.setTitle("Informativo");
+                                alertC.setHeaderText(null);
+                                alertC.setContentText(dataJson.getString("mensaje"));
+                                alertC.showAndWait();
+                                this.ventasRemates = null;
+                                this.cargarTabla();
+
+                            } else {
+                                Alert alertN = new Alert(Alert.AlertType.INFORMATION);
+                                alertN.setTitle("Informativo");
+                                alertN.setHeaderText(null);
+                                alertN.setContentText(dataJson.getString("mensaje"));
+                                alertN.showAndWait();
+                                this.ventasRemates = null;
+                                this.cargarTabla();
+                            }
+                        } else if ("Cancelada".equals(estado)||"Vendida".equals(estado)) {
+                            Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert1.setTitle("Error");
+                            alert1.setHeaderText(null);
+                            alert1.setContentText("Esta prenda se encuentra cancelada o vendida no se puede vender...");
+                            alert1.showAndWait();
+                        } else {
+                            Alert alertInactivo = new Alert(Alert.AlertType.INFORMATION);
+                            alertInactivo.setTitle("Informativo");
+                            alertInactivo.setHeaderText(null);
+                            alertInactivo.setContentText("Se vendió correctamente...");
+                            alertInactivo.showAndWait();
+                            this.ventasRemates = null;
+                            this.cargarTabla();
+                        }
+                    } catch (JSONException ex) {
+                        Logger.getLogger(UsuariosFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                if (response == ButtonType.CANCEL) {
+                    this.ventasRemates = null;
+                    this.cargarTabla();
+                }
+            });
+        } else {
+            Alert alertI = new Alert(Alert.AlertType.WARNING);
+            alertI.setTitle("Advertencia");
+            alertI.setHeaderText(null);
+            alertI.setContentText("Seleccione una prenda...");
+            alertI.showAndWait();
+        }
     }
 
 }
