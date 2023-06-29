@@ -9,6 +9,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -188,6 +190,34 @@ public class ComercializacionFXMLController implements Initializable {
         stage.setTitle("Asignar");
         stage.setResizable(false);
         stage.showAndWait();
+        this.cargarDatosPorFechas(ctrl.getFechaInicio(), ctrl.getFechaFin());
+    }
+    
+    private void cargarDatosPorFechas(LocalDate fechaInicio, LocalDate fechaFin){
+        if(fechaInicio != null && fechaFin != null){
+            String respuesta = "";
+            tb_comercializacion.getItems().clear();
+            String inicio = fechaInicio.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            String fin = fechaFin.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            respuesta = Requests.get("/comercializacion/buscarConsultasPorFecha/" + inicio + "/" + fin);
+            Gson gson = new Gson();
+
+            TypeToken<List<Comercializacion>> token = new TypeToken<List<Comercializacion>>() {
+            };
+            List<Comercializacion> listaComercializacion = gson.fromJson(respuesta, token.getType());
+
+            tc_fechaCreacion.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));
+            tc_usuario.setCellValueFactory(new PropertyValueFactory<>("usuario"));
+            tb_fechaInicioBusqueda.setCellValueFactory(new PropertyValueFactory<>("fechaInicioBusqueda"));
+            tb_fechaFinBusqueda.setCellValueFactory(new PropertyValueFactory<>("fechaFinBusqueda"));
+            tc_observaciones.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
+            tc_metal.setCellValueFactory(new PropertyValueFactory<>("metal"));
+            tc_detalleComercializacion.setCellValueFactory(new PropertyValueFactory<>("idDetalleComercializacion"));
+
+            listaComercializacion.forEach(e -> {
+                tb_comercializacion.getItems().add(e);
+            });
+        }
     }
 
     public void actualizarTabla(List<Comercializacion> comercializaciones) {

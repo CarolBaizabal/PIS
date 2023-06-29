@@ -5,20 +5,14 @@
  */
 package sistemaempfx.controller;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import java.net.URL;
-import java.util.List;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.cell.PropertyValueFactory;
-import sistemaempfx.api.Requests;
-import sistemaempfx.model.pojos.Comercializacion;
-import sistemaempfx.model.pojos.Empe;
 import sistemaempfx.utils.Window;
 
 /**
@@ -51,13 +45,17 @@ public class FechaFXMLController implements Initializable {
             alertI.setContentText("Ingrese ambas fechas...");
             alertI.showAndWait();
         } else {
-     
+            Window.close(event);
         }
     }
-
     
+    public LocalDate getFechaInicio(){
+        return dp_fechaInicio.getValue();
+    }
     
-    
+    public LocalDate getFechaFin(){
+        return dp_fechaFin.getValue();
+    }
     
     @FXML
     private void cancelar(ActionEvent event) {
