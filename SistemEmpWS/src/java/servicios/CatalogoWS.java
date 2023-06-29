@@ -65,6 +65,29 @@ public class CatalogoWS {
         }
         return respuesta.build();
     }
+    
+    @GET
+    @Path("getAllEstatusContrato")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllEstatusContrato() {
+        SqlSession conn = MyBatisUtil.getSession();
+        Response.ResponseBuilder respuesta = null;
+
+        try {
+            List<Catalogo> list = conn.selectList("Catalogo.getAllEstatusContrato");
+            respuesta = Response.ok(parser.toJson(list));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respuesta = Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new Respuesta("Error al consultar Catalogo."));
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return respuesta.build();
+    }
 
     @GET
     @Path("getCatalogoById/{nombre}")

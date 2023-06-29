@@ -7,6 +7,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="getAllEmp" resultType="modelo.pojos.Empe" statementType="CALLABLE">
         {CALL base.sp_getAllEmp()}
     </select>
+    
+    <select id="getAllEmp_detalle" resultType="modelo.pojos.Empe" statementType="CALLABLE">
+        {CALL base.sp_getAllEmp_detale()}
+    </select>
+    
+    <select id="getAllEmp_detalle_busqueda" resultType="modelo.pojos.Empe" statementType="CALLABLE">
+        {CALL base.sp_getAllEmp_detalle_busqueda(
+        #{estatus,jdbcType=VARCHAR,mode=IN},
+        #{fecha,jdbcType=VARCHAR,mode=IN}
+        )}
+    </select>
        
     <select id="empId" resultType="modelo.pojos.Empe" statementType="CALLABLE">
         {CALL base.sp_empId(

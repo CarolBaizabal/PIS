@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -207,7 +206,56 @@ public class EmpWS {
         Response.ResponseBuilder respuesta = null;
 
         try {
-            List<Catalogo> list = conn.selectList("Emp.getAllEmp");
+            List<Empe> list = conn.selectList("Emp.getAllEmp");
+            respuesta = Response.ok(parser.toJson(list));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respuesta = Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new Respuesta("Error al consultar empeño."));
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return respuesta.build();
+    }
+    
+    @GET
+    @Path("reporte")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllEmpDetalle() {
+        SqlSession conn = MyBatisUtil.getSession();
+        Response.ResponseBuilder respuesta = null;
+
+        try {
+            List<Empe> list = conn.selectList("Emp.getAllEmp_detalle");
+            respuesta = Response.ok(parser.toJson(list));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respuesta = Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new Respuesta("Error al consultar empeño."));
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return respuesta.build();
+    }
+    
+    @POST
+    @Path("reporte")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response buscarEmpDetalle(@FormParam("estatus") String estatus, @FormParam("fecha") String fecha) {
+        SqlSession conn = MyBatisUtil.getSession();
+        Response.ResponseBuilder respuesta = null;
+
+        try {
+            List<Empe> list = conn.selectList("Emp.getAllEmp_detalle_busqueda", new HashMap<String, Object>(){{
+                this.put("fecha", fecha);
+                this.put("estatus", estatus);
+            }});
             respuesta = Response.ok(parser.toJson(list));
         } catch (Exception ex) {
             ex.printStackTrace();

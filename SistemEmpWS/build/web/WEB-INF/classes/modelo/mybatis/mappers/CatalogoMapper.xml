@@ -8,6 +8,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         {CALL base.sp_getAllCatalogo()}
     </select>
     
+    <select id="getAllEstatusContrato" resultType="modelo.pojos.Catalogo" statementType="CALLABLE">
+        {CALL base.sp_getAllEstatusContrato()}
+    </select>
+    
     <select id="getCatalogoById" resultType="modelo.pojos.Catalogo" statementType="CALLABLE">
         {CALL base.sp_getCatalogoById(
         #{nombre,jdbcType=VARCHAR,mode=IN})}
