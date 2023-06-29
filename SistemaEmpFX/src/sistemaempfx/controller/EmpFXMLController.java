@@ -260,14 +260,14 @@ public class EmpFXMLController implements Initializable {
                         if ("Refrendado".equals(estado)||"Vigente".equals(estado)||"Espera".equals(estado)) {
                             HashMap<String, Object> params = new LinkedHashMap<>();
                             params.put("idEmp", this.emp.getIdEmp());
-                            params.put("idContrato", this.emp.getIdContrato());
+                            /*params.put("idContrato", this.emp.getIdContrato());
                             params.put("usuario", this.usuario.getNombre());
                             params.put("interes", this.emp.getInteres());
                             params.put("importeAlmacenaje", this.emp.getAlmacenaje());
                             params.put("subtotal", this.emp.getInteres() * this.emp.getAlmacenaje());
                             params.put("iva", 0.16f*(this.emp.getInteres() * this.emp.getAlmacenaje()));
                             params.put("total", (this.emp.getInteres() * this.emp.getAlmacenaje()) * .016f + (this.emp.getInteres() * this.emp.getAlmacenaje()));
-
+*/
                             String respuesta = Requests.put("/emp/finiquitar/" + emp.getIdEmp(), params);
 
                             JSONObject dataJson = new JSONObject(respuesta);
@@ -291,6 +291,12 @@ public class EmpFXMLController implements Initializable {
                                 this.emp = null;
                                 this.cargarTabla();
                             }
+                        } else if ("Cancelado".equals(estado)||"Finiquitado".equals(estado)) {
+                            Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert1.setTitle("Error");
+                            alert1.setHeaderText(null);
+                            alert1.setContentText("El contrato ya se encuentra finiquitado o cancelado...");
+                            alert1.showAndWait();
                         } else {
                             Alert alertInactivo = new Alert(Alert.AlertType.INFORMATION);
                             alertInactivo.setTitle("Informativo");

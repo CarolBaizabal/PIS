@@ -481,26 +481,26 @@ public class EmpWS {
     }
 
     @PUT
-    @Path("finiquitarContrato/{idContrato}")
+    @Path("finiquitarContrato/{idEmp}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response actualizarEstatusCategoria(
-            @PathParam("idContrato") Integer idContrato) {
+    public Response finiquitarContrato(
+            @PathParam("idEmp") Integer idEmp) {
 
         Response.ResponseBuilder respuesta = null;
         SqlSession conn = MyBatisUtil.getSession();
 
         try {
             HashMap<String, Object> param = new HashMap<String, Object>();
-            param.put("idContrato", idContrato);
+            param.put("idEmp", idEmp);
 
-            conn.update("Categoria.actualizarEstatus", param);
+            conn.update("Emp.finiquitarContrato", param);
             conn.commit();
-            respuesta = Response.ok(new Respuesta("Estatus actualizado correctamente..."));
+            respuesta = Response.ok(new Respuesta("Contrato finiquitado..."));
         } catch (Exception ex) {
             ex.printStackTrace();
             respuesta = Response
                     .status(Response.Status.INTERNAL_SERVER_ERROR)
-                    .entity(new Respuesta("No se pudo actualizar el estado"));
+                    .entity(new Respuesta("No se pudo finiquitar"));
         } finally {
             conn.close();
         }

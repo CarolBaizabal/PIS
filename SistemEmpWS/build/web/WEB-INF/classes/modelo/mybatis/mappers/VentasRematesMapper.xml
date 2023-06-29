@@ -35,4 +35,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         {CALL base.sp_estatusVentasRemates(
         #{idventasRemates,jdbcType=INTEGER,mode=IN})}
     </update>
+    
+    <update id="remateVentasRemates" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_remateVentasRemates(
+        #{idventasRemates,jdbcType=INTEGER,mode=IN})}
+    </update>
 </mapper>

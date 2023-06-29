@@ -201,5 +201,31 @@ public class VentasRematesWS {
         return respuesta.build();
     }
   
+    @PUT
+    @Path("remateVentasRemates/{idventasRemates}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response remateVentasRemates(
+            @PathParam("idventasRemates") Integer idventasRemates) {
+
+        Response.ResponseBuilder respuesta = null;
+        SqlSession conn = MyBatisUtil.getSession();
+
+        try {
+            HashMap<String, Object> param = new HashMap<String, Object>();
+            param.put("idventasRemates", idventasRemates);
+
+            conn.update("VentasRemates.remateVentasRemates", param);
+            conn.commit();
+            respuesta = Response.ok(new Respuesta("En remate..."));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respuesta = Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new Respuesta("No se pudo rematar"));
+        } finally {
+            conn.close();
+        }
+        return respuesta.build();
+    }
 
 }

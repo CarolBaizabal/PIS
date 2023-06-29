@@ -95,9 +95,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{idContrato, jdbcType=INTEGER, mode=IN})}
     </update>
 
-    <update id="finiquitar" parameterType="modelo.pojos.Empe" statementType="CALLABLE">
+    <update id="finiquitar" parameterType="map" statementType="CALLABLE">
         {CALL base.sp_finiquitar(
-        #{idEmp, jdbcType=INTEGER, mode=IN},
+        #{idEmp, jdbcType=INTEGER, mode=IN})}
+    </update>
+
+     <update id="sp_registrarfiniquito" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_registrarfiniquito(
         #{idFiniquito, jdbcType=INTEGER, mode=IN},
         #{idContrato, jdbcType=INTEGER, mode=IN},
         #{fechaCreacion, jdbcType=VARCHAR, mode=IN},
@@ -108,6 +112,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{iva, jdbcType=FLOAT, mode=IN},
         #{total, jdbcType=FLOAT, mode=IN})}
     </update>
-
 </mapper>
 
