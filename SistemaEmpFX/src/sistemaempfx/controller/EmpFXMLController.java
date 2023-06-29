@@ -233,16 +233,161 @@ public class EmpFXMLController implements Initializable {
 
     @FXML
     private void refrendar(ActionEvent event) {
-        
+        this.emp = tb_emp.getSelectionModel().getSelectedItem();
+        if (this.emp != null) {
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Validación");
+            alert.setHeaderText(null);
+            alert.setContentText("¿Desea  refrendar el contrato?...");
+
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+
+                    try {
+
+                        String estado = this.emp.getEstatus();
+
+                        if ("Refrendado".equals(estado)||"Vigente".equals(estado)||"Espera".equals(estado)) {
+                            HashMap<String, Object> params = new LinkedHashMap<>();
+                            params.put("idEmp", this.emp.getIdEmp());
+                          
+                            String respuesta = Requests.put("/emp/refrendarEmp/" + emp.getIdEmp(), params);
+
+                            JSONObject dataJson = new JSONObject(respuesta);
+
+                            if ((Boolean) dataJson.get("errorRespuesta") == false) {
+
+                                Alert alertC = new Alert(Alert.AlertType.INFORMATION);
+                                alertC.setTitle("Informativo");
+                                alertC.setHeaderText(null);
+                                alertC.setContentText(dataJson.getString("mensaje"));
+                                alertC.showAndWait();
+                                this.emp = null;
+                                this.cargarTabla();
+
+                            } else {
+                                Alert alertN = new Alert(Alert.AlertType.INFORMATION);
+                                alertN.setTitle("Informativo");
+                                alertN.setHeaderText(null);
+                                alertN.setContentText(dataJson.getString("mensaje"));
+                                alertN.showAndWait();
+                                this.emp = null;
+                                this.cargarTabla();
+                            }
+                        } else if ("Cancelado".equals(estado)||"Finiquitado".equals(estado)) {
+                            Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert1.setTitle("Error");
+                            alert1.setHeaderText(null);
+                            alert1.setContentText("El contrato ya se encuentra finiquitado o cancelado...");
+                            alert1.showAndWait();
+                        } else {
+                            Alert alertInactivo = new Alert(Alert.AlertType.INFORMATION);
+                            alertInactivo.setTitle("Informativo");
+                            alertInactivo.setHeaderText(null);
+                            alertInactivo.setContentText("Se finiquitó el contrato...");
+                            alertInactivo.showAndWait();
+                            this.emp = null;
+                            this.cargarTabla();
+                        }
+                    } catch (JSONException ex) {
+                        Logger.getLogger(UsuariosFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                if (response == ButtonType.CANCEL) {
+                    this.emp  = null;
+                    this.cargarTabla();
+                }
+            });
+        } else {
+            Alert alertI = new Alert(Alert.AlertType.WARNING);
+            alertI.setTitle("Advertencia");
+            alertI.setHeaderText(null);
+            alertI.setContentText("Seleccione un empeño...");
+            alertI.showAndWait();
+        }
     }
 
     @FXML
     private void extension(ActionEvent event) {
+        this.emp = tb_emp.getSelectionModel().getSelectedItem();
+        if (this.emp != null) {
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Validación");
+            alert.setHeaderText(null);
+            alert.setContentText("¿Desea hacer una espera el contrato?...");
+
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+
+                    try {
+
+                        String estado = this.emp.getEstatus();
+
+                        if ("Refrendado".equals(estado)||"Vigente".equals(estado)) {
+                            HashMap<String, Object> params = new LinkedHashMap<>();
+                            params.put("idEmp", this.emp.getIdEmp());
+                          
+                            String respuesta = Requests.put("/emp/agregarExtension/" + emp.getIdEmp(), params);
+
+                            JSONObject dataJson = new JSONObject(respuesta);
+
+                            if ((Boolean) dataJson.get("errorRespuesta") == false) {
+
+                                Alert alertC = new Alert(Alert.AlertType.INFORMATION);
+                                alertC.setTitle("Informativo");
+                                alertC.setHeaderText(null);
+                                alertC.setContentText(dataJson.getString("mensaje"));
+                                alertC.showAndWait();
+                                this.emp = null;
+                                this.cargarTabla();
+
+                            } else {
+                                Alert alertN = new Alert(Alert.AlertType.INFORMATION);
+                                alertN.setTitle("Informativo");
+                                alertN.setHeaderText(null);
+                                alertN.setContentText(dataJson.getString("mensaje"));
+                                alertN.showAndWait();
+                                this.emp = null;
+                                this.cargarTabla();
+                            }
+                        } else if ("Cancelado".equals(estado)||"Finiquitado".equals(estado)) {
+                            Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert1.setTitle("Error");
+                            alert1.setHeaderText(null);
+                            alert1.setContentText("El contrato ya se encuentra finiquitado o cancelado...");
+                            alert1.showAndWait();
+                        } else {
+                            Alert alertInactivo = new Alert(Alert.AlertType.INFORMATION);
+                            alertInactivo.setTitle("Informativo");
+                            alertInactivo.setHeaderText(null);
+                            alertInactivo.setContentText("Se finiquitó el contrato...");
+                            alertInactivo.showAndWait();
+                            this.emp = null;
+                            this.cargarTabla();
+                        }
+                    } catch (JSONException ex) {
+                        Logger.getLogger(UsuariosFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                if (response == ButtonType.CANCEL) {
+                    this.emp  = null;
+                    this.cargarTabla();
+                }
+            });
+        } else {
+            Alert alertI = new Alert(Alert.AlertType.WARNING);
+            alertI.setTitle("Advertencia");
+            alertI.setHeaderText(null);
+            alertI.setContentText("Seleccione un empeño...");
+            alertI.showAndWait();
+        }
     }
 
     @FXML
     private void finiquitar(ActionEvent event) {
-         this.emp = tb_emp.getSelectionModel().getSelectedItem();
+        this.emp = tb_emp.getSelectionModel().getSelectedItem();
         if (this.emp != null) {
 
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);

@@ -7,6 +7,7 @@ package servicios;
 
 import com.google.gson.Gson;
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -23,7 +24,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 import modelo.mybatis.MyBatisUtil;
-import modelo.pojos.Catalogo;
 import modelo.pojos.Categoria;
 import modelo.pojos.Contrato;
 import modelo.pojos.Egreso;
@@ -570,7 +570,7 @@ public class EmpWS {
         SqlSession conn = MyBatisUtil.getSession();
 
         try {
-            HashMap<String, Object> param = new HashMap<String, Object>();
+            HashMap<String, Object> param = new HashMap<>();
             param.put("idEmp", idEmp);
             
             //Empe empeño = conn.selectOne("Emp.empById",param);
@@ -578,16 +578,16 @@ public class EmpWS {
             Integer idContrato = contrato.getIdContrato();
             Refrendo refrendo = conn.selectOne("Contrato.getRefrendoPorContrato", idContrato);
             
-            LocalDateTime now = LocalDateTime.now();
+            LocalDate now = LocalDate.now();
             String fechaCreacion = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-            LocalDateTime fechaLimiteReferendo = now.plusDays(30);
-            LocalDateTime fechaComercializacion = now.plusDays(31);
+            LocalDate fechaLimiteReferendo = now.plusDays(30);
+            LocalDate fechaComercializacion = now.plusDays(31);
 
             HashMap<String, Object> paramContrato = new HashMap<>();
             paramContrato.put("idEmp", idEmp);
             paramContrato.put("fechaCreacion", fechaCreacion);
             paramContrato.put("fechaActualizacion", fechaCreacion);
-            paramContrato.put("fechaLimiteRefrendo", contrato.getFechaLimiteRefrendo());
+            paramContrato.put("fechaLimiteRefrendo", fechaLimiteReferendo.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             paramContrato.put("FechaComercializacion", contrato.getFechaComercializacion());
             paramContrato.put("importePrestamo", contrato.getImportePrestamo());
             paramContrato.put("estatus", "Activo");
@@ -616,7 +616,7 @@ public class EmpWS {
             paramRefrendo.put("subtotal", refrendo.getInteres() + refrendo.getAlmacenaje());
             paramRefrendo.put("iva", refrendo.getIva());
             paramRefrendo.put("total", refrendo.getTotal());
-            paramRefrendo.put("estatus", "Activo");
+            paramRefrendo.put("estatus", "Vigente");
 
             conn.insert("Emp.registrarRefrendo", paramRefrendo);
 
@@ -640,7 +640,6 @@ public class EmpWS {
             param.put("idContrato", new BigInteger(idContratoNuevo.get("id") + "").intValue());
             conn.update("Contrato.actualizarAnteriorContratoRefrendo", param);
 
-            
             conn.commit();
             respuesta = Response.ok(new Respuesta("Refrendado correctamente..."));
         } catch (Exception ex) {
@@ -733,6 +732,60 @@ public class EmpWS {
             respuesta = Response
                     .status(Response.Status.INTERNAL_SERVER_ERROR)
                     .entity(new Respuesta("No se pudo actualizar el empeño"));
+        } finally {
+            conn.close();
+        }
+        return respuesta.build();
+    }
+    
+    @PUT
+    @Path("agregarExtension/{idEmp}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response agregarExtension(@PathParam("idEmp") Integer idEmp) {
+        Response.ResponseBuilder respuesta = null;
+        SqlSession conn = MyBatisUtil.getSession();
+        try {
+            HashMap<String, Object> param = new HashMap<>();
+            param.put("idEmp", idEmp);
+            Empe empeño = conn.selectOne("Emp.empPorId", param);
+            
+            param = new HashMap<>();
+            param.put("idContrato", empeño.getIdContrato());
+            
+            Contrato contrato = conn.selectOne("Contrato.getContratoPorId",param);
+            LocalDate fechaLimite = LocalDate.parse(contrato.getFechaLimiteRefrendo());
+            fechaLimite = fechaLimite.plusDays(2);
+            
+            LocalDate fechaComercializacionActual = LocalDate.parse(contrato.getFechaComercializacionActual());
+            fechaComercializacionActual = fechaComercializacionActual.plusDays(3);
+            
+            param = new HashMap<>();
+            param.put("fechaInicio", fechaLimite.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            param.put("fechaFin", fechaComercializacionActual.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            conn.insert("Emp.registrarEspera",param);
+            
+            HashMap<String, Object> idResultado = conn.selectOne("Emp.obtenerId");
+            Integer idEspera = new BigInteger(idResultado.get("id") + "").intValue();
+            
+            param = new HashMap<>();
+            param.put("idEmp", idEmp);
+            param.put("idContrato", contrato.getIdContrato());
+            param.put("idAumentoEspera", idEspera);
+            param.put("fechaLimiteRefrendo", fechaLimite.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            param.put("fechaComercializacionActual", fechaComercializacionActual.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            
+            conn.update("Emp.actualizarContratoEspera",param);
+
+            
+            conn.commit();
+
+            respuesta = Response.ok(new Respuesta("Espera agregada"));
+        } catch (Exception ex) {
+            conn.rollback();
+            ex.printStackTrace();
+            respuesta = Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new Respuesta("Error al consultar."));
         } finally {
             conn.close();
         }

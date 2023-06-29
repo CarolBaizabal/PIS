@@ -36,6 +36,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{idEmp, jdbcType=INTEGER, mode=IN})}
     </select>
     
+    <select id="getContratoPorId" resultType="modelo.pojos.Contrato" statementType="CALLABLE">
+        {CALL base.sp_getContratoPorId(
+        #{idContrato, jdbcType=INTEGER, mode=IN})}
+    </select>
+    
     <select id="getRefrendoPorContrato" resultType="modelo.pojos.Refrendo" statementType="CALLABLE">
         {CALL base.sp_getRefrendoPorContrato(
         #{idContrato, jdbcType=INTEGER, mode=IN})}

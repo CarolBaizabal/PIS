@@ -4,6 +4,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Emp">
+    <insert id="registrarEspera" statementType="CALLABLE">
+        {CALL base.sp_registrarEspera(
+        #{fechaInicio, jdbcType=DATE, mode=IN},
+        #{fechaFin, jdbcType=DATE, mode=IN})}
+    </insert>
     <select id="getAllEmp" resultType="modelo.pojos.Empe" statementType="CALLABLE">
         {CALL base.sp_getAllEmp()}
     </select>
@@ -27,6 +32,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="empById" resultType="modelo.pojos.Empe" statementType="CALLABLE">
         {CALL base.sp_empById(
         #{idEmp,jdbcType=VARCHAR,mode=IN})}
+    </select>
+    
+    <select id="empPorId" resultType="modelo.pojos.Empe" statementType="CALLABLE">
+        {CALL base.sp_empPorId(
+        #{idEmp,jdbcType=INTEGER,mode=IN})}
     </select>
     
     <select id="getEmpById" resultType="modelo.pojos.Empe" statementType="CALLABLE">
@@ -129,6 +139,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{idEmp,jdbcType=INTEGER,mode=IN},
         #{observaciones,jdbcType=VARCHAR,mode=IN},
         #{fechaActualizacion,jdbcType=VARCHAR,mode=IN})}
+    </update>
+    
+    <update id="actualizarContratoEspera" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_actualizarContratoEspera(
+        #{idEmp, jdbcType=INTEGER, mode=IN},
+        #{idContrato, jdbcType=INTEGER, mode=IN},
+        #{idAumentoEspera, jdbcType=INTEGER, mode=IN},    
+        #{fechaLimiteRefrendo, jdbcType=VARCHAR, mode=IN},
+        #{fechaComercializacionActual, jdbcType=VARCHAR, mode=IN}
+        )}
     </update>
 </mapper>
 
