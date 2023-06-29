@@ -34,6 +34,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
       <mapper resource="modelo/mybatis/mappers/PrendaMapper.xml"/>
       <mapper resource="modelo/mybatis/mappers/EmpMapper.xml"/>
       <mapper resource="modelo/mybatis/mappers/ContratoMapper.xml"/>
-      <mapper resource="modelo/mybatis/mappers/VentasRematesMapper.xml"/>
+      <mapper resource="modelo/mybatis/mappers/VentasRematesMapper.xml"/>     
+      <mapper resource="modelo/mybatis/mappers/ComercializacionMapper.xml"/>
     </mappers>
 </configuration>

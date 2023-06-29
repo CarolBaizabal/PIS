@@ -91,6 +91,7 @@ public class PrincipalFXMLController implements Initializable {
             Parent principal = loader.load();
 
             ComercializacionFXMLController usuario = loader.getController();
+            usuario.setData(this.usuario);
 
             pnl_principal.setCenter(principal);
         } catch (IOException ex) {

@@ -153,15 +153,17 @@ public class VentasRematesWS {
     }
     
     @GET
-    @Path("buscarVentasRematesPorFecha/{fechaVenta}")
+    @Path("buscarVentasRematesPorFecha/{buscar}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response buscarVentasRematesPorFecha(@PathParam("fechaVenta") String fechaVenta) {
+    public Response buscarVentasRematesPorFecha(@PathParam("buscar") String buscar) {
         Response.ResponseBuilder respuesta = null;
         SqlSession conn = MyBatisUtil.getSession();
         try {
-            Map<String, Object> params = new HashMap<>();
-            params.put("fechaVenta", fechaVenta);
-            List<VentasRemates> list = conn.selectList("VentasRemates.buscarVentasRematesPorFecha", params);
+            List<VentasRemates> list = conn.selectList("VentasRemates.buscarVentasRematesPorFecha", new HashMap<String, Object>() {{
+                put("buscar", buscar);
+                
+            }});
+            
             respuesta = Response.ok(parser.toJson(list));
         } catch (Exception ex) {
             ex.printStackTrace();

@@ -11,7 +11,7 @@ package sistemaempfx.model.pojos;
  */
 public class Empe {
     private Integer idEmp;
-    private Integer idCliente;
+    private String cliente;
     private String fechaCreacion;
     private String observaciones;
     private String usuario;
@@ -30,9 +30,9 @@ public class Empe {
     public Empe() {
     }
 
-    public Empe(Integer idEmp, Integer idCliente, String fechaCreacion, String observaciones, String usuario, Integer idContrato, String fechaActualizacion, Float interes, Float almacenaje, Integer periodos, Integer diasPeriodos, Float iva, Float tasaComercializaion, String estatus) {
+    public Empe(Integer idEmp, String cliente, String fechaCreacion, String observaciones, String usuario, Integer idContrato, String fechaActualizacion, Float interes, Float almacenaje, Integer periodos, Integer diasPeriodos, Float iva, Float tasaComercializaion, String estatus) {
         this.idEmp = idEmp;
-        this.idCliente = idCliente;
+        this.cliente = cliente;
         this.fechaCreacion = fechaCreacion;
         this.observaciones = observaciones;
         this.usuario = usuario;
@@ -55,12 +55,12 @@ public class Empe {
         this.idEmp = idEmp;
     }
 
-    public Integer getIdCliente() {
-        return idCliente;
+    public String getCliente() {
+        return cliente;
     }
 
-    public void setIdCliente(Integer idCliente) {
-        this.idCliente = idCliente;
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
     }
 
     public String getFechaCreacion() {

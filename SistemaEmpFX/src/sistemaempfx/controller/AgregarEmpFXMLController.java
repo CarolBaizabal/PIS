@@ -179,7 +179,7 @@ public class AgregarEmpFXMLController implements Initializable {
         TypeToken<Empe> token = new TypeToken<Empe>() {
         };
         HashMap<String, Object> param = new LinkedHashMap<>();
-        param.put("idCliente", "");
+        param.put("cliente", "");
         param.put("observaciones", "");
         param.put("usuario", usuario.getNombre());
         param.put("idContrato", "");
@@ -279,7 +279,7 @@ public class AgregarEmpFXMLController implements Initializable {
                     alert.showAndWait();
                 } else {
                     HashMap<String, Object> param = new LinkedHashMap<>();
-                    param.put("idCliente", this.cliente.getIdCliente());
+                    param.put("cliente", this.cliente.getNombre());
                     param.put("observaciones", this.txtA_observacionE.getText());
                     param.put("usuario", usuario.getNombre());
                     param.put("interes", this.empeño.getInteres());

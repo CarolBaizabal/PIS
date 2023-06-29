@@ -32,6 +32,7 @@ import modelo.pojos.Prenda;
 import modelo.pojos.Refrendo;
 import modelo.pojos.Respuesta;
 import modelo.pojos.Rol;
+import modelo.pojos.Usuario;
 import org.apache.ibatis.session.SqlSession;
 
 /**
@@ -149,7 +150,7 @@ public class EmpWS {
     @Path("registrarEmp")
     @Produces(MediaType.APPLICATION_JSON)
     public Response registrarEmp(
-            @FormParam("idCliente") Integer idCliente,
+            @FormParam("cliente") String cliente,
             @FormParam("observaciones") String observaciones,
             @FormParam("usuario") String usuario,
             @FormParam("idContrato") Integer idContrato,
@@ -168,7 +169,7 @@ public class EmpWS {
             LocalDateTime now = LocalDateTime.now();
             String fechaCreacion = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
             HashMap<String, Object> param = new HashMap<String, Object>();
-            param.put("idCliente", idCliente);
+            param.put("cliente", cliente);
             param.put("fechaCreacion", fechaCreacion);
             param.put("observaciones", observaciones);
             param.put("usuario", usuario);
@@ -183,7 +184,7 @@ public class EmpWS {
 
             conn.insert("Emp.registrarEmp", param);
             HashMap<String, Object> resultado = conn.selectOne("Emp.obtenerId");
-            Empe emp = new Empe(new BigInteger(resultado.get("id") + "").intValue(), idCliente, fechaCreacion, observaciones, usuario, idContrato, "", interes, almacenaje, periodos, diasPeriodos, iva, tasaComercializacion, estatus);
+            Empe emp = new Empe(new BigInteger(resultado.get("id") + "").intValue(), cliente, fechaCreacion, observaciones, usuario, idContrato, "", interes, almacenaje, periodos, diasPeriodos, iva, tasaComercializacion, estatus);
             conn.commit();
             respuesta = Response.ok(emp);
         } catch (Exception ex) {
@@ -319,13 +320,17 @@ public class EmpWS {
     }
 
     @GET
-    @Path("buscarEmp/{idContrato}")
+    @Path("buscarEmp/{busqueda}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response buscarEmpByNombre(@PathParam("idContrato") String idContrato) {
+    public Response buscarEmpByNombre(@PathParam("busqueda") String busqueda) {
         Response.ResponseBuilder respuesta = null;
         SqlSession conn = MyBatisUtil.getSession();
         try {
-            List<Empe> list = conn.selectList("Emp.buscarEmpPorNombre", idContrato);
+            List<Empe> list = conn.selectList("Emp.buscarEmpPorNombre", new HashMap<String, Object>() {{
+                put("busqueda", busqueda);
+                
+            }});
+
             respuesta = Response.ok(parser.toJson(list));
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -343,7 +348,7 @@ public class EmpWS {
     @Produces(MediaType.APPLICATION_JSON)
     public Response actualizarEmp(
             @PathParam("idEmp") Integer idEmp,
-            @FormParam("idCliente") Integer idCliente,
+            @FormParam("cliente") String cliente,
             @FormParam("observaciones") String observaciones,
             @FormParam("usuario") String usuario,
             @FormParam("idContrato") Integer idContrato,
@@ -360,7 +365,7 @@ public class EmpWS {
         try {
             HashMap<String, Object> param = new HashMap<>();
             param.put("idEmp", idEmp);
-            param.put("idCliente", idCliente);
+            param.put("cliente", cliente);
             param.put("observaciones", observaciones);
             param.put("usuario", usuario);
             param.put("idContrato", idContrato);
@@ -390,7 +395,7 @@ public class EmpWS {
     @Produces(MediaType.APPLICATION_JSON)
     public Response registrarFullEmp(
             @PathParam("idEmp") Integer idEmp,
-            @FormParam("idCliente") Integer idCliente,
+            @FormParam("cliente") String cliente,
             @FormParam("observaciones") String observaciones,
             @FormParam("observacionesContrato") String observacionesContrato,
             @FormParam("usuario") String usuario,
@@ -457,7 +462,7 @@ public class EmpWS {
 
             HashMap<String, Object> param = new HashMap<>();
             param.put("idEmp", idEmp);
-            param.put("idCliente", idCliente);
+            param.put("cliente", cliente);
             param.put("observaciones", observaciones);
             param.put("usuario", usuario);
             param.put("idContrato", new BigInteger(resultado.get("id") + "").intValue());
@@ -654,7 +659,11 @@ public class EmpWS {
     @Path("finiquitar/{idEmp}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response finiquitar(
-            @PathParam("idEmp") Integer idEmp) {
+            @PathParam("idEmp") Integer idEmp,
+            @FormParam("usuario") String usuario,
+            @FormParam("subtotal") Float subtotal,
+            @FormParam("iva") Float iva,
+            @FormParam("total") Float total){
 
         Response.ResponseBuilder respuesta = null;
         SqlSession conn = MyBatisUtil.getSession();
@@ -662,12 +671,30 @@ public class EmpWS {
         try {
             HashMap<String, Object> param = new HashMap<String, Object>();
             param.put("idEmp", idEmp);
-
             conn.update("Emp.finiquitar", param);
+            
+            LocalDateTime now = LocalDateTime.now();
+            String fechaCreacion = now.toString();
+            HashMap<String, Object> params = new HashMap<String, Object>();
+            Empe empe = conn.selectOne("Emp.empById",param);
+            Usuario user = conn.selectOne("Usuario.getUsuarioById",param);
+            params.put("idEmp", idEmp);
+            params.put("idContrato",  empe.getIdContrato());
+            params.put("fechaCreacion", fechaCreacion);
+            params.put("usuario", usuario);
+            params.put("interes", empe.getInteres());
+            params.put("importeAlmacenaje", empe.getAlmacenaje());
+            params.put("subtotal", subtotal);
+            params.put("iva", iva);
+            params.put("total",total);
+
+            conn.update("Emp.registrarfiniquito", params);
+            
             conn.commit();
-            respuesta = Response.ok(new Respuesta("Finiquitado correctamente..."));
+            respuesta = Response.ok(new Respuesta("Finiquitado correctamente..."));       
             
         } catch (Exception ex) {
+            conn.rollback();
             ex.printStackTrace();
             respuesta = Response
                     .status(Response.Status.INTERNAL_SERVER_ERROR)
@@ -678,4 +705,37 @@ public class EmpWS {
         return respuesta.build();
     }
     
+    
+    @PUT
+    @Path("actualizarObservaciones/{idEmp}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response actualizarObservaciones(
+            @PathParam("idEmp") Integer idEmp,
+            @FormParam("observaciones") String observaciones){
+
+        Response.ResponseBuilder respuesta = null;
+        SqlSession conn = MyBatisUtil.getSession();
+
+        try {
+             LocalDateTime now = LocalDateTime.now();
+            String fechaActualizacion = now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            HashMap<String, Object> param = new HashMap<String, Object>();
+            param.put("idEmp", idEmp);
+            param.put("observaciones", observaciones);
+            param.put("fechaActualizacion", fechaActualizacion);
+
+
+            conn.update("Emp.actualizarObservaciones", param);
+            conn.commit();
+            respuesta = Response.ok(new Respuesta("Empeño actualizada correctamente..."));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respuesta = Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new Respuesta("No se pudo actualizar el empeño"));
+        } finally {
+            conn.close();
+        }
+        return respuesta.build();
+    }
 }

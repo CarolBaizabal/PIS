@@ -20,6 +20,7 @@ public class ApplicationConfig extends Application {
         resources.add(servicios.CategoriaPrendaWS.class);
         resources.add(servicios.CategoriaWS.class);
         resources.add(servicios.ClienteWS.class);
+        resources.add(servicios.ComercializacionWS.class);
         resources.add(servicios.ContratoWS.class);
         resources.add(servicios.EgresoWS.class);
         resources.add(servicios.EmpWS.class);

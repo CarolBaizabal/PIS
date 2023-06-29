@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Comercializacion">
+    <select id="getAllComercializacion" resultType="modelo.pojos.Comercializacion" statementType="CALLABLE">
+        {CALL base.sp_getAllComercializacion()}
+    </select>
+    
+    <select id="getComercializacionById" resultType="modelo.pojos.Comercializacion" statementType="CALLABLE">
+        {CALL base.sp_getComercializacionById(
+        #{usuario,jdbcType=VARCHAR,mode=IN})}
+    </select>
+
+    <select id="comercializacionId" resultType="modelo.pojos.Comercializacion" statementType="CALLABLE">
+        {CALL base.sp_comercializacionId(
+        #{usuario,jdbcType=VARCHAR,mode=IN})}
+    </select>
+
+    <select id="buscarComercializacionPorFecha" resultType="modelo.pojos.Comercializacion" statementType="CALLABLE">
+        {CALL base.sp_buscarComercializacionPorFecha(
+        #{fechaCreacion,jdbcType=VARCHAR,mode=IN})}
+    </select>
+
+    <update id="actualizarComercializacion" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_actualizarComercializacion(
+        #{idComercializacion,jdbcType=INTEGER,mode=IN},
+        #{observaciones,jdbcType=VARCHAR,mode=IN})}
+    </update>
+    
+    <select id="buscarConsultasPorFecha" resultType="modelo.pojos.Comercializacion" statementType="CALLABLE">
+        {CALL base.sp_buscarConsultasPorFecha(
+        #{fechaInicioBusqueda,jdbcType=VARCHAR,mode=IN},
+        #{fechaFinalBusqueda,jdbcType=VARCHAR,mode=IN})}
+    </select>
+</mapper>
+

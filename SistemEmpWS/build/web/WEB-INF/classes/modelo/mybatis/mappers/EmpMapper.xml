@@ -36,12 +36,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="buscarEmpPorNombre" resultType="modelo.pojos.Empe" statementType="CALLABLE">
         {CALL base.sp_buscarEmpPorNombre(
-        #{idContrato,jdbcType=VARCHAR,mode=IN})}
+        #{busqueda,jdbcType=VARCHAR,mode=IN})}
     </select>
     
     <insert id="registrarEmp" parameterType="modelo.pojos.Empe" statementType="CALLABLE">
         {CALL base.sp_registrarEmp(
-        #{idCliente, jdbcType=INTEGER, mode=IN},
+        #{cliente, jdbcType=VARCHAR, mode=IN},
         #{fechaCreacion, jdbcType=TIMESTAMP, mode=IN},
         #{observaciones, jdbcType=VARCHAR, mode=IN},
         #{usuario, jdbcType=VARCHAR, mode=IN},
@@ -67,7 +67,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="actualizarEmp" parameterType="map" statementType="CALLABLE">
         {CALL base.sp_actualizarEmp(
         #{idEmp, jdbcType=INTEGER, mode=IN},
-        #{idCliente, jdbcType=INTEGER, mode=IN},
+        #{cliente, jdbcType=VARCHAR, mode=IN},
         #{observaciones, jdbcType=VARCHAR, mode=IN},
         #{usuario, jdbcType=VARCHAR, mode=IN},
         #{idContrato, jdbcType=INTEGER, mode=IN},
@@ -111,9 +111,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{idEmp, jdbcType=INTEGER, mode=IN})}
     </update>
 
-     <update id="sp_registrarfiniquito" parameterType="map" statementType="CALLABLE">
+     <update id="registrarfiniquito" parameterType="map" statementType="CALLABLE">
         {CALL base.sp_registrarfiniquito(
-        #{idFiniquito, jdbcType=INTEGER, mode=IN},
+        #{idEmp, jdbcType=INTEGER, mode=IN},
         #{idContrato, jdbcType=INTEGER, mode=IN},
         #{fechaCreacion, jdbcType=VARCHAR, mode=IN},
         #{usuario, jdbcType=VARCHAR, mode=IN},
@@ -122,6 +122,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{subtotal, jdbcType=FLOAT, mode=IN},
         #{iva, jdbcType=FLOAT, mode=IN},
         #{total, jdbcType=FLOAT, mode=IN})}
+    </update>
+    
+    <update id="actualizarObservaciones" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_actualizarObservaciones(
+        #{idEmp,jdbcType=INTEGER,mode=IN},
+        #{observaciones,jdbcType=VARCHAR,mode=IN},
+        #{fechaActualizacion,jdbcType=VARCHAR,mode=IN})}
     </update>
 </mapper>
 

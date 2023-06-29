@@ -17,11 +17,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.TextField;
 import org.json.JSONException;
 import org.json.JSONObject;
 import sistemaempfx.api.Requests;
-import sistemaempfx.model.pojos.Empe;
+import sistemaempfx.model.pojos.Comercializacion;
+import sistemaempfx.model.pojos.Egreso;
 import sistemaempfx.model.pojos.Usuario;
 import sistemaempfx.utils.VentanaAlert;
 import sistemaempfx.utils.Window;
@@ -29,12 +30,13 @@ import sistemaempfx.utils.Window;
 /**
  * FXML Controller class
  *
- * @author Carol Celina Pacheco
+ * @author Alicia
  */
-public class EditarEmpFXMLController implements Initializable {
+public class EditarComercializacionFXMLController implements Initializable {
+    
+Comercializacion comercializacion = null;
+Usuario usuario = null;
 
-    Empe emp = null;
-    Usuario usuario = null;
     @FXML
     private TextArea txt_observaciones;
 
@@ -43,20 +45,19 @@ public class EditarEmpFXMLController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }    
-    
-    public void setData(Empe emp ,Usuario usuario, Boolean isnew){    
-        this.emp = emp;
-        this.usuario = usuario;
-        txt_observaciones.setText(this.emp.getObservaciones());
-    }
 
+    public void setData(Comercializacion comercializacion ,Usuario usuario, Boolean isnew){    
+        this.comercializacion = comercializacion;
+        this.usuario = usuario;
+         txt_observaciones.setText(this.comercializacion.getObservaciones());
+    }
     @FXML
     private void editar(ActionEvent event) {
         VentanaAlert alert = new VentanaAlert();
         
-        if (this.emp!= null) {
+        if (this.comercializacion != null) {
             
 
             if (this.txt_observaciones.getText().isEmpty()) {
@@ -75,18 +76,18 @@ public class EditarEmpFXMLController implements Initializable {
                     if (response == ButtonType.OK) {
                         try {
                             if (this.usuario.getRol().equals("Administrador")) {
-                                String respuesta = Requests.put("/emp/actualizarObservaciones/" + emp.getIdEmp(), params);
+                                String respuesta = Requests.put("/comercializacion/actualizarComercializacion/" + comercializacion.getIdComercializacion(), params);
 
                                 JSONObject dataJson = new JSONObject(respuesta);
 
                                 if ((Boolean) dataJson.get("errorRespuesta") == false) {
                                     alert.information("Informativo", dataJson.getString("mensaje"));
-                                    this.emp = null;
+                                    this.comercializacion = null;
                                     Window.close(event);
 
                                 } else {
                                     alert.warning("Advertencia", dataJson.getString("mensaje"));
-                                    this.emp = null;
+                                    this.comercializacion = null;
                                     Window.close(event);
                                 }
                             } else {    
@@ -99,7 +100,7 @@ public class EditarEmpFXMLController implements Initializable {
                         }
                     }
                     if (response == ButtonType.CANCEL) {
-                        this.emp = null;
+                        this.comercializacion = null;
                         Window.close(event);
                     }
                 });
@@ -109,11 +110,9 @@ public class EditarEmpFXMLController implements Initializable {
         }
     }
 
-
     @FXML
     private void cancelar(ActionEvent event) {
         Window.close(event);
     }
-
     
 }

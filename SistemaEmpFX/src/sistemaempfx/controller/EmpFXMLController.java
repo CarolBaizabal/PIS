@@ -62,7 +62,7 @@ public class EmpFXMLController implements Initializable {
     private Button btn_finiquitar;
     @FXML
     private TextField txt_usuario;
-    private Usuario usuario;
+     Usuario usuario = null;
     @FXML
     private TableView<Empe> tb_emp;
     @FXML
@@ -121,28 +121,28 @@ public class EmpFXMLController implements Initializable {
 
     @FXML
     private void buscar(ActionEvent event) {
-        if(this.txt_usuario.getText().isEmpty()){
-        Alert alertI = new Alert(Alert.AlertType.WARNING);
-        alertI.setTitle("Advertencia");
-        alertI.setHeaderText(null);
-        alertI.setContentText("Ingrese una busqueda...");
-        alertI.showAndWait();
-        }else{
-        int buscar = Integer.parseInt(txt_usuario.getText());
-        tb_emp.getItems().clear();
-        List<Empe> listaEmpe = null;
+        if (this.txt_usuario.getText().isEmpty()) {
+            Alert alertI = new Alert(Alert.AlertType.WARNING);
+            alertI.setTitle("Advertencia");
+            alertI.setHeaderText(null);
+            alertI.setContentText("Ingrese una busqueda...");
+            alertI.showAndWait();
+        } else {
+            String  buscar = txt_usuario.getText();
+            tb_emp.getItems().clear();
+            List<Empe> listaEmpe = null;
 
-        // Actual
+            // Actual
             String respuesta = "";
 
-             respuesta = Requests.get("/emp/buscarEmp/" + buscar);
+            respuesta = Requests.get("/emp/buscarEmp/" + buscar );
             Gson gson = new Gson();
 
             TypeToken<List<Empe>> token = new TypeToken<List<Empe>>() {
             };
             listaEmpe = gson.fromJson(respuesta, token.getType());
 
-            tc_cliente.setCellValueFactory(new PropertyValueFactory<>("idCliente"));
+            tc_cliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
             tc_creacion.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));
             tc_observaciones.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
             tc_usuario.setCellValueFactory(new PropertyValueFactory<>("usuario"));
@@ -156,9 +156,9 @@ public class EmpFXMLController implements Initializable {
             tc_tasaComercializacion.setCellValueFactory(new PropertyValueFactory<>("tasaComercializacion"));
             tc_estatus.setCellValueFactory(new PropertyValueFactory<>("estatus"));
 
-        listaEmpe.forEach(e -> {
-            tb_emp.getItems().add(e);
-        });
+            listaEmpe.forEach(e -> {
+                tb_emp.getItems().add(e);
+            });
         }
     }
 
@@ -179,7 +179,7 @@ public class EmpFXMLController implements Initializable {
 
             List<Empe> listaEmpe = gson.fromJson(respuesta, token.getType());
 
-            tc_cliente.setCellValueFactory(new PropertyValueFactory<>("idCliente"));
+            tc_cliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
             tc_creacion.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));
             tc_observaciones.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
             tc_usuario.setCellValueFactory(new PropertyValueFactory<>("usuario"));
@@ -260,14 +260,12 @@ public class EmpFXMLController implements Initializable {
                         if ("Refrendado".equals(estado)||"Vigente".equals(estado)||"Espera".equals(estado)) {
                             HashMap<String, Object> params = new LinkedHashMap<>();
                             params.put("idEmp", this.emp.getIdEmp());
-                            /*params.put("idContrato", this.emp.getIdContrato());
                             params.put("usuario", this.usuario.getNombre());
-                            params.put("interes", this.emp.getInteres());
-                            params.put("importeAlmacenaje", this.emp.getAlmacenaje());
+                            
                             params.put("subtotal", this.emp.getInteres() * this.emp.getAlmacenaje());
                             params.put("iva", 0.16f*(this.emp.getInteres() * this.emp.getAlmacenaje()));
                             params.put("total", (this.emp.getInteres() * this.emp.getAlmacenaje()) * .016f + (this.emp.getInteres() * this.emp.getAlmacenaje()));
-*/
+                          
                             String respuesta = Requests.put("/emp/finiquitar/" + emp.getIdEmp(), params);
 
                             JSONObject dataJson = new JSONObject(respuesta);
@@ -326,6 +324,37 @@ public class EmpFXMLController implements Initializable {
 
     @FXML
     private void observaciones(ActionEvent event) {
+        this.emp = tb_emp.getSelectionModel().getSelectedItem();
+         if (this.emp != null) {
+            try {
+                Stage stage = new Stage();
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/sistemaempfx/gui/view/EditarEmpFXML.fxml"));
+
+                Parent formUsuarioEditar = loader.load();
+
+                EditarEmpFXMLController ctrl = loader.getController();
+                
+                ctrl.setData(this.emp, this.usuario, false);
+
+                Scene scene = new Scene(formUsuarioEditar);
+                stage.setScene(scene);
+                stage.setTitle("Editar");
+                stage.setResizable(false);
+                stage.showAndWait();
+                this.cargarTabla();
+                this.emp = null;
+                
+            } catch (IOException ex) {
+                Logger.getLogger(CategoriasFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Advertencia");
+            alert.setHeaderText(null);
+            alert.setContentText("Seleccione un empeño...");
+            alert.showAndWait();
+        }
     }
     
 }

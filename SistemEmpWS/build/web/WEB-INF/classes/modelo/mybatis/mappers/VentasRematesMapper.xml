@@ -28,7 +28,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     
     <select id="buscarVentasRematesPorFecha" resultType="modelo.pojos.VentasRemates" statementType="CALLABLE">
         {CALL base.sp_buscarVentasRematesPorFecha(
-        #{fechaVenta,jdbcType=VARCHAR,mode=IN})}
+        #{buscar,jdbcType=VARCHAR,mode=IN})}
     </select>
     
     <update id="estatusVentasRemates" parameterType="map" statementType="CALLABLE">
