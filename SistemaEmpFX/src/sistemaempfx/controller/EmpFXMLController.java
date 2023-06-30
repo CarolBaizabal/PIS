@@ -102,6 +102,8 @@ public class EmpFXMLController implements Initializable {
     private Button btn_observaciones;
     @FXML
     private Button btn_Comercializacion;
+    @FXML
+    private TableColumn<Empe, Integer> tc_claveE;
     /**
      * Initializes the controller class.
      */
@@ -144,6 +146,7 @@ public class EmpFXMLController implements Initializable {
             };
             listaEmpe = gson.fromJson(respuesta, token.getType());
 
+            tc_claveE.setCellValueFactory(new PropertyValueFactory<>("idEmp"));
             tc_cliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
             tc_creacion.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));
             tc_observaciones.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
@@ -181,6 +184,7 @@ public class EmpFXMLController implements Initializable {
 
             List<Empe> listaEmpe = gson.fromJson(respuesta, token.getType());
 
+            tc_claveE.setCellValueFactory(new PropertyValueFactory<>("idEmp"));
             tc_cliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
             tc_creacion.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));
             tc_observaciones.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
@@ -277,7 +281,7 @@ public class EmpFXMLController implements Initializable {
                                 this.emp = null;
                                 this.cargarTabla();
                             }
-                        } else if ("Cancelado".equals(estado)||"Finiquitado".equals(estado)||"Comercializado".equals(estado)||"Inconcluso".equals(estado)) {
+                        } else if ("Cancelado".equals(estado)||"Vencido".equals(estado)||"Finiquitado".equals(estado)||"Comercializado".equals(estado)||"Inconcluso".equals(estado)) {
                             Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
                             alert1.setTitle("Error");
                             alert1.setHeaderText(null);
@@ -354,7 +358,7 @@ public class EmpFXMLController implements Initializable {
                                 this.emp = null;
                                 this.cargarTabla();
                             }
-                        } else if ("Cancelado".equals(estado)||"Finiquitado".equals(estado)||"Comercializado".equals(estado)||"Inconcluso".equals(estado)) {
+                        } else if ("Vencido".equals(estado)||"Cancelado".equals(estado)||"Finiquitado".equals(estado)||"Comercializado".equals(estado)||"Inconcluso".equals(estado)) {
                             Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
                             alert1.setTitle("Error");
                             alert1.setHeaderText(null);
@@ -436,7 +440,7 @@ public class EmpFXMLController implements Initializable {
                                 this.emp = null;
                                 this.cargarTabla();
                             }
-                        } else if ("Cancelado".equals(estado)||"Finiquitado".equals(estado)||"Comercializado".equals(estado)||"Inconcluso".equals(estado)) {
+                        } else if ("Cancelado".equals(estado)||"Finiquitado".equals(estado)||"Comercializado".equals(estado)||"Inconcluso".equals(estado)||"Vencido".equals(estado)) {
                             Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
                             alert1.setTitle("Error");
                             alert1.setHeaderText(null);
@@ -521,7 +525,7 @@ public class EmpFXMLController implements Initializable {
 
                         String estado = this.emp.getEstatus();
 
-                        if ("Refrendado".equals(estado)||"Vigente".equals(estado)||"Espera".equals(estado)) {
+                        if ("Vencido".equals(estado)) {
                             HashMap<String, Object> params = new LinkedHashMap<>();
                             params.put("idEmp", this.emp.getIdEmp());
                             params.put("usuario", this.usuario.getNombre());
@@ -549,11 +553,11 @@ public class EmpFXMLController implements Initializable {
                                 this.emp = null;
                                 this.cargarTabla();
                             }
-                        } else if ("Cancelado".equals(estado)||"Finiquitado".equals(estado)||"Comercializado".equals(estado)||"Inconcluso".equals(estado)) {
+                        } else if ("Cancelado".equals(estado)||"Finiquitado".equals(estado)||"Comercializado".equals(estado)||"Inconcluso".equals(estado)||"Refrendado".equals(estado)||"Vigente".equals(estado)||"Espera".equals(estado)) {
                             Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
                             alert1.setTitle("Error");
                             alert1.setHeaderText(null);
-                            alert1.setContentText("El contrato ya se encuentra finiquitado o cancelado...");
+                            alert1.setContentText("El contrato no puede comercializarce por su estatus...");
                             alert1.showAndWait();
                         } else {
                             Alert alertInactivo = new Alert(Alert.AlertType.INFORMATION);

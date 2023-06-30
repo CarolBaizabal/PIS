@@ -70,13 +70,11 @@ public class PrendasFXMLController implements Initializable {
     private TableColumn<Prenda, Integer> tb_venta;
     @FXML
     private TableColumn<Prenda, String> tb_estatus;
-    @FXML
     private TableColumn<Prenda, String> tb_claveC;
     @FXML
     private TableColumn<Prenda, String> fechaCreacion;
     @FXML
     private TableColumn<Prenda, String> tb_fechaC;
-    @FXML
     private TableColumn<Prenda, String> tb_fechaVent;
     @FXML
     private TableColumn<Prenda, String> tb_usuario;
@@ -128,10 +126,8 @@ public class PrendasFXMLController implements Initializable {
             tb_comercializacion.setCellValueFactory(new PropertyValueFactory<>("precioComercializacion"));
             tb_venta.setCellValueFactory(new PropertyValueFactory<>("precioVenta"));
             tb_estatus.setCellValueFactory(new PropertyValueFactory<>("estatus"));
-            tb_claveC.setCellValueFactory(new PropertyValueFactory<>("idComercializacion"));
             fechaCreacion.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));
             tb_fechaC.setCellValueFactory(new PropertyValueFactory<>("fechaComercializacion"));
-            tb_fechaVent.setCellValueFactory(new PropertyValueFactory<>("fechaVenta"));
             tb_usuario.setCellValueFactory(new PropertyValueFactory<>("usuario"));
 
         listaPrenda.forEach(e -> {
@@ -235,7 +231,6 @@ public class PrendasFXMLController implements Initializable {
         }
     }
 
-    @FXML
     private void agregar(ActionEvent event) {
         try {
             Stage stage = new Stage();

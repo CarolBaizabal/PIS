@@ -61,8 +61,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{almacenaje, jdbcType=FLOAT, mode=IN},
         #{periodos, jdbcType=INTEGER, mode=IN},
         #{diasPeriodos, jdbcType=INTEGER, mode=IN},
-        #{iva, jdbcType=FLOAT, mode=IN},
-        #{tasaComercializacion, jdbcType=FLOAT, mode=IN})}
+        #{iva, jdbcType=FLOAT, mode=IN})}
     </insert>
     
     <select id="obtenerId" resultType="map" statementType="CALLABLE">

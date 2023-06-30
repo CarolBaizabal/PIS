@@ -30,8 +30,6 @@ import javafx.stage.Stage;
 import sistemaempfx.api.Requests;
 import sistemaempfx.model.pojos.Comercializacion;
 import sistemaempfx.model.pojos.Usuario;
-import sistemaempfx.model.pojos.VentasRemates;
-
 /**
  * FXML Controller class
  *
@@ -50,8 +48,6 @@ public class ComercializacionFXMLController implements Initializable {
     private TableColumn<Comercializacion, String> tc_observaciones;
     @FXML
     private TableColumn<Comercializacion, String> tc_metal;
-    @FXML
-    private TableColumn<Comercializacion, String> tc_detalleComercializacion;
     @FXML
      private TableView<Comercializacion> tb_comercializacion;
     @FXML
@@ -87,7 +83,6 @@ public class ComercializacionFXMLController implements Initializable {
         tb_fechaFinBusqueda.setCellValueFactory(new PropertyValueFactory<>("fechaFinBusqueda"));
         tc_observaciones.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
         tc_metal.setCellValueFactory(new PropertyValueFactory<>("metal"));
-        tc_detalleComercializacion.setCellValueFactory(new PropertyValueFactory<>("idDetalleComercializacion"));
         
         listaComercializacion.forEach(e -> {
             tb_comercializacion.getItems().add(e);
@@ -116,17 +111,24 @@ public class ComercializacionFXMLController implements Initializable {
             TypeToken<List<Comercializacion>> token = new TypeToken<List<Comercializacion>>() {
             };
             listaComercializacion = gson.fromJson(respuesta, token.getType());
+            if(listaComercializacion.size()>0){
             tc_fechaCreacion.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));
             tc_usuario.setCellValueFactory(new PropertyValueFactory<>("usuario"));
             tb_fechaInicioBusqueda.setCellValueFactory(new PropertyValueFactory<>("fechaInicioBusqueda"));
             tb_fechaFinBusqueda.setCellValueFactory(new PropertyValueFactory<>("fechaFinBusqueda"));
             tc_observaciones.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
             tc_metal.setCellValueFactory(new PropertyValueFactory<>("metal"));
-            tc_detalleComercializacion.setCellValueFactory(new PropertyValueFactory<>("idDetalleComercializacion"));
-
             listaComercializacion.forEach(e -> {
                 tb_comercializacion.getItems().add(e);
             });
+            } else{
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Advertencia");
+            alert.setHeaderText(null);
+            alert.setContentText("No hay resultados...");
+            alert.showAndWait();
+            this.cargarTabla();
+            }
         }
     }
 
@@ -205,18 +207,24 @@ public class ComercializacionFXMLController implements Initializable {
             TypeToken<List<Comercializacion>> token = new TypeToken<List<Comercializacion>>() {
             };
             List<Comercializacion> listaComercializacion = gson.fromJson(respuesta, token.getType());
-
-            tc_fechaCreacion.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));
-            tc_usuario.setCellValueFactory(new PropertyValueFactory<>("usuario"));
-            tb_fechaInicioBusqueda.setCellValueFactory(new PropertyValueFactory<>("fechaInicioBusqueda"));
-            tb_fechaFinBusqueda.setCellValueFactory(new PropertyValueFactory<>("fechaFinBusqueda"));
-            tc_observaciones.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
-            tc_metal.setCellValueFactory(new PropertyValueFactory<>("metal"));
-            tc_detalleComercializacion.setCellValueFactory(new PropertyValueFactory<>("idDetalleComercializacion"));
-
-            listaComercializacion.forEach(e -> {
-                tb_comercializacion.getItems().add(e);
-            });
+            if (listaComercializacion.size()>0){
+                tc_fechaCreacion.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));
+                tc_usuario.setCellValueFactory(new PropertyValueFactory<>("usuario"));
+                tb_fechaInicioBusqueda.setCellValueFactory(new PropertyValueFactory<>("fechaInicioBusqueda"));
+                tb_fechaFinBusqueda.setCellValueFactory(new PropertyValueFactory<>("fechaFinBusqueda"));
+                tc_observaciones.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
+                tc_metal.setCellValueFactory(new PropertyValueFactory<>("metal"));
+                    listaComercializacion.forEach(e -> {
+                   tb_comercializacion.getItems().add(e);
+                   });
+            }else{
+            this.cargarTabla();
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Advertencia");
+            alert.setHeaderText(null);
+            alert.setContentText("No hay resultados...");
+            alert.showAndWait();
+            }
         }
     }
 
