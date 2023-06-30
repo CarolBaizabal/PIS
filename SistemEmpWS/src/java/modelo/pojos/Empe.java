@@ -24,13 +24,13 @@ public class Empe {
     private Integer periodos;
     private Integer diasPeriodos;
     private Float iva;
-    private Float tasaComercializaion;
+    private Float tasaComercializacion;
     private String estatus;
 
     public Empe() {
     }
 
-    public Empe(Integer idEmp, String cliente, String fechaCreacion, String observaciones, String usuario, Integer idContrato, String fechaActualizacion, Float interes, Float almacenaje, Integer periodos, Integer diasPeriodos, Float iva, Float tasaComercializaion, String estatus) {
+    public Empe(Integer idEmp, String cliente, String fechaCreacion, String observaciones, String usuario, Integer idContrato, String fechaActualizacion, Float interes, Float almacenaje, Integer periodos, Integer diasPeriodos, Float iva, Float tasaComercializacion, String estatus) {
         this.idEmp = idEmp;
         this.cliente = cliente;
         this.fechaCreacion = fechaCreacion;
@@ -43,7 +43,7 @@ public class Empe {
         this.periodos = periodos;
         this.diasPeriodos = diasPeriodos;
         this.iva = iva;
-        this.tasaComercializaion = tasaComercializaion;
+        this.tasaComercializacion = tasaComercializacion;
         this.estatus=estatus;
     }
 
@@ -143,12 +143,12 @@ public class Empe {
         this.iva = iva;
     }
 
-    public Float getTasaComercializaion() {
-        return tasaComercializaion;
+    public Float getTasaComercializacion() {
+        return tasaComercializacion;
     }
 
-    public void setTasaComercializaion(Float tasaComercializaion) {
-        this.tasaComercializaion = tasaComercializaion;
+    public void setTasaComercializaion(Float tasaComercializacion) {
+        this.tasaComercializacion = tasaComercializacion;
     }
 
     public String getEstatus() {

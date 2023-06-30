@@ -55,4 +55,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         {CALL base.sp_buscarUsuarioPorNombre(
         #{nombre,jdbcType=VARCHAR,mode=IN})}
     </select>
+    
+    <select id="getAllPermisos" resultType="modelo.pojos.Permiso" statementType="CALLABLE">
+        {CALL base.sp_getAllPermisos()}
+    </select>
+    
+    <update id="actualizarPermiso" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_actualizarPermiso(
+        #{idPermiso,jdbcType=INTEGER,mode=IN},
+        #{estatus,jdbcType=BOOLEAN,mode=IN})}
+    </update>
+    
+     <select id="getRol" resultType="modelo.pojos.Permiso" statementType="CALLABLE">
+        {CALL base.sp_getRol(
+         #{idRol,jdbcType=VARCHAR,mode=IN})}
+    </select>
 </mapper>

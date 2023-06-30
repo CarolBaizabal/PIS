@@ -5,12 +5,16 @@ import sistemaempfx.model.pojos.Usuario;
 import sistemaempfx.utils.JavaUtils;
 import sistemaempfx.utils.Window;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import java.net.InetAddress;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,6 +28,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.json.JSONObject;
+import sistemaempfx.model.pojos.Categoria;
+import sistemaempfx.model.pojos.Permiso;
 
 public class LoginFXMLController implements Initializable {
 
@@ -71,7 +77,7 @@ public class LoginFXMLController implements Initializable {
                     context.put("usuario", user);                                                 
                     context.put("ip", InetAddress.getLocalHost());
 
-                    if (user.getRol().equals("Administrador")) {
+                    if (user.getRol().equals("Administrador")||user.getRol().equals("Cajero")||user.getRol().equals("Gerente")) {
 
                         FXMLLoader loader = new FXMLLoader();
                         loader.setLocation(getClass().getResource("/sistemaempfx/gui/view/PrincipalFXML.fxml"));
@@ -80,6 +86,9 @@ public class LoginFXMLController implements Initializable {
                         PrincipalFXMLController ctrl = loader.getController();
                         ctrl.setData(context);
                         ctrl.setDataUsuario(user);
+                        
+                        HashMap<String,Boolean> permisos = this.lista(user.getRol());
+                        ctrl.setPermisos(permisos);
 
                         Scene scene = new Scene(principal);
                         stage.setScene(scene);
@@ -88,11 +97,11 @@ public class LoginFXMLController implements Initializable {
                         stage.getIcons().add(new Image("/sistemaempfx/gui/img/icon.png"));
                         stage.show();
                     } else {
-                        Alert alert = new Alert(Alert.AlertType.WARNING);
+                        /*Alert alert = new Alert(Alert.AlertType.WARNING);
                         alert.setTitle("Advertencia");
                         alert.setHeaderText(null);
                         alert.setContentText("Solo los administradores pueden ingresar...");
-                        alert.showAndWait();
+                        alert.showAndWait();*/
                     }
                 } catch (Exception ex) {
                     Alert alertI = new Alert(Alert.AlertType.WARNING);
@@ -129,5 +138,23 @@ public class LoginFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+    }
+    
+    private HashMap<String,Boolean> lista(String idRol) {
+
+        String respuesta = Requests.get("/usuario/getRol/"+idRol);
+        Gson gson = new Gson();
+
+        TypeToken<List<Permiso>> token = new TypeToken<List<Permiso>>() {
+        };
+
+        List<Permiso> listaPermisos = gson.fromJson(respuesta, token.getType());
+        HashMap<String,Boolean> permisos = new HashMap<>();
+        
+        for(Permiso permiso : listaPermisos){
+            permisos.put(permiso.getPermiso(),permiso.getEstatus());
+        }
+
+        return permisos;
     }
 }

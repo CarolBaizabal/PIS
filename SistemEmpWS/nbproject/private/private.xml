@@ -3,10 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Alicia/Desktop/Git/PIS/SistemEmpWS/src/java/servicios/EmpWS.java</file>
-            <file>file:/C:/Users/Alicia/Desktop/Git/PIS/SistemEmpWS/src/java/servicios/CatalogoPrendaWS.java</file>
-            <file>file:/C:/Users/Alicia/Desktop/Git/PIS/SistemEmpWS/src/java/servicios/ComercializacionWS.java</file>
-            <file>file:/C:/Users/Alicia/Desktop/Git/PIS/SistemEmpWS/src/java/modelo/mybatis/mappers/ComercializacionMapper.xml</file>
+            <file>file:/C:/Users/Alicia/Desktop/Git/PIS/SistemEmpWS/src/java/modelo/mybatis/mappers/UsuarioMapper.xml</file>
+            <file>file:/C:/Users/Alicia/Desktop/Git/PIS/SistemEmpWS/src/java/servicios/UsuarioWS.java</file>
         </group>
     </open-files>
 </project-private>

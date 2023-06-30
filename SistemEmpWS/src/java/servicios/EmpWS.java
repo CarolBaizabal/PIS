@@ -791,4 +791,52 @@ public class EmpWS {
         }
         return respuesta.build();
     }
+    
+    @PUT
+    @Path("comercializar/{idEmp}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response comercializar(
+            @PathParam("idEmp") Integer idEmp,
+            @FormParam("usuario") String usuario,
+            @FormParam("subtotal") Float subtotal,
+            @FormParam("iva") Float iva,
+            @FormParam("total") Float total){
+
+        Response.ResponseBuilder respuesta = null;
+        SqlSession conn = MyBatisUtil.getSession();
+
+        try {
+            HashMap<String, Object> param = new HashMap<String, Object>();
+            param.put("idEmp", idEmp);
+            conn.update("Emp.comercializar", param);
+            
+            LocalDateTime now = LocalDateTime.now();
+            String fechaCreacion = now.toString();
+            HashMap<String, Object> params = new HashMap<String, Object>();
+            Empe empe = conn.selectOne("Emp.empById",param);
+            Usuario user = conn.selectOne("Usuario.getUsuarioById",param);
+            params.put("idEmp", idEmp);
+            params.put("fechaCreacion", fechaCreacion);
+            params.put("usuario", usuario);
+
+            conn.update("Emp.comercializacionPrenda", params);
+            
+            conn.commit();
+            respuesta = Response.ok(new Respuesta("Comercializado correctamente..."));       
+            
+        } catch (Exception ex) {
+            conn.rollback();
+            ex.printStackTrace();
+            respuesta = Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new Respuesta("No se pudo finiquitar"));
+        } finally {
+            conn.close();
+        }
+        return respuesta.build();
+    }
+    
+    
+    
+    
 }
