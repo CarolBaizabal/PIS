@@ -57,6 +57,32 @@ public class ComercializacionWS {
         }
         return respuesta.build();
     }
+    
+    @POST
+    @Path("getAllComercializacion")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response buscarComercializacion(@FormParam("fecha") String fecha) {
+        SqlSession conn = MyBatisUtil.getSession();
+        Response.ResponseBuilder respuesta = null;
+
+        try {
+            Map<String, Object> params = new HashMap<>();
+            params.put("fecha", fecha);
+            List<Comercializacion> list = conn.selectList("Comercializacion.buscarComercializacion",params);
+            respuesta = Response.ok(parser.toJson(list));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respuesta = Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new Respuesta("Error al consultar Comercializacion."));
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return respuesta.build();
+    }
+
 
     @GET
     @Path("getComercializacionById/{usuario}")
