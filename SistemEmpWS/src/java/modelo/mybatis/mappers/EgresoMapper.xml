@@ -8,6 +8,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         {CALL base.sp_getAllEgresoActivo()}
     </select>
     
+    <select id="busquedaEgresoActivo" resultType="modelo.pojos.Egreso" statementType="CALLABLE">
+        {CALL base.sp_busquedaEgresoActivo(
+            #{fecha,jdbcType=VARCHAR,mode=IN},
+            #{motivo,jdbcType=VARCHAR,mode=IN}
+        )}
+    </select>
+    
     <select id="getEgresoById" resultType="modelo.pojos.Egreso" statementType="CALLABLE">
         {CALL base.sp_getEgresoById(
         #{motivo,jdbcType=VARCHAR,mode=IN})}

@@ -53,7 +53,36 @@ public class EgresoWS {
         Response.ResponseBuilder respuesta = null;
 
         try {
-            List<Catalogo> list = conn.selectList("Egreso.getAllEgreso");
+            List<Egreso> list = conn.selectList("Egreso.getAllEgreso");
+            respuesta = Response.ok(parser.toJson(list));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respuesta = Response
+                    .status(Response.Status.INTERNAL_SERVER_ERROR)
+                    .entity(new Respuesta("Error al consultar Egreso."));
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return respuesta.build();
+    }
+    
+    @POST
+    @Path("getAllEgreso")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllEgresoPorFiltros(
+            @FormParam("fecha") String fecha,
+            @FormParam("motivo") String motivo
+    ) {
+        SqlSession conn = MyBatisUtil.getSession();
+        Response.ResponseBuilder respuesta = null;
+
+        try {
+            HashMap<String, Object> param = new HashMap<>();
+            param.put("fecha", fecha);
+            param.put("motivo", motivo);
+            List<Egreso> list = conn.selectList("Egreso.busquedaEgresoActivo",param);
             respuesta = Response.ok(parser.toJson(list));
         } catch (Exception ex) {
             ex.printStackTrace();
