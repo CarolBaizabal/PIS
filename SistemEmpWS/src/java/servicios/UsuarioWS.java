@@ -22,6 +22,7 @@ import javax.ws.rs.FormParam;
 import javax.ws.rs.PUT;
 
 import modelo.mybatis.MyBatisUtil;
+import modelo.pojos.Permiso;
 import modelo.pojos.Respuesta;
 import modelo.pojos.Usuario;
 import utils.JavaUtils;
@@ -283,6 +284,82 @@ public class UsuarioWS {
                     .entity(new Respuesta("Error al consultar."));
         } finally {
             conn.close();
+        }
+        return respuesta.build();
+    }
+    
+    //Permisos
+    @GET
+    @Path("getAllPermisos")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllPermisos() {
+        ResponseBuilder respuesta = null;
+        SqlSession conn = MyBatisUtil.getSession();
+
+        try {
+            List<Permiso> list = conn.selectList("Usuario.getAllPermisos");
+            respuesta = Response.ok(parser.toJson(list));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respuesta = Response
+                    .status(Status.INTERNAL_SERVER_ERROR)
+                    .entity(new Respuesta("Error consultando los permisos."));
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return respuesta.build();
+    }
+    
+    @PUT
+    @Path("actualizarPermiso/{idPermiso}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response actualizarPermiso(
+            @PathParam("idPermiso") Integer idPermiso,
+            @FormParam("estatus") Boolean estatus) {
+
+        ResponseBuilder respuesta = null;
+        SqlSession conn = MyBatisUtil.getSession();
+
+        try {
+            HashMap<String, Object> param = new HashMap<String, Object>();
+            param.put("idPermiso", idPermiso);
+            param.put("estatus", estatus);
+            
+            conn.update("Usuario.actualizarPermiso", param);
+            conn.commit();
+            respuesta = Response.ok(new Respuesta("Permiso actualizado correctamente..."));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respuesta = Response
+                    .status(Status.INTERNAL_SERVER_ERROR)
+                    .entity(new Respuesta("No se pudo actualizar el Permiso"));
+        } finally {
+            conn.close();
+        }
+        return respuesta.build();
+    }
+    
+    @GET
+    @Path("getRol/{idRol}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getRol(@PathParam("idRol") String idRol) {
+        ResponseBuilder respuesta = null;
+        SqlSession conn = MyBatisUtil.getSession();
+
+        try {
+            List<Permiso> list = conn.selectList("Usuario.getRol", idRol);
+            respuesta = Response.ok(parser.toJson(list));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            respuesta = Response
+                    .status(Status.INTERNAL_SERVER_ERROR)
+                    .entity(new Respuesta("Error consultando los permisos."));
+        } finally {
+            if (conn != null) {
+                conn.close();
+            }
         }
         return respuesta.build();
     }

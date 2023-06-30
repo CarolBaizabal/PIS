@@ -18,11 +18,11 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="880.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sistemaempfx.controller.PermisosFXMLController">
    <children>
-      <TableView fx:id="tb_categorias" layoutX="13.0" layoutY="151.0" prefHeight="424.0" prefWidth="853.0">
+      <TableView fx:id="tb_permiso" layoutX="13.0" layoutY="151.0" prefHeight="424.0" prefWidth="853.0">
         <columns>
-          <TableColumn fx:id="tcl_idCategoria" prefWidth="262.0" text="Rol" />
-          <TableColumn fx:id="tcl_nombre" prefWidth="306.0" text="Permiso" />
-            <TableColumn fx:id="tcl_estatusCategoria" prefWidth="284.0" text="Estatus" />
+          <TableColumn fx:id="tcl_permiso" prefWidth="259.0" text="Permiso" />
+            <TableColumn fx:id="tcl_rol" prefWidth="271.0" text="Rol" />
+            <TableColumn fx:id="tcl_estatus" prefWidth="321.0" text="Estatus" />
         </columns>
       </TableView>
       <Label alignment="CENTER" layoutX="324.0" layoutY="45.0" prefHeight="48.0" prefWidth="276.0" text="PERMISOS USUARIOS" textAlignment="CENTER">

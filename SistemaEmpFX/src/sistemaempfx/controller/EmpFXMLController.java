@@ -100,6 +100,10 @@ public class EmpFXMLController implements Initializable {
     private TableColumn<Empe, Float> tc_almacenajeP;
     @FXML
     private Button btn_observaciones;
+    @FXML
+    private Button btn_Comercializacion;
+    @FXML
+    private TableColumn<Empe, Integer> tc_claveE;
     /**
      * Initializes the controller class.
      */
@@ -116,7 +120,7 @@ public class EmpFXMLController implements Initializable {
 
     @FXML
     private void cancelar(ActionEvent event) {
-        Window.close(event);
+        
     }
 
     @FXML
@@ -142,6 +146,7 @@ public class EmpFXMLController implements Initializable {
             };
             listaEmpe = gson.fromJson(respuesta, token.getType());
 
+            tc_claveE.setCellValueFactory(new PropertyValueFactory<>("idEmp"));
             tc_cliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
             tc_creacion.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));
             tc_observaciones.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
@@ -179,6 +184,7 @@ public class EmpFXMLController implements Initializable {
 
             List<Empe> listaEmpe = gson.fromJson(respuesta, token.getType());
 
+            tc_claveE.setCellValueFactory(new PropertyValueFactory<>("idEmp"));
             tc_cliente.setCellValueFactory(new PropertyValueFactory<>("cliente"));
             tc_creacion.setCellValueFactory(new PropertyValueFactory<>("fechaCreacion"));
             tc_observaciones.setCellValueFactory(new PropertyValueFactory<>("observaciones"));
@@ -275,7 +281,7 @@ public class EmpFXMLController implements Initializable {
                                 this.emp = null;
                                 this.cargarTabla();
                             }
-                        } else if ("Cancelado".equals(estado)||"Finiquitado".equals(estado)) {
+                        } else if ("Cancelado".equals(estado)||"Vencido".equals(estado)||"Finiquitado".equals(estado)||"Comercializado".equals(estado)||"Inconcluso".equals(estado)) {
                             Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
                             alert1.setTitle("Error");
                             alert1.setHeaderText(null);
@@ -352,7 +358,7 @@ public class EmpFXMLController implements Initializable {
                                 this.emp = null;
                                 this.cargarTabla();
                             }
-                        } else if ("Cancelado".equals(estado)||"Finiquitado".equals(estado)) {
+                        } else if ("Vencido".equals(estado)||"Cancelado".equals(estado)||"Finiquitado".equals(estado)||"Comercializado".equals(estado)||"Inconcluso".equals(estado)) {
                             Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
                             alert1.setTitle("Error");
                             alert1.setHeaderText(null);
@@ -434,7 +440,7 @@ public class EmpFXMLController implements Initializable {
                                 this.emp = null;
                                 this.cargarTabla();
                             }
-                        } else if ("Cancelado".equals(estado)||"Finiquitado".equals(estado)) {
+                        } else if ("Cancelado".equals(estado)||"Finiquitado".equals(estado)||"Comercializado".equals(estado)||"Inconcluso".equals(estado)||"Vencido".equals(estado)) {
                             Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
                             alert1.setTitle("Error");
                             alert1.setHeaderText(null);
@@ -499,6 +505,84 @@ public class EmpFXMLController implements Initializable {
             alert.setHeaderText(null);
             alert.setContentText("Seleccione un empeño...");
             alert.showAndWait();
+        }
+    }
+
+    @FXML
+    private void comercializar(ActionEvent event) {
+        this.emp = tb_emp.getSelectionModel().getSelectedItem();
+        if (this.emp != null) {
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Validación");
+            alert.setHeaderText(null);
+            alert.setContentText("¿Desea  comercializar el contrato?...");
+
+            alert.showAndWait().ifPresent(response -> {
+                if (response == ButtonType.OK) {
+
+                    try {
+
+                        String estado = this.emp.getEstatus();
+
+                        if ("Vencido".equals(estado)) {
+                            HashMap<String, Object> params = new LinkedHashMap<>();
+                            params.put("idEmp", this.emp.getIdEmp());
+                            params.put("usuario", this.usuario.getNombre());
+   
+                            String respuesta = Requests.put("/emp/comercializar/" + emp.getIdEmp(), params);
+
+                            JSONObject dataJson = new JSONObject(respuesta);
+
+                            if ((Boolean) dataJson.get("errorRespuesta") == false) {
+
+                                Alert alertC = new Alert(Alert.AlertType.INFORMATION);
+                                alertC.setTitle("Informativo");
+                                alertC.setHeaderText(null);
+                                alertC.setContentText(dataJson.getString("mensaje"));
+                                alertC.showAndWait();
+                                this.emp = null;
+                                this.cargarTabla();
+
+                            } else {
+                                Alert alertN = new Alert(Alert.AlertType.INFORMATION);
+                                alertN.setTitle("Informativo");
+                                alertN.setHeaderText(null);
+                                alertN.setContentText(dataJson.getString("mensaje"));
+                                alertN.showAndWait();
+                                this.emp = null;
+                                this.cargarTabla();
+                            }
+                        } else if ("Cancelado".equals(estado)||"Finiquitado".equals(estado)||"Comercializado".equals(estado)||"Inconcluso".equals(estado)||"Refrendado".equals(estado)||"Vigente".equals(estado)||"Espera".equals(estado)) {
+                            Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
+                            alert1.setTitle("Error");
+                            alert1.setHeaderText(null);
+                            alert1.setContentText("El contrato no puede comercializarce por su estatus...");
+                            alert1.showAndWait();
+                        } else {
+                            Alert alertInactivo = new Alert(Alert.AlertType.INFORMATION);
+                            alertInactivo.setTitle("Informativo");
+                            alertInactivo.setHeaderText(null);
+                            alertInactivo.setContentText("Se comercializó el contrato...");
+                            alertInactivo.showAndWait();
+                            this.emp = null;
+                            this.cargarTabla();
+                        }
+                    } catch (JSONException ex) {
+                        Logger.getLogger(UsuariosFXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                if (response == ButtonType.CANCEL) {
+                    this.emp  = null;
+                    this.cargarTabla();
+                }
+            });
+        } else {
+            Alert alertI = new Alert(Alert.AlertType.WARNING);
+            alertI.setTitle("Advertencia");
+            alertI.setHeaderText(null);
+            alertI.setContentText("Seleccione un empeño...");
+            alertI.showAndWait();
         }
     }
     

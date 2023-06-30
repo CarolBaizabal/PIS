@@ -61,8 +61,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{almacenaje, jdbcType=FLOAT, mode=IN},
         #{periodos, jdbcType=INTEGER, mode=IN},
         #{diasPeriodos, jdbcType=INTEGER, mode=IN},
-        #{iva, jdbcType=FLOAT, mode=IN},
-        #{tasaComercializacion, jdbcType=FLOAT, mode=IN})}
+        #{iva, jdbcType=FLOAT, mode=IN})}
     </insert>
     
     <select id="obtenerId" resultType="map" statementType="CALLABLE">
@@ -149,6 +148,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{fechaLimiteRefrendo, jdbcType=VARCHAR, mode=IN},
         #{fechaComercializacionActual, jdbcType=VARCHAR, mode=IN}
         )}
+    </update>
+    
+    <update id="comercializar" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_comercializacion(
+        #{idEmp, jdbcType=INTEGER, mode=IN})}
+    </update>
+    
+    <update id="comercializacionPrenda" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_comercializacionPrenda(
+        #{idEmp, jdbcType=INTEGER, mode=IN},
+        #{fechaCreacion, jdbcType=VARCHAR, mode=IN},
+        #{usuario, jdbcType=VARCHAR, mode=IN})}
     </update>
 </mapper>
 

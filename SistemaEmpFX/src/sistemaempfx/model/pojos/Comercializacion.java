@@ -17,12 +17,15 @@ public class Comercializacion {
     private String fechaFinalBusqueda;
     private String observaciones;
     private String metal;
-    private Integer idDetalleComercializacion;
+    private Integer idContrato;
+    private Integer idEmp;
+    private String prenda;
+    private Float precioComercializacion;
 
     public Comercializacion() {
     }
 
-    public Comercializacion(Integer idComercializacion, String fechaCreacion, String usuario, String fechaInicioBusqueda, String fechaFinalBusqueda, String observaciones, String metal, Integer idDetalleComercializacion) {
+    public Comercializacion(Integer idComercializacion, String fechaCreacion, String usuario, String fechaInicioBusqueda, String fechaFinalBusqueda, String observaciones, String metal, Integer idContrato, Integer idEmp, String prenda, Float precioComercializacion) {
         this.idComercializacion = idComercializacion;
         this.fechaCreacion = fechaCreacion;
         this.usuario = usuario;
@@ -30,7 +33,10 @@ public class Comercializacion {
         this.fechaFinalBusqueda = fechaFinalBusqueda;
         this.observaciones = observaciones;
         this.metal = metal;
-        this.idDetalleComercializacion = idDetalleComercializacion;
+        this.idContrato = idContrato;
+        this.idEmp = idEmp;
+        this.prenda = prenda;
+        this.precioComercializacion = precioComercializacion;
     }
 
     public Integer getIdComercializacion() {
@@ -89,13 +95,37 @@ public class Comercializacion {
         this.metal = metal;
     }
 
-    public Integer getIdDetalleComercializacion() {
-        return idDetalleComercializacion;
+    public Integer getIdContrato() {
+        return idContrato;
     }
 
-    public void setIdDetalleComercializacion(Integer idDetalleComercializacion) {
-        this.idDetalleComercializacion = idDetalleComercializacion;
+    public void setIdContrato(Integer idContrato) {
+        this.idContrato = idContrato;
     }
 
-    
+    public Integer getIdEmp() {
+        return idEmp;
+    }
+
+    public void setIdEmp(Integer idEmp) {
+        this.idEmp = idEmp;
+    }
+
+    public String getPrenda() {
+        return prenda;
+    }
+
+    public void setPrenda(String prenda) {
+        this.prenda = prenda;
+    }
+
+    public Float getPrecioComercializacion() {
+        return precioComercializacion;
+    }
+
+    public void setPrecioComercializacion(Float precioComercializacion) {
+        this.precioComercializacion = precioComercializacion;
+    }
+
+   
 }

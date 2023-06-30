@@ -150,5 +150,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         #{fechaComercializacionActual, jdbcType=VARCHAR, mode=IN}
         )}
     </update>
+    
+    <update id="comercializar" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_comercializacion(
+        #{idEmp, jdbcType=INTEGER, mode=IN})}
+    </update>
+    
+    <update id="comercializacionPrenda" parameterType="map" statementType="CALLABLE">
+        {CALL base.sp_comercializacionPrenda(
+        #{idEmp, jdbcType=INTEGER, mode=IN},
+        #{fechaCreacion, jdbcType=VARCHAR, mode=IN},
+        #{usuario, jdbcType=VARCHAR, mode=IN})}
+    </update>
 </mapper>
 
